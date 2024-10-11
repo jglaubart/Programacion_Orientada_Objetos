@@ -1,0 +1,23 @@
+Se desea modelar un sistema de gestión de productos para una tienda de electrónica.
+Cada producto cuenta con un nombre, una marca (brand) y un precio base.
+
+Existen dos tipos de productos:
+Dispositivos: cuentan además con una clasificación de eficiencia energética
+Accesorios: cuentan además con una breve descripción de su funcionalidad
+
+Cada marca cuenta con la posibilidad de aplicar un descuento sobre los precios base de todos los productos de esa marca.
+Este descuento se indica al momento de instanciar una marca y la misma debe ofrecer un método para actualizarlo.
+Ya cuenta con la clase Brand que modela a una marca y no puede modificarse.
+
+Respecto a la eficiencia energética de los dispositivos corresponde agregar un impuesto sobre el precio base del producto
+según cuál sea la eficiencia. Existen tres tipos de eficiencias:
+Nivel A: No agrega impuesto
+Nivel B: Agrega un impuesto del 10% sobre el precio base del producto
+Nivel C: Agrega un impuesto del 20% sobre el precio base del producto
+
+Al momento de calcular el precio final de un producto se puede indicar opcionalmente una garantía para el producto.
+De elegir una, corresponde agregar un costo adicional al importe base del producto según cual sea la garantía elegida.
+
+Existen dos tipos de garantías:
+Básica: Agrega un importe fijo de $120 al precio base del producto
+Premium: Agrega un importe del 20% sobre el precio base del producto

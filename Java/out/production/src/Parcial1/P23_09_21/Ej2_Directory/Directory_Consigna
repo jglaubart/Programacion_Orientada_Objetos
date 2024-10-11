@@ -1,0 +1,9 @@
+Se desea modelar un directorio de personas. Cada persona se compone de un nombre y una edad.
+Ya cuenta con la clase Person (que puede modificarse).
+
+Al crear un directorio de personas se recibe por parámetro el número máximo de personas que se permite almacenar en ese directorio.
+Un directorio de personas debe contar un método para agregar una persona al mismo.
+También debe contar con un método para consultar el conjunto de personas con un cierto orden.
+
+Nota: Se espera que los directorios terminen teniendo una cantidad de personas cercana al límite establecido en el constructor
+(por lo que no es necesario ahorrar espacio en ese sentido).

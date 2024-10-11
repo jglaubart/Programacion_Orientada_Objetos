@@ -1,0 +1,21 @@
+Se desean modelar los “slots” de reservas de atracciones de un parque de diversiones.
+Un slot es una franja de una cierta cantidad de minutos.
+
+Cuando los visitantes del parque quieran reservar una visita a la atracción deben indicar el slot correspondiente.
+
+Un slot se identifica por el horario de inicio de su franja.
+Por ejemplo, si los slots de una atracción son de 30 minutos y el horario de apertura de la atracción es 11:00 y el de cierre es 13:00
+entonces los únicos cuatro slots posibles son: 11:00, 11:30, 12:00 y 12:30.
+
+Según la combinación de valores de duración de la franja y los horarios de apertura y cierre de la atracción
+es posible que el último slot tenga una cantidad de minutos menor a las demás y no es necesario validarlo
+(por ejemplo si los slots son de 40 minutos y el horario de apertura es 09:00 y el de cierre es a las 10:00,
+los únicos dos slots posibles son 09:00 y 09:40).
+
+Para ello se debe implementar la clase ParkRide que modela a una atracción del parque
+a partir de su nombre (String), horario de apertura y cierre (instancias de LocalTime) y la cantidad de minutos que tendrán los slots (long).
+Si los parámetros son incorrectos se debe arrojar un error.
+Esta clase debe permitir consultar todos los slots de la atracción (indicando para cada uno de ellos el nombre de la atracción
+y la hora de inicio de la franja del slot) utilizando la clase ParkSlot.
+Se debe también permitir cambiar el horario de cierre de una atracción.
+Deberá utilizar la clase java.time.LocalTime que modela horas y minutos.

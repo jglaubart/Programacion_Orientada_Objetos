@@ -1,0 +1,4 @@
+Se busca modelar una unidad compartida donde se agregan archivos en áreas de trabajo. Si se agrega un archivo que ya existe en esa área de trabajo no hace nada
+filesCount retorna la cantidad de archivos que cumplen con el predicado
+renameFile renombra el archivo si existe o arroja error
+fileExists retorna true si el archivo buscado existe

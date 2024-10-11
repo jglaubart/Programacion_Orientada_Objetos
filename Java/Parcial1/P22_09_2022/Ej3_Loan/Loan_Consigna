@@ -1,0 +1,19 @@
+Se desea modelar un sistema para otorgar préstamos y registrar los pagos de sus cuotas.
+Se busca ofrecer tres tipos de préstamos con diferentes características.
+Todos los préstamos tendrán un monto, una fecha de emisión y una cantidad de cuotas a pagar.
+Los préstamos deben contar con el método pay para registrar el pago de una cuota.
+Si se quieren registrar más pagos que la cantidad de cuotas del préstamo o si la fecha de los pagos no son posteriores a la fecha de emisión del préstamo entonces se arroja un error.
+
+Los tres tipos de préstamos son los siguientes:
+El que indica cantidad de cuotas pendientes
+El que indica la cantidad de cuotas pendientes y el número de la última cuota paga, verificando que las cuotas se pagan de forma consecutiva (sólo puedo pagar la cuota X si la última cuota paga es la X-1).
+El que indica la cantidad de cuotas pendientes, el número de la última cuota paga y después de qué fecha será aceptado el siguiente pago, verificando que la fecha de pago sea posterior a la fecha del último pago (si es que tiene).
+
+	Además de los tres tipos de préstamos existen tres tipos de destinatarios:
+Personal (Personal): El monto debe ser hasta $50.000 y no más de 12 cuotas.
+Automotor (Vehicle): El monto debe ser hasta $300.000 y no más de 24 cuotas.
+Hipotecario (Home): El monto debe ser hasta $1.000.000 y no más de 360 cuotas.
+
+Al momento de instanciar un préstamo (de cualquier tipo) se indica el tipo de destinatario del mismo. Si el monto o la cantidad de cuotas del préstamo no cumplen las restricciones indicadas se debe arrojar un error.
+Importante: Se deben permitir instanciar los tres tipos de préstamos con los tres tipos de destinatarios (soportando todas las combinaciones).
+Completar los ...................., implementar Loan, LoanException y todo lo necesario para que, con el siguiente programa de prueba, se obtenga la salida indicada en los comentarios:

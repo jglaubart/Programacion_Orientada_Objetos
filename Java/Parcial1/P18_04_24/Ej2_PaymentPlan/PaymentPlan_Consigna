@@ -1,0 +1,26 @@
+Se desea modelar un plan de pagos que permita consultar el número de cuota y el monto a pagar en cada una de las cuotas.
+Ya cuenta con la clase PaymentDetail (que no puede modificarse) que corresponde a un detalle del plan de pagos (una cuota en particular),
+indicando el número de cuota y el monto correspondiente.
+
+Para instanciar un plan de pagos se indica el monto total a pagar, la cantidad de cuotas
+(de forma que el valor a pagar de cada cuota será el resultado de dividir el monto total por la cantidad de cuotas)
+y el tipo de plan de pagos (que permitirá bonificaciones según las condiciones de cada tipo de plan).
+
+
+Existen tres tipos de planes de pago:
+
+    Un plan de pagos donde la cantidad máxima de cuotas es 12 y no se aplican bonificaciones
+
+    Un plan de pagos donde la cantidad máxima de cuotas es 24 y se bonifican al 100% las primeras tres cuotas
+    (Para simplificar el ejercicio no corresponde validar una cantidad mínima de cuotas,
+    si se eligen tres o menos cuotas la bonificación se aplica igual y todas las cuotas serán de $0)
+
+    Un plan de pagos donde la cantidad máxima de cuotas es 360 y se bonifican al 50% las cuotas pares (la cuota 2, 4, etc.)
+
+
+Al instanciar un plan de pagos se debe arrojar un error si se supera la cantidad máxima de cuotas del tipo de plan indicado
+o si el monto o la cantidad de cuotas no es un valor positivo.
+
+Para consultar el detalle de la próxima cuota del plan de pagos existen dos formas:
+    next consulta la próxima cuota de forma que una segunda invocación a next consulta una cuota siguiente
+    peek consulta la próxima cuota de forma que una segunda invocación a peek consulta la misma cuota

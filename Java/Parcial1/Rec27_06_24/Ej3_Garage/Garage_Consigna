@@ -1,0 +1,3 @@
+Se desea modelar un sistema para registrar las estadías de vehículos en un estacionamiento.
+Debe contar un método para registrar una estadía a partir de una patente y una cantidad entera de días de estadía.
+También debe contar con un método para consultar todas las estadías agregadas con un cierto orden.

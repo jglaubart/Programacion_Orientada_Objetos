@@ -1,0 +1,21 @@
+Se desea modelar un inventario numismático que permita agregar monedas de plata y monedas de oro
+para luego consultarlas con cierto orden.
+
+Una moneda de plata consiste en un nombre (String), un país de origen (String) y el año de acuñación (Integer).
+Por su parte una moneda de oro consiste en un nombre (String), un país de origen (String),
+el año de acuñación (Integer) y el número de quilates correspondiente (Integer).
+
+El catálogo debe contar con un método para agregar una moneda de plata y con otro para agregar una moneda de oro,
+ambos respetando los campos ya mencionados más arriba.
+
+
+El inventario debe contar además con dos métodos de consulta:
+
+    Uno que retorne las monedas de plata y monedas de oro con orden descendente por año de acuñación
+    y luego desempate alfabéticamente por el país de origen
+
+    Uno que retorne las monedas de plata y monedas de oro con orden alfabético por el país de origen
+    y luego desempate descendente por año de acuñación.
+
+    También debe contar con un método para que, a partir de un predicado (una condición sobre la moneda),
+    se obtenga la primer moneda del inventario (en función del orden de inserción) que cumpla con ese predicado.

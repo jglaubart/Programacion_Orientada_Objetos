@@ -1,0 +1,18 @@
+@startuml
+class Counter{
+- int count
++ Counter()
++ void increase()
++ void decrease()
++ int getCounter()
+}
+
+class MultipleCounter{
+- int num
++ MultipleCounter(int times)
++ void increase()
++ void decrease()
+}
+
+Counter <|-- MultipleCounter
+@enduml

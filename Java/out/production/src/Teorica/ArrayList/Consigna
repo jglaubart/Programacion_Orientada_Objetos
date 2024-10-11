@@ -1,0 +1,4 @@
+Se busca modelar una unidad compartida donde se agregan archivos en áreas de trabajo.
+getAllFiles permite consultar todos los archivos agregados en orden de inserción
+getFirstFile retorna el primer archivo agregado que cumpla con un predicado o arroja error
+getLastFile retorna el último archivo agregado o arroja error

@@ -1,0 +1,6 @@
+Se busca modelar una colección particionable, es decir,
+ que cuente con métodos getSelected y getRejected donde ambos reciben una condición y
+ el primero retorna una colección particionable con los elementos que cumplen la condición y
+ el segundo retorna una colección particionable con los elementos que no cumplen la condición.
+
+La colección particionable acepta repetidos y puede ser recorrida preservando el orden de inserción de los elementos.

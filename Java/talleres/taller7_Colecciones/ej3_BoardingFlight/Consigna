@@ -1,0 +1,9 @@
+	Se desea implementar un sistema para cargar los pasajeros de un vuelo para obtener luego el orden de llamada para el embarque.
+	Un pasajero cuenta con su nombre (que no se repite en el vuelo), una fila de asiento y una categoría de membresía de la aerolínea.
+
+Existen dos formas de embarque:
+
+    Por fila de asiento: Donde embarcan primero los pasajeros de las filas menores (orden ascendente en función de la fila del asiento).
+
+    Por categoría del pasajero: Donde embarcan primero los pasajeros de categorías superiores
+    (orden ascendente en función de la categoría del pasajero donde la categoría superior EMERALD tiene el valor más bajo y la categoría inferior ECONOMY tiene el valor más alto).

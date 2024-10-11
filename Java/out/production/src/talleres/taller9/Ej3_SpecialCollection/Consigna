@@ -1,0 +1,14 @@
+Se desea implementar una colección de elementos que no acepta repetidos y
+que mantiene un orden inverso al orden natural.
+
+Esta colección cuenta con dos métodos deleteFirst para eliminar el elemento que aparece primero cuando la colección no es vacía.
+El primer deleteFirst no recibe parámetros y elimina el primer elemento incondicionalmente.
+El segundo deleteFirst recibe una condición y elimina el primer elemento sólo
+si la condición aplicada sobre el elemento es verdadera.
+Si se invoca a cualquier deleteFirst sobre una colección vacía entonces se lanza una excepción.
+
+Además debe ofrecer un método undoDeleteFirst que permite deshacer todas las eliminaciones
+realizadas por las invocaciones a deleteFirst (en cualquiera de sus dos variantes -con y sin parámetro-).
+En el caso de que se invoque a undoDeleteFirst sin haber invocado antes, al menos una vez, a deleteFirst
+se lanza una excepción. Cada invocación a undoDeleteFirst deberá deshacer, en caso de que sea posible,
+la eliminación más reciente.

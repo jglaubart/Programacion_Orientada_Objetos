@@ -1,0 +1,49 @@
+@startuml
+Abstract Figure{
++ double area
++ double perimeter
++ boolean belongs(Point p)
+}
+
+Class Rectangle{
+- Point topRight
+- Point leftBottom
++ Rectangle(Point topRight, Point leftBottom)
++ double base()
++ double height()
++ double area()
++ double perimeter()
++ boolean belongs(Point p)
+}
+
+Class Triangle{
+- Point p1
+- Point p2
+- Point p3
++ Triangle(Point p1, Point p2, Point p3)
++ double area()
++ double perimeter()
++ boolean belongs(Point p)
+}
+
+Rectangle --|> Figure
+Triangle --|> Figure
+
+Class Ellipse{
+- Point center
+- int axis1
+- int axis2
++ Ellipse(Point center, int a1, int a2)
++ double area()
++ double perimeter()
++ boolean belongs(Point p)
+}
+
+Class Circle{
++ Circle(Point center, int radius)
+}
+
+Ellipse--|>Figure
+Circle--|>Ellipse
+
+@enduml

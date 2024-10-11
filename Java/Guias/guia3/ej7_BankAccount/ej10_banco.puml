@@ -1,0 +1,27 @@
+@startuml
+Abstract BankAccount{
+- int id
+# double balance
++ BankAccount(int id)
++ void deposit(double amount)
++ void extract(double amount)
++ double getBalance()
+# boolean canExtract(double amount)
++ String toString()
+}
+
+class CheckingAccount{
+- double overdraft
++ CheckingAccount(int id, double overdraft)
+# boolean canExtract(double amount)
++ double getOverdraft()
+}
+
+class SavingsAccount{
++ SavingsAccount(int id)
+# boolean canExtract(double amount)
+}
+
+BankAccount <|-- CheckingAccount
+BankAccount <|-- SavingsAccount
+@enduml
