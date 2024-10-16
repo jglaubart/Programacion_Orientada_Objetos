@@ -4,16 +4,18 @@ class Father
   def priv_method
     puts "Private method"
   end
-  private :priv_method
+  private :priv_method     #Solo accedido por la misma instancia
 
 
-  def protected_method
+  def protected_method    # Visible por cualquier instancia de la misma clase
     puts "Protected method"
   end
+
   def father_method(other)
     other.protected_method
   end
   protected :protected_method
+
 end
 
 class Son < Father
@@ -23,7 +25,6 @@ class Son < Father
   def some_method
     priv_method     #puedo llamar a un metodo privado de la clase padre
   end
-
 
   def method2
     protected_method

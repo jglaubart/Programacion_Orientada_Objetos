@@ -16,19 +16,27 @@ class Date
   #SETTER
   attr_writer :month, :year, :day
   ##########################################################################
-  #GTTER Y SETTER JUNTOS
+  #GETTER Y SETTER JUNTOS
   attr_accessor :month, :year, :day
   ##########################################################################
 end
 ##########################################################################
 #Puedo retomar la definicion de la clase y seguir agregando cosas  ---> puedo modificar clases ya existentes
+# toString ---> se devuelve con el metodo print o puts
 class Date
   def to_s
     "Fecha: #{@day} / #{@month} / #{@year}"
   end
+  ##########################################################################
+  #Inspect ---> Usado para debuguear, se devuelve con el metodo p
+  def inspect
+    "El dia vale #{@day}, el mes #{@month} y el año #{@year}"
+  end
+  ##########################################################################
+  #Contantes  ---> se pueden llamar desde fuera de la clase haciendo Padre::CLASSNAME. Si se pone en mayus ya se reconoce
+  CLASSNAME = "Clase Padre"
+  ##########################################################################
 end
-
-
 
 ##########################################################################
 ##########################################################################
@@ -73,8 +81,7 @@ def hello(first_name = 'John', last_name = 'Doe')
   "Hello #{first_name} #{last_name}"   #Devuelve el String
 end
 
-# aux.toupper  ----> no hay compilacion por lo que siempre falla en ejecucion pero se puede ejecutar
-
+# 5.toupper  ----> no hay compilacion por lo que siempre falla en ejecucion pero se puede ejecutar
 
 
 

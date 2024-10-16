@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class BagImpl<T> implements Bag<T>{
-    private Map<T, Integer> elements = new HashMap<>();
+    protected Map<T, Integer> elements = new HashMap<>();
 
     @Override
     public void add(T elem){
-        elements.put(elem, 1 + (elements.getOrDefault(elem, 0)));
-        //elements.merge(elem, 1, Integer::sum);
+        //elements.put(elem, 1 + (elements.getOrDefault(elem, 0)));
+        elements.merge(elem, 1, Integer::sum);
         //
     }
 
