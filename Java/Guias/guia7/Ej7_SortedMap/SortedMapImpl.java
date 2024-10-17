@@ -24,5 +24,4 @@ public class SortedMapImpl <K extends Comparable<? super K>,V> extends TreeMap<K
     public V firstValue() {
         return getFirstEntry().getValue();
     }
-
 }
