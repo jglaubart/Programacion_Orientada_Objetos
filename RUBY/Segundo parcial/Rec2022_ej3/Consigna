@@ -1,0 +1,4 @@
+Se desea modelar una clase RaffleManager que lleve registro de participantes anotados en diferentes concursos.
+	Ya cuenta con la implementación del método de instancia raffles (que no se puede modificar) de la clase RaffleManager que le indica la colección que deberá utilizar para almacenar la información. Este método muestra todos los participantes anotados (con su nombre y DNI) en cada concurso (con su nombre y premio en efectivo).
+	El orden de impresión de los concursos debe ser descendente por premio en efectivo y desempata alfabéticamente por nombre del concurso.
+	El orden de impresión de los participantes de un concurso coincide con el orden en que los participantes entran al concurso.
