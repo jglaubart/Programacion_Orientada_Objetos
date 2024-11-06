@@ -1,5 +1,0 @@
-Se desea implementar la clase MatchIterator que modela a un iterador que
-recibe en el constructor un arreglo de elementos y un predicado.
-
-El iterador deberá recorrer toda la colección indicando,
-para cada elemento, si el mismo cumple con el predicado recibido.

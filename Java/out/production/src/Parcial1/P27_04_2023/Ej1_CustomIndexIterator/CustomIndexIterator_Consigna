@@ -1,8 +1,0 @@
-Se desea modelar una forma de iterar por los elementos de un arreglo de cualquier tipo indicando:
-El arreglo de elementos a iterar
-El índice del primer elemento de la iteración
-El índice del último elemento de la iteración
-Una función para conseguir el próximo índice de la iteración a partir de la interfaz UnaryOperator
-	La clase CustomIndex recibe, al instanciarse, los cuatro parámetros mencionados anteriormente y permite,
-	mediante un método, obtener un iterador con esas condiciones.
-	Además se debe ofrecer un método que permita cambiar la función para conseguir el próximo índice de la iteración para los nuevos iteradores.

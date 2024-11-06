@@ -1,0 +1,12 @@
+Se desea implementar un conjunto de clases que permitan administrar
+el préstamo de libros de la biblioteca de una universidad a sus alumnos y docentes.
+Ya se cuenta con la clase BookInfo implementada, la cual relaciona el nombre del libro con el stock actual.
+
+
+Las reglas de la biblioteca son las siguientes:
+Se puede prestar únicamente un libro por persona.
+Si es alumno, el préstamo del libro es por 2 días.
+Si es profesor, el tiempo del préstamo del libro dependerá de su cargo:
+Responsable: 12 días
+Jefe de Trabajos Prácticos: 11 días
+Ayudante: 10 días.

@@ -1,0 +1,6 @@
+La clase FilteredKeyMapIterator modela un iterador de mapas.
+Permite iterar sobre una instancia de Map (que recibe en su constructor),
+accediendo a cada una de las claves del mismo que cumplan un criterio (que recibe en su constructor) con el método next()
+y al valor asociado a esa clave en el mapa mediante el método getValue().
+
+Aclaración: no importa el orden en que se recorren las claves del mapa.

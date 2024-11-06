@@ -1,0 +1,7 @@
+Se desea modelar MysteryCollection que representa una colección donde cada uno de los elementos
+está asociado a una posición y que cuenta con dos métodos toSortedBag() y toSortedBag(...)
+que retornan otra colección (una bolsa) con orden donde se asocian los elementos de la MysteryCollection
+con la cantidad (entera) de apariciones (repeticiones) que tiene.
+
+Si se invoca al método toSortedBag() sin parámetros la bolsa tiene en cuenta a todos los elementos de la MysteryCollection.
+Si se la invoca con un predicado, en la bolsa quedarán sólo los elementos de la MysteryCollection que cumplan la condición recibida

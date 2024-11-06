@@ -1,0 +1,3 @@
+Se desean modelar dos sistemas:
+Uno que permita registrar estaciones de subte y las líneas a las que pertenecen pudiendo iterar por las líneas y por las estaciones de una línea.
+Uno que permita registrar estaciones de subte que cuentan con un estado Abierto/Cerrado y las líneas a las que pertenecen pudiendo iterar por las líneas y por las estaciones de una línea consultando si cada estación está abierta o cerrada.

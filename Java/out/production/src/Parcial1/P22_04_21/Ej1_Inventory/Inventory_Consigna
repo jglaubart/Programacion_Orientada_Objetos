@@ -1,5 +1,0 @@
-Se desea modelar un inventario, que consiste en un conjunto de ítems.
-Cada ítem se compone de un nombre y un precio. Ya cuenta con la implementación de la clase Item (que puede modificarse)
-
-Al crear un inventario se recibe por parámetro el conjunto de ítems que lo compondrán.
-El inventario cuenta con métodos para consultar el conjunto de ítems con cierto orden.

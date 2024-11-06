@@ -1,0 +1,4 @@
+Se desea crear una colección que ofrezca el método toMap.
+Este método recibe una función que indica cómo se debe construir la clave que acompañará a cada valor de la colección
+en un nuevo mapa que retorna el método. En caso de que se obtengan dos o más claves iguales,
+en el mapa no quedará una cantidad de entradas igual a los elementos de la colección y no se debe validar.

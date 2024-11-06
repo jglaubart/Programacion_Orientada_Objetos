@@ -1,0 +1,12 @@
+Se desea modelar un sistema de compra de pasajes aéreos. Dicho sistema debe consultar la información de los vuelos utilizando las clases FlightCatalog y Flight
+
+Se desea contar con la clase FlightOperator que modela a un operador de pasajes aéreos. Dicha clase permite realizar la compra de un pasaje acumulando las millas que este otorga.
+	Existen tres categorías de miembros del programa de millas:
+Standard: Acumula las millas del vuelo y permite acumular hasta 1000 millas.
+Gold: Acumula un 10% más de millas que la categoría Standard (multiplicador 1.10) y permite acumular hasta 2000 millas.
+Platinum: Acumula un 25% más de millas que la categoría Standard (multiplicador 1.25) y no tiene límite de acumulación de millas.
+	Así cada miembro pertenece a una de estas tres categorías y la misma sirve para todas las aerolíneas.
+	El método buy_flight retorna el precio del vuelo, el cual puede ser:
+El precio original si no cuenta con la totalidad de millas necesarias para canjearlo. Se deberán además sumarle las millas correspondientes al miembro para dicha aerolínea, con los criterios de su categoría.
+Cero, si cuenta con la totalidad de millas necesarias para canjearlo. Se deberá además restarle las millas al miembro para dicha aerolínea.
+	La clase FlightOperator ofrece además el método miles_status que dado un miembro y una aerolínea, lista el millaje acumulado en dicha aerolínea.

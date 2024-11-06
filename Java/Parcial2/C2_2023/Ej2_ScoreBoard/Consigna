@@ -1,0 +1,5 @@
+Se desea modelar un sistema para almacenar registros de puntajes a partir de la utilización de una clase PlayerScore que asocia el nombre del jugador con puntaje genérico y debe modificarse.
+El sistema debe contar con métodos para agregar un registro de puntaje, ver si existe un registro y conocer la cantidad de registros presentes en el sistema Además se deben ofrecer tres métodos:
+getTopScores(n) para obtener hasta N registros correspondientes a los mejores puntajes (con los valores numéricos más altos). Si hay menos de N registros agregados entonces se obtendrán esos.
+Un método para consultar el registro con el mejor puntaje (el valor numérico más alto), que deberá completar en el programa de prueba
+Un método para consular el registro con el peor puntaje (el valor numérico más bajo), que deberá completar en el programa de prueba

@@ -1,0 +1,4 @@
+Una aplicación web destinada a empleados de empresas tiene ya definidas las clases Menu y MenuItem. Un MenuItem representa una opción de menú (por ejemplo “Guardar”) que cuenta con un menú padre de tipo Menu (por ejemplo “Archivo”).
+Por defecto, el acceso a los menúes (padres e hijos) es restringido. Para poder acceder a uno de ellos se requiere una autorización. Se desea entonces contar con una forma de otorgar permisos para que los empleados puedan acceder a los ítems para los cuales fueron autorizados.
+Un menú puede ser accedido por una o más personas y/o una o más empresas (en este caso, todos los empleados de la empresa pueden acceder al menú). Además un empleado puede pertenecer a una o más empresas.
+Para simplificar el mantenimiento, se le puede otorgar el permiso a una persona o empresa directamente a un Menu, y en ese caso podrán acceder a todos los MenuItem correspondientes.

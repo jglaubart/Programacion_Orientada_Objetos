@@ -1,0 +1,16 @@
+Se cuenta con la interfaz Cache que modela una forma de consultar y
+establecer valores asociados a claves de forma similar a un mapa,
+pero informando qué usuario realizó determinada operación en la fecha indicada.
+
+A motivos de simplificar su uso, ambos identificadores usuario y fecha son instancias de String.
+
+Se desea contar con una nueva implementación de la interfaz Cache que permita limitar el número de operaciones de lectura
+y escritura que cada usuario puede realizar por día según las siguientes dos políticas:
+
+    Política ilimitada: no hay ninguna limitación diaria para ambas operaciones.
+
+    Política limitada: Se permite un máximo de 2 (dos) lecturas y 1 (una) escritura, por día y por usuario.
+
+
+Superado el límite por un usuario en un determinado día,
+si el usuario intenta realizar nuevamente la misma operación en el mismo día se debe arrojar la excepción RateLimitedException. Una vez llegado al límite, debe ser posible realizar operaciones en otras fechas  y/o para otros usuarios y/o la otra operación para el mismo usuario en el mismo día (si es que aún le queda cuota).

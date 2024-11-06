@@ -1,8 +1,0 @@
-Se desea conocer información sobre programas de TV en función de su rating (obtenido en base a las calificaciones de los usuarios).
-Ya cuenta con la implementación de la clase TVShow (que no puede modificarse) que modela a un programa de TV
-que se compone de un nombre y un rating (que es un valor real entre 0 y 10).
-
-Se desea modelar un catálogo de programas de TV que permita agregar programas al mismo y definir un rango deseado de rating (mínimo y máximo). De esta forma se pueden consultar todos los programas presentes en el catálogo teniendo en cuenta si el rating de cada uno de ellos está o no dentro del rango deseado indicado.
-Al crear un catálogo, el rango deseado de rating es entre 0 y 10, es decir,
-todos los programas de TV del catálogo tendrán un rating dentro de ese rango deseado.
-Cuenta con la interfaz TVCatalog (que puede modificarse)

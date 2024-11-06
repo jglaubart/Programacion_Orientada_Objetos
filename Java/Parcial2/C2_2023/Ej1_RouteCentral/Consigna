@@ -1,0 +1,8 @@
+Se desea modelar un sistema para registrar los costos en millas de rutas de una aerolínea. Las millas son valores enteros positivos y cada ruta directa cuenta con un aeropuerto origen y un aeropuerto destino, ambas instancias de String.
+	El sistema debe contar con dos métodos para agregar rutas directas y sus millas:
+addOneWayRoute: agrega una ruta directa de ida Origen->Destino
+addTwoWayRoute: agrega una ruta directa de ida y vuelta Origen<->Destino, esto es Origen->Destino y Destino->Origen, donde los valores en millas de cada una se obtienen utilizando una función que se recibe por parámetro al instanciar el sistema.
+El sistema debe contar con dos métodos para consultar las millas de una ruta:
+getDirectRouteMiles: retorna las millas de la ruta directa Origen->Destino
+getOneStopRouteMiles: retorna las millas de la ruta Origen->Escala->Destino, esto es, la suma de las millas de la ruta directa Origen->Escala y las millas de la ruta directa Escala->Destino
+	Por último el sistema debe ofrecer un método changeRouteCost para cambiar el valor en millas de la ruta directa Origen->Destino.

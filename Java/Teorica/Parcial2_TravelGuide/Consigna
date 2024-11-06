@@ -1,0 +1,26 @@
+Se desea modelar una guía de viajes que permita agregar sitios de interés para luego consultarlos con cierto orden.
+Un sitio de interés consiste en un nombre y un puntaje (número real).
+La guía de viajes debe contar con un método para agregar un sitio de interés indicando el nombre del país
+y el nombre de la ciudad donde se encuentra ubicado.
+
+Deberá contar además con un método para consultar todos los sitios de interés agregados hasta el momento
+para una ciudad determinada de un país determinado.
+El orden del resultado de la consulta debe ser descendente por puntaje
+(para que aparezcan primero los sitios de interés mejor puntuados)
+y luego desempata alfabéticamente por nombre del sitio de interés.
+Si la ciudad no existe para ese país o si el país no existe se retorna una colección vacía.
+Se puede consultar también la cantidad de sitios de interés para una ciudad y país determinado y,
+si la ciudad no existe para ese país o el país no existe, se retorna 0.
+
+También deberá contar con un método para consultar todos los sitios de interés agregados hasta el momento
+para todas las ciudades de un país determinado.
+El orden de este resultado debe ser alfabéticamente por ciudad,
+luego descendente por puntaje y por último alfabéticamente por nombre del sitio de interés.
+Si el país no existe se retorna una colección vacía.
+Se puede consultar también la cantidad de sitios de interés para un país determinado y, si el país no existe, se retorna 0.
+
+Por último se debe ofrecer un método que permita mover un sitio de interés de una ciudad origen a una ciudad destino,
+siempre dentro del mismo país con ciertas validaciones.
+Si el país no existe o si la ciudad de origen no existe para ese país entonces se lanza un error.
+En el caso de que exista el país y la ciudad de origen pero el sitio de interés
+nunca fue agregado a esa ciudad entonces se lanza un error.

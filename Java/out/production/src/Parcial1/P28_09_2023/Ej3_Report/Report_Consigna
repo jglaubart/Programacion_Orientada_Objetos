@@ -1,6 +1,0 @@
-Se desean modelar dos colecciones que permitan agregar reportes,
-consultar los reportes agregados a partir de su índice y consultar los reportes con cierto orden.
-La colección MinToMaxReport debe permitir consultar los reportes con orden ascendente.
-La colección MaxToMinReport debe permitir consultar los reportes con orden descendente.
-Ambas colecciones reciben el criterio de orden al momento de instanciarla.
-Ya cuenta con la interfaz ReportCollection (que puede modificarse):

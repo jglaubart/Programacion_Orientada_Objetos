@@ -1,9 +1,0 @@
-Se desea modelar un catálogo audiovisual que permita agregar películas y episodios de programas de TV para luego consultarlos con cierto orden.
-Una película consiste de un título, la fecha de emisión y el nombre del estudio que la produjo.
-Por su parte un episodio consiste de un título, la fecha de emisión y el número de temporada a la cual pertenece.
-El catálogo debe contar con un método para agregar una película y con otro para agregar un episodio, ambos respetando los campos ya mencionados más arriba.
-Ya cuenta con las respectivas implementaciones de Movie y TVEpisode que fueron diseñadas únicamente para ser utilizadas con este catálogo y pueden modificarse
-
-El catálogo debe contar además con dos métodos de consulta:
-Uno que retorne las películas y episodios con orden descendente por fecha de emisión y luego desempate alfabéticamente por título
-Uno que retorne las películas y episodios con orden cronológico por fecha de emisión y luego desempate descendente por título

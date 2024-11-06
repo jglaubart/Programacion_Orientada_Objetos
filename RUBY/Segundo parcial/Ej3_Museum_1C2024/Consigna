@@ -1,0 +1,5 @@
+Se desea modelar un sistema que permita administrar las exhibiciones en un museo. Las exhibiciones se desarrollan en espacios dentro de un pabellón del museo.
+Existen dos tipos de museos:
+Los que cuentan con pabellones con una capacidad máxima de exhibiciones, de forma que la cantidad de exhibiciones a agregar en el pabellón no puede superar ese tope
+Los que cuentan con pabellones temáticos con una capacidad máxima de exhibiciones, de forma que la cantidad de exhibiciones a agregar en el pabellón no puede superar ese tope, y sólo se pueden agregar al pabellón aquellas exhibiciones que tengan la misma temática del pabellón
+	Para ambos tipos se deben ofrecer métodos para agregar una exhibición en un pabellón (dando de alta el pabellón si es que no existía), iterar por todas las exhibiciones de un pabellón en orden de inserción e iterar por todos los pabellones en orden alfabético por su representación simbólica (to_s). Para simplificar el ejercicio una misma exhibición puede agregarse en pabellones distintos o agregarse varias veces en el mismo pabellón.

@@ -1,0 +1,5 @@
+Se desea contar con la clase ReversedListImpl para contar con una lista cuyo iterador retorne
+los elementos en el orden inverso al que se encuentran almacenados.
+
+Asimismo, se debe ofrecer un método alternativo para iterar por los elementos en el orden habitual.
+

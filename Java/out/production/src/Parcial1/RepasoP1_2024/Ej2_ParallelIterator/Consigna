@@ -1,3 +1,0 @@
-Un iterador paralelo es un iterador que, a partir de dos vectores,
-permite recorrerlos paralelamente a ambos hasta que se alcance el final de una de las colecciones.
-	La clase ParallelIterator recibe en su constructor las dos colecciones a iterar.
