@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+class Platinium
+  MULTIPLIER = 1.25
+
+  def initialize
+    init_for_cat(MULTIPLIER)
+  end
+
+  def reached_limit
+  end
+end

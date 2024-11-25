@@ -1,0 +1,5 @@
+# frozen_string_literal: true
+require_relative 'subway_station'
+class StatedSubwayStation < SubwayStation
+  def initialize(name, state = )
+end

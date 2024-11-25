@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+require 'standard_error'
+class WorldCupError < StandardError
+  def initialize(msg)
+    super
+  end
+end
