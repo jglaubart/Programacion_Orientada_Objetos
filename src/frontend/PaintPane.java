@@ -53,8 +53,10 @@ public class PaintPane extends BorderPane {
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
+		// Se agregan a la barra los botones creados
 		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton};
 		ToggleGroup tools = new ToggleGroup();
+		// propiedades de botones de la barra
 		for (ToggleButton tool : toolsArr) {
 			tool.setMinWidth(90);
 			tool.setToggleGroup(tools);
@@ -68,10 +70,12 @@ public class PaintPane extends BorderPane {
 		buttonsBox.setPrefWidth(100);
 		gc.setLineWidth(1);
 
+		// Define el startPoint al presionar en la pantalla
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
 		});
 
+		// define el endPoint y crea la figura
 		canvas.setOnMouseReleased(event -> {
 			Point endPoint = new Point(event.getX(), event.getY());
 			if(startPoint == null) {
@@ -104,6 +108,7 @@ public class PaintPane extends BorderPane {
 			redrawCanvas();
 		});
 
+		// Muestra la posicion de la figura o la actual del mouse en su defecto
 		canvas.setOnMouseMoved(event -> {
 			Point eventPoint = new Point(event.getX(), event.getY());
 			boolean found = false;
@@ -143,6 +148,7 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
+		// Mover figura
 		canvas.setOnMouseDragged(event -> {
 			if(selectionButton.isSelected()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
@@ -185,6 +191,7 @@ public class PaintPane extends BorderPane {
 		setRight(canvas);
 	}
 
+	// Aplica los cambios realizados
 	void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for(Figure figure : canvasState.figures()) {
