@@ -1,7 +1,5 @@
 package backend.model.figures;
 
-import backend.model.Points.Point;
-
 public class Circle extends Ellipse {
 
     public Circle(Point centerPoint, double radius) {

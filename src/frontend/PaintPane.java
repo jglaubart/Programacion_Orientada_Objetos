@@ -1,7 +1,7 @@
 package frontend;
 
 import backend.CanvasState;
-import backend.model.Points.Point;
+import backend.model.figures.Point;
 import backend.model.figures.*;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -194,7 +194,14 @@ public class PaintPane extends BorderPane {
 			} else {
 				gc.setStroke(lineColor);
 			}
-			gc.setFill(figureColorMap.get(figure));
+
+			DrawableFigure drawFig = new DrawableFigure(figure);//en vez de hacer esto hacemos drawMap.getValue(figure)
+
+			gc.setFill(pasar a color el rgbcolor guardado en figure);
+
+			//y acá llamamos a drawFig.draw()
+			//pod
+
 			if(figure instanceof Rectangle) {
 				Rectangle rectangle = (Rectangle) figure;
 				gc.fillRect(rectangle.getTopLeft().getX(), rectangle.getTopLeft().getY(),

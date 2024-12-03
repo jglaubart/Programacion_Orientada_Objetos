@@ -1,7 +1,7 @@
 package backend.model.builders;
 
 import backend.model.figures.Figure;
-import backend.model.Points.Point;
+import backend.model.figures.Point;
 import backend.model.figures.Square;
 
 public class SquareBuilder implements FigureBuilder {

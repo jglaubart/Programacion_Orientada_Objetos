@@ -1,6 +1,6 @@
 package backend.model.figures;
 
+public abstract class Figure implements Movable {
 
-public abstract class Figure implements Movable, Drawable {
-    // private String hexaColor;
+    public abstract boolean belongs(Point eventPoint);
 }

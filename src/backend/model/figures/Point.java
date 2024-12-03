@@ -1,6 +1,6 @@
-package backend.model.Points;
+package backend.model.figures;
 
-public class Point {
+public class Point implements Movable {
 
     private double x, y;
 
@@ -17,9 +17,9 @@ public class Point {
         this.y = y;
     }
 
-    public void move(double deltaX, double deltaY){
-        this.x += deltaX;
-        this.y += deltaY;
+    public void move(double dx, double dy){
+        this.x += dx;
+        this.y += dy;
     }
 
     public double getX() {

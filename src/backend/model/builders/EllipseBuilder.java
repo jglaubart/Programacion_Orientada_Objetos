@@ -2,7 +2,7 @@ package backend.model.builders;
 
 import backend.model.figures.Ellipse;
 import backend.model.figures.Figure;
-import backend.model.Points.Point;
+import backend.model.figures.Point;
 
 public class EllipseBuilder implements FigureBuilder {
 

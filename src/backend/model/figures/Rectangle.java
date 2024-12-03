@@ -1,7 +1,5 @@
 package backend.model.figures;
 
-import backend.model.Points.Point;
-
 public class Rectangle extends Figure {
 
     protected final Point topLeft, bottomRight;
@@ -23,9 +21,17 @@ public class Rectangle extends Figure {
     public String toString() {
         return String.format("Rectángulo [ %s , %s ]", topLeft, bottomRight);
     }
+    
+    @Override
+    public boolean belongs(Point eventPoint){
+        return eventPoint.getX() > this.getTopLeft().getX() && eventPoint.getX() < this.getBottomRight().getX() &&
+                eventPoint.getY() > this.getTopLeft().getY() && eventPoint.getY() < this.getBottomRight().getY();
+    }
 
-    public static Rectangle build(Point startPoint, Point endPoint){
-        return new Rectangle(startPoint, endPoint);
+    @Override
+    public void move(double dx, double dy) {
+        topLeft.move(dx, dy);
+        bottomRight.move(dx, dy);
     }
 }
 
