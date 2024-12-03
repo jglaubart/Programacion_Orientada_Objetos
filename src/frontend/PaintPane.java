@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 import java.util.HashMap;
 import java.util.Map;
 
+import backend.model.builders.*;
+
 public class PaintPane extends BorderPane {
 
 	// BackEnd
@@ -33,12 +35,12 @@ public class PaintPane extends BorderPane {
 	ToggleButton circleButton = new ToggleButton("Círculo");
 	ToggleButton squareButton = new ToggleButton("Cuadrado");
 	ToggleButton ellipseButton = new ToggleButton("Elipse");
-
-
-
 	ToggleButton deleteButton = new ToggleButton("Borrar");
 
-	Map<ToggleButton, Figure> FigureButtons = new HashMap<ToggleButton, Figure>();
+	Map<ToggleButton, FigureBuilder> figureBuilderMap = new HashMap<>();
+
+	;
+
 
 	// Selector de color de relleno
 	ColorPicker fillColorPicker = new ColorPicker(defaultFillColor);
@@ -155,9 +157,7 @@ public class PaintPane extends BorderPane {
 		canvas.setOnMouseDragged(event -> {
 			if(selectionButton.isSelected() && selectedFigure != null) {
 				Point eventPoint = new Point(event.getX(), event.getY());
-				double diffX = (eventPoint.getX() - startPoint.getX());
-				double diffY = (eventPoint.getY() - startPoint.getY());
-				selectedFigure.move(diffX, diffY);// DESREFERENCIA NULL
+				selectedFigure.changePosition(startPoint, eventPoint); // DESREFERENCIA NULL
 				startPoint = eventPoint;
 				redrawCanvas();
 			}
