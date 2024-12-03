@@ -1,6 +1,8 @@
 package backend.model.builders;
 
-import backend.model.*;
+import backend.model.figures.Circle;
+import backend.model.figures.Figure;
+import backend.model.figures.Point;
 
 public class CircleBuilder implements FigureBuilder {
 

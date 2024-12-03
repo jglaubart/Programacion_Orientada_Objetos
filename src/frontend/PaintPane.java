@@ -1,7 +1,7 @@
 package frontend;
 
 import backend.CanvasState;
-import backend.model.*;
+import backend.model.figures.*;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
@@ -39,7 +39,6 @@ public class PaintPane extends BorderPane {
 
 	Map<ToggleButton, FigureBuilder> figureBuilderMap = new HashMap<>();
 
-	;
 
 
 	// Selector de color de relleno

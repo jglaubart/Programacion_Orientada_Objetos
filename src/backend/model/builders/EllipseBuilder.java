@@ -1,6 +1,8 @@
 package backend.model.builders;
 
-import backend.model.*;
+import backend.model.figures.Ellipse;
+import backend.model.figures.Figure;
+import backend.model.figures.Point;
 
 public class EllipseBuilder implements FigureBuilder {
 
