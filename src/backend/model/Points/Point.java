@@ -1,4 +1,4 @@
-package backend.model.figures;
+package backend.model.Points;
 
 public class Point {
 

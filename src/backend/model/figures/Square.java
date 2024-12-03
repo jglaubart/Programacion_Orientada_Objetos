@@ -1,5 +1,7 @@
 package backend.model.figures;
 
+import backend.model.Points.Point;
+
 public class Square extends Rectangle {
 
     public Square(Point topLeft, double size) {

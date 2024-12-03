@@ -1,5 +1,7 @@
 package backend.model.figures;
 
+import backend.model.Points.Point;
+
 public class Ellipse extends Figure {
 
     protected final Point centerPoint;
@@ -27,11 +29,4 @@ public class Ellipse extends Figure {
     public double getsMinorAxis() {
         return sMinorAxis;
     }
-
-    @Override
-    public void move(double deltaX, double deltaY) {
-        centerPoint.move(deltaX, deltaY);
-    }
-
-
 }

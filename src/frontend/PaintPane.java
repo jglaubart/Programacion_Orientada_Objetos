@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.CanvasState;
+import backend.model.Points.Point;
 import backend.model.figures.*;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
@@ -21,25 +22,23 @@ import backend.model.builders.*;
 public class PaintPane extends BorderPane {
 
 	// BackEnd
-	CanvasState canvasState;
+	private final CanvasState canvasState;
 
 	// Canvas y relacionados
-	Canvas canvas = new Canvas(800, 600);
-	GraphicsContext gc = canvas.getGraphicsContext2D();
-	Color lineColor = Color.BLACK;
-	Color defaultFillColor = Color.YELLOW;
+	private final Canvas canvas = new Canvas(800, 600);
+	private final GraphicsContext gc = canvas.getGraphicsContext2D();
+	private final Color lineColor = Color.BLACK;
+	private final Color defaultFillColor = Color.YELLOW;
 
 	// Botones Barra Izquierda
-	ToggleButton selectionButton = new ToggleButton("Seleccionar");
-	ToggleButton rectangleButton = new ToggleButton("Rectángulo");
-	ToggleButton circleButton = new ToggleButton("Círculo");
-	ToggleButton squareButton = new ToggleButton("Cuadrado");
-	ToggleButton ellipseButton = new ToggleButton("Elipse");
-	ToggleButton deleteButton = new ToggleButton("Borrar");
+	private final ToggleButton selectionButton = new ToggleButton("Seleccionar");
+	private final ToggleButton rectangleButton = new ToggleButton("Rectángulo");
+	private final ToggleButton circleButton = new ToggleButton("Círculo");
+	private final ToggleButton squareButton = new ToggleButton("Cuadrado");
+	private final ToggleButton ellipseButton = new ToggleButton("Elipse");
+	private final ToggleButton deleteButton = new ToggleButton("Borrar");
 
-	Map<ToggleButton, FigureBuilder> figureBuilderMap = new HashMap<>();
-
-
+	private Map<ToggleButton, FigureBuilder> figureBuilderMap = new HashMap<>();
 
 	// Selector de color de relleno
 	ColorPicker fillColorPicker = new ColorPicker(defaultFillColor);
@@ -66,6 +65,12 @@ public class PaintPane extends BorderPane {
 			tool.setToggleGroup(tools);
 			tool.setCursor(Cursor.HAND);
 		}
+
+		figureBuilderMap = Map.of(rectangleButton, new RectangleBuilder(),
+				circleButton, new CircleBuilder(),
+				squareButton, new SquareBuilder(),
+				ellipseButton, new EllipseBuilder());
+
 		VBox buttonsBox = new VBox(10);
 		buttonsBox.getChildren().addAll(toolsArr);
 		buttonsBox.getChildren().add(fillColorPicker);
@@ -89,7 +94,13 @@ public class PaintPane extends BorderPane {
 				return ;
 			}
 			Figure newFigure = null;
-			if(rectangleButton.isSelected()) {
+			ToggleButton selectedButton = (ToggleButton) tools.getSelectedToggle();
+			FigureBuilder builder = figureBuilderMap.get(selectedButton);
+			if(builder == null) {
+				return ;
+			}
+			newFigure = builder.buildFigure(startPoint, endPoint);
+			/*if(rectangleButton.isSelected()) {
 				newFigure = new Rectangle(startPoint, endPoint);
 			}
 			else if(circleButton.isSelected()) {
@@ -105,7 +116,7 @@ public class PaintPane extends BorderPane {
 				newFigure = new Ellipse(centerPoint, sMayorAxis, sMinorAxis);
 			} else {
 				return ;
-			}
+			}*/
 			figureColorMap.put(newFigure, fillColorPicker.getValue());
 			canvasState.addFigure(newFigure);
 			startPoint = null;
