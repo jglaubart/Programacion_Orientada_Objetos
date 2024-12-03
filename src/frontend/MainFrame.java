@@ -10,6 +10,7 @@ public class MainFrame extends VBox {
         StatusPane statusPane = new StatusPane();
         getChildren().add(new PaintPane(canvasState, statusPane));
         getChildren().add(statusPane);
+        //getCgukdren().add(new ActionsPane());
     }
 
 }

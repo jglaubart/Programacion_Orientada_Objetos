@@ -1,7 +1,6 @@
 package backend;
 
 import backend.model.figures.Figure;
-
 import java.util.ArrayList;
 import java.util.List;
 

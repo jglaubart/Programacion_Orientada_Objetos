@@ -3,6 +3,7 @@ package frontend;
 import backend.CanvasState;
 import backend.model.figures.Point;
 import backend.model.figures.*;
+import frontend.drawableFigures.DrawableFigure;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
@@ -21,7 +22,6 @@ import backend.model.builders.*;
 
 public class PaintPane extends BorderPane {
 
-	// BackEnd
 	private final CanvasState canvasState;
 
 	// Canvas y relacionados
@@ -49,9 +49,6 @@ public class PaintPane extends BorderPane {
 
 	// StatusBar
 	StatusPane statusPane;
-
-	// Colores de relleno de cada figura
-	Map<Figure, Color> figureColorMap = new HashMap<>();
 
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
@@ -93,31 +90,14 @@ public class PaintPane extends BorderPane {
 			if(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
 				return ;
 			}
-			Figure newFigure = null;
+
 			ToggleButton selectedButton = (ToggleButton) tools.getSelectedToggle();
 			FigureBuilder builder = figureBuilderMap.get(selectedButton);
 			if(builder == null) {
 				return ;
 			}
-			newFigure = builder.buildFigure(startPoint, endPoint);
-			/*if(rectangleButton.isSelected()) {
-				newFigure = new Rectangle(startPoint, endPoint);
-			}
-			else if(circleButton.isSelected()) {
-				double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Circle(startPoint, circleRadius);
-			} else if(squareButton.isSelected()) {
-				double size = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Square(startPoint, size);
-			} else if(ellipseButton.isSelected()) {
-				Point centerPoint = new Point(Math.abs(endPoint.getX() + startPoint.getX()) / 2, (Math.abs((endPoint.getY() + startPoint.getY())) / 2));
-				double sMayorAxis = Math.abs(endPoint.getX() - startPoint.getX());
-				double sMinorAxis = Math.abs(endPoint.getY() - startPoint.getY());
-				newFigure = new Ellipse(centerPoint, sMayorAxis, sMinorAxis);
-			} else {
-				return ;
-			}*/
-			figureColorMap.put(newFigure, fillColorPicker.getValue());
+			Figure newFigure = builder.buildFigure(startPoint, endPoint);
+			DrawableFigure newDrawFig = drawFigBuilder.buildDrawFig(newFigure);
 			canvasState.addFigure(newFigure);
 			startPoint = null;
 			redrawCanvas();
@@ -129,7 +109,7 @@ public class PaintPane extends BorderPane {
 			boolean found = false;
 			StringBuilder label = new StringBuilder();
 			for(Figure figure : canvasState.figures()) {
-				if(figureBelongs(figure, eventPoint)) {
+				if(figure.belongs(eventPoint)) {
 					found = true;
 					label.append(figure.toString());
 				}
@@ -147,7 +127,7 @@ public class PaintPane extends BorderPane {
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
 				for (Figure figure : canvasState.figures()) {
-					if(figureBelongs(figure, eventPoint)) {
+					if(figure.belongs(eventPoint)) {
 						found = true;
 						selectedFigure = figure;
 						label.append(figure.toString());
@@ -227,7 +207,7 @@ public class PaintPane extends BorderPane {
 		}
 	}
 
-	boolean figureBelongs(Figure figure, Point eventPoint) {
+	/*boolean figureBelongs(Figure figure, Point eventPoint) {
 		boolean found = false;
 		if(figure instanceof Rectangle) {
 			Rectangle rectangle = (Rectangle) figure;
@@ -248,6 +228,6 @@ public class PaintPane extends BorderPane {
 					(Math.pow(eventPoint.getY() - ellipse.getCenterPoint().getY(), 2) / Math.pow(ellipse.getsMinorAxis(), 2))) <= 0.30;
 		}
 		return found;
-	}
+	}*/  //PASADO A FUNCIONES DE CLASE
 
 }
