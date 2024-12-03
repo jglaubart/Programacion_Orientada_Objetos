@@ -6,10 +6,6 @@ public class Ellipse extends Figure {
     protected final double sMayorAxis, sMinorAxis;
 
     public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis) {
-        if (sMayorAxis <= 0 || sMinorAxis <= 0) {
-            throw new IllegalArgumentException("Axes must be positive values.");
-        }
-
         this.centerPoint = centerPoint;
         this.sMayorAxis = sMayorAxis;
         this.sMinorAxis = sMinorAxis;
@@ -31,5 +27,11 @@ public class Ellipse extends Figure {
     public double getsMinorAxis() {
         return sMinorAxis;
     }
+
+    @Override
+    public void move(double deltaX, double deltaY) {
+        centerPoint.move(deltaX, deltaY);
+    }
+
 
 }

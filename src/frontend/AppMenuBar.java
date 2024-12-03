@@ -1,5 +1,7 @@
 package frontend;
 
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.control.*;
 
 import java.util.Optional;
@@ -17,7 +19,7 @@ public class AppMenuBar extends MenuBar {
             Optional<ButtonType> result = alert.showAndWait();
             if(result.isPresent()) {
                 if (result.get() == ButtonType.OK) {
-                    System.exit(0);
+                    Platform.exit();
                 }
             }
         });

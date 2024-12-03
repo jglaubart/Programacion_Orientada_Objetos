@@ -22,4 +22,14 @@ public class Rectangle extends Figure {
         return String.format("Rectángulo [ %s , %s ]", topLeft, bottomRight);
     }
 
+    @Override
+    public void move(double deltaX, double deltaY) {
+        topLeft.move(deltaX, deltaY);
+        bottomRight.move(deltaX, deltaY);
+    }
+
+    public static Rectangle build(Point startPoint, Point endPoint){
+        return new Rectangle(startPoint, endPoint);
+    }
 }
+
