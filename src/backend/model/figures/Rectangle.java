@@ -78,8 +78,8 @@ public class Rectangle extends Figure {
 
     @Override
     public Rectangle duplicate() {
-        Point newTopLeft = new Point(getTopLeft().getX() + OFF_SET, getTopLeft().getY() - OFF_SET);
-        Point newBottomRight = new Point(getBottomRight().getX() + OFF_SET, getBottomRight().getY() - OFF_SET);
+        Point newTopLeft = new Point(getTopLeft().getX() + POS_OFF_SET, getTopLeft().getY() - POS_OFF_SET);
+        Point newBottomRight = new Point(getBottomRight().getX() + POS_OFF_SET, getBottomRight().getY() - POS_OFF_SET);
         return new Rectangle(newTopLeft, newBottomRight);
     }
 

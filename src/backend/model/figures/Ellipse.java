@@ -65,7 +65,7 @@ public class Ellipse extends Figure {
 
     @Override
     public Ellipse duplicate() {
-        return new Ellipse(new Point(getCenterPoint().getX() + OFF_SET, getCenterPoint().getY() + OFF_SET), axisX, axisY);
+        return new Ellipse(new Point(getCenterPoint().getX() + POS_OFF_SET, getCenterPoint().getY() + POS_OFF_SET), axisX, axisY);
     }
 
     @Override
