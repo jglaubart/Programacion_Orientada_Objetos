@@ -1,6 +1,7 @@
 package backend.model.figures;
 
 import backend.model.Drawer;
+import backend.model.FiguresPair;
 
 public class Ellipse extends Figure {
 
@@ -63,12 +64,18 @@ public class Ellipse extends Figure {
     }
 
     @Override
-    public void duplicate() {
-
+    public Ellipse duplicate() {
+        return new Ellipse(new Point(getCenterPoint().getX() + OFF_SET, getCenterPoint().getY() + OFF_SET), axisX, axisY);
     }
 
     @Override
-    public void divide() {
-
+    public FiguresPair<Figure, Figure> divide() {
+        double newWidth = getWidth() / 2;
+        double newHeight = getHeight() / 2;
+        Point leftCenter = new Point(getCenterPoint().getX() - newWidth, getCenterPoint().getY());
+        Point rightCenter = new Point(getCenterPoint().getX() + newWidth, getCenterPoint().getY());
+        Figure left = new Ellipse(leftCenter, newWidth, newHeight);
+        Figure right = new Ellipse(rightCenter, newWidth, newHeight);
+        return new FiguresPair<>(left, right);
     }
 }

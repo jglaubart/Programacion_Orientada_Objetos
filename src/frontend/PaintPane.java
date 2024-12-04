@@ -8,6 +8,7 @@ import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
@@ -59,19 +60,20 @@ public class PaintPane extends BorderPane {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
 
-		// Se agregan a la barra los botones creados
 		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton};
 		ToggleGroup tools = new ToggleGroup();
 
-		ToggleButton[] transfArr = {rotateButton, reflectVerticalButton, reflectHorizontalButton, duplicationButton, divideButton};
-		ToggleGroup transfGroup = new ToggleGroup();
+		ToggleButton[] actionsArr = {rotateButton, reflectVerticalButton, reflectHorizontalButton, duplicationButton, divideButton};
+		ToggleGroup actionsGroup = new ToggleGroup();
 
 		settingsButtonGroup(toolsArr, tools);
 		VBox figuresBox = loadButtonsBox(toolsArr);
 		figuresBox.getChildren().add(fillColorPicker);
 
-		settingsButtonGroup(transfArr, transfGroup);
-		VBox transfBox = loadButtonsBox(transfArr);
+		settingsButtonGroup(actionsArr, actionsGroup);
+		VBox actionsBox = loadButtonsBox(actionsArr);
+		Label titleLabel = new Label("Acciones:");
+		actionsBox.getChildren().addFirst(titleLabel);
 
 		figureBuilderMap = Map.of(
 				rectangleButton, new RectangleBuilder(),
@@ -80,12 +82,10 @@ public class PaintPane extends BorderPane {
 				ellipseButton, new EllipseBuilder()
 		);
 
-		// Define el startPoint al presionar en la pantalla
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
 		});
 
-		// define el endPoint y crea la figura
 		canvas.setOnMouseReleased(event -> {
 			Point endPoint = new Point(event.getX(), event.getY());
 			if(startPoint == null) {
@@ -110,7 +110,7 @@ public class PaintPane extends BorderPane {
 			redrawCanvas();
 		});
 
-		// Muestra la posicion de la figura o la actual del mouse en su defecto
+
 		canvas.setOnMouseMoved(event -> {
 			Point eventPoint = new Point(event.getX(), event.getY());
 			boolean found = false;
@@ -170,7 +170,7 @@ public class PaintPane extends BorderPane {
 
 		setLeft(figuresBox);
 		setCenter(canvas);
-		setRight(transfBox);
+		setRight(actionsBox);
 	}
 
 	// Aplica los cambios realizados

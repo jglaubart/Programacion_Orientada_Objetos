@@ -1,6 +1,7 @@
 package backend.model.figures;
 
 import backend.model.Drawer;
+import backend.model.FiguresPair;
 
 public class Rectangle extends Figure {
     private Point topLeft, bottomRight;
@@ -63,22 +64,33 @@ public class Rectangle extends Figure {
 
     @Override
     public void flipX() {
-
+        double dx = getWidth();
+        topLeft.move(dx,0);
+        bottomRight.move(dx,0);
     }
 
     @Override
     public void flipY() {
-
+        double dy = getHeight();
+        topLeft.move(0,dy);
+        bottomRight.move(0,dy);
     }
 
     @Override
-    public void duplicate() {
-
+    public Rectangle duplicate() {
+        Point newTopLeft = new Point(getTopLeft().getX() + OFF_SET, getTopLeft().getY() - OFF_SET);
+        Point newBottomRight = new Point(getBottomRight().getX() + OFF_SET, getBottomRight().getY() - OFF_SET);
+        return new Rectangle(newTopLeft, newBottomRight);
     }
 
     @Override
-    public void divide() {
-
+    public FiguresPair<Figure, Figure> divide() {
+        double dHeight = getHeight() / 4;
+        double newBottomRightY = getCenterPoint().getY() - dHeight;
+        double newTopLeftY = getCenterPoint().getY() + dHeight;
+        Rectangle leftRectangle = new Rectangle(new Point(getTopLeft().getX(), newTopLeftY), new Point(getCenterPoint().getX(), newBottomRightY));
+        Rectangle rightRectangle = new Rectangle(new Point(getCenterPoint().getX(), newTopLeftY), new Point(getBottomRight().getX(), newBottomRightY));
+        return new FiguresPair<>(leftRectangle, rightRectangle);
     }
 }
 
