@@ -19,4 +19,10 @@ public abstract class Figure implements Movable, Transformable {
     public RGBColor getColor() {
         return this.color;
     }
+
+    protected abstract Point getCenterPoint();
+
+    protected abstract double getWidth();
+
+    protected abstract double getHeight();
 }

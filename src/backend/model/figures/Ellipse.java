@@ -5,29 +5,29 @@ import backend.model.Drawer;
 public class Ellipse extends Figure {
 
     protected final Point centerPoint;
-    protected final double sMayorAxis, sMinorAxis;
+    protected double axisX, axisY;
 
-    public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis) {
+    public Ellipse(Point centerPoint, double axisX, double axisY) {
         this.centerPoint = centerPoint;
-        this.sMayorAxis = sMayorAxis;
-        this.sMinorAxis = sMinorAxis;
+        this.axisX = axisX;
+        this.axisY = axisY;
     }
 
     @Override
     public String toString() {
-        return String.format("Elipse [Centro: %s, DMayor: %.2f, DMenor: %.2f]", centerPoint, sMayorAxis, sMinorAxis);
+        return String.format("Elipse [Centro: %s, DMayor: %.2f, DMenor: %.2f]", centerPoint, axisX, axisY);
     }
 
     public Point getCenterPoint() {
         return centerPoint;
     }
 
-    public double getsMayorAxis() {
-        return sMayorAxis;
+    public double getWidth() {
+        return axisX;
     }
 
-    public double getsMinorAxis() {
-        return sMinorAxis;
+    public double getHeight() {
+        return axisY;
     }
 
     @Override
@@ -37,11 +37,38 @@ public class Ellipse extends Figure {
 
     @Override
     public boolean belongs(Point eventPoint) {
-        return ((Math.pow(eventPoint.getX() - this.getCenterPoint().getX(), 2) / Math.pow(this.getsMayorAxis(), 2)) +
-                (Math.pow(eventPoint.getY() - this.getCenterPoint().getY(), 2) / Math.pow(this.getsMinorAxis(), 2))) <= 0.30;
+        return ((Math.pow(eventPoint.getX() - this.getCenterPoint().getX(), 2) / Math.pow(this.getWidth(), 2)) +
+                (Math.pow(eventPoint.getY() - this.getCenterPoint().getY(), 2) / Math.pow(this.getHeight(), 2))) <= 0.30;
     }
     @Override
     public void draw(Drawer drawer) {
-        drawer.drawEllipse(this.getCenterPoint(), this.getsMayorAxis(), this.getsMinorAxis());
+        drawer.drawEllipse(this.getCenterPoint(), this.getWidth(), this.getHeight());
+    }
+
+    @Override
+    public void rotate() {
+        double auxAxis = axisX;
+        axisX = axisY;
+        axisY = auxAxis;
+    }
+
+    @Override
+    public void flipX() {
+        centerPoint.move(axisX, 0);
+    }
+
+    @Override
+    public void flipY() {
+        centerPoint.move(0, axisY);
+    }
+
+    @Override
+    public void duplicate() {
+
+    }
+
+    @Override
+    public void divide() {
+
     }
 }

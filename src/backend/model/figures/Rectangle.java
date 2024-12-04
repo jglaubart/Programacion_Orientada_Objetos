@@ -3,8 +3,7 @@ package backend.model.figures;
 import backend.model.Drawer;
 
 public class Rectangle extends Figure {
-
-    private final Point topLeft, bottomRight;
+    private Point topLeft, bottomRight;
 
     public Rectangle(Point topLeft, Point bottomRight) {
         this.topLeft = topLeft;
@@ -17,6 +16,18 @@ public class Rectangle extends Figure {
 
     public Point getBottomRight() {
         return bottomRight;
+    }
+
+    protected double getWidth() {
+        return topLeft.getX() - bottomRight.getX();
+    }
+
+    protected double getHeight() {
+        return topLeft.getY() - bottomRight.getY();
+    }
+
+    protected Point getCenterPoint(){
+        return new Point((topLeft.getX() + bottomRight.getX()) / 2, (topLeft.getY() + bottomRight.getY()) / 2);
     }
 
     @Override
@@ -39,6 +50,35 @@ public class Rectangle extends Figure {
     @Override
     public void draw(Drawer drawer) {
         drawer.drawRectangle(topLeft, bottomRight);
+    }
+
+    @Override
+    public void rotate() {
+        double height = getHeight();
+        double width = getWidth();
+        Point center = getCenterPoint();
+        topLeft = new Point(center.getX() - height / 2, center.getY() - width / 2);
+        bottomRight = new Point(center.getX() + height / 2, center.getY() + width / 2);
+    }
+
+    @Override
+    public void flipX() {
+
+    }
+
+    @Override
+    public void flipY() {
+
+    }
+
+    @Override
+    public void duplicate() {
+
+    }
+
+    @Override
+    public void divide() {
+
     }
 }
 

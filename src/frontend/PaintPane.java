@@ -68,7 +68,7 @@ public class PaintPane extends BorderPane {
 
 		settingsButtonGroup(toolsArr, tools);
 		VBox figuresBox = loadButtonsBox(toolsArr);
-
+		figuresBox.getChildren().add(fillColorPicker);
 
 		settingsButtonGroup(transfArr, transfGroup);
 		VBox transfBox = loadButtonsBox(transfArr);
@@ -194,7 +194,6 @@ public class PaintPane extends BorderPane {
 	private VBox loadButtonsBox(ToggleButton[] array) {
 		VBox box = new VBox(10);
 		box.getChildren().addAll(array);
-		box.getChildren().add(fillColorPicker);
 		box.setPadding(new Insets(5));
 		box.setStyle("-fx-background-color: #999");
 		box.setPrefWidth(100);

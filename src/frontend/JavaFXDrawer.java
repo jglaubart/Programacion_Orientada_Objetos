@@ -12,9 +12,9 @@ public class JavaFXDrawer implements Drawer {
     }
 
     @Override
-    public void drawEllipse(Point centerPoint, double sMayorAxis, double sMinorAxis) {
-        gc.strokeOval(centerPoint.getX() - sMayorAxis / 2, centerPoint.getY() - sMinorAxis / 2, sMayorAxis, sMinorAxis);
-        gc.fillOval(centerPoint.getX() - sMayorAxis / 2, centerPoint.getY() - sMinorAxis / 2, sMayorAxis, sMinorAxis);
+    public void drawEllipse(Point centerPoint, double axisX, double axisY) {
+        gc.strokeOval(centerPoint.getX() - axisX / 2, centerPoint.getY() - axisY / 2, axisX, axisY);
+        gc.fillOval(centerPoint.getX() - axisX / 2, centerPoint.getY() - axisY / 2, axisX, axisY);
     }
 
     @Override
