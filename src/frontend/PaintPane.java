@@ -19,6 +19,8 @@ import java.util.function.Function;
 
 import backend.model.builders.*;
 
+import javax.swing.*;
+
 public class PaintPane extends BorderPane {
 	private final CanvasState canvasState;
 
@@ -32,13 +34,14 @@ public class PaintPane extends BorderPane {
 	private final ToggleButton circleButton = new ToggleButton("Círculo");
 	private final ToggleButton squareButton = new ToggleButton("Cuadrado");
 	private final ToggleButton ellipseButton = new ToggleButton("Elipse");
-	private final ToggleButton deleteButton = new ToggleButton("Borrar");
 
-	private final ToggleButton rotateButton = new ToggleButton("Girar D");
-	private final ToggleButton reflectVerticalButton = new ToggleButton("Voletar V");
-	private final ToggleButton reflectHorizontalButton = new ToggleButton("Voltaer H");
-	private final ToggleButton duplicationButton = new ToggleButton("Duplicar");
-	private final ToggleButton divideButton = new ToggleButton("Dividir");
+	private final Button deleteButton = new Button("Borrar");
+
+	private final Button rotateButton = new Button("Girar D");
+	private final Button reflectVerticalButton = new Button("Voletar V");
+	private final Button reflectHorizontalButton = new Button("Voltaer H");
+	private final Button duplicationButton = new Button("Duplicar");
+	private final Button divideButton = new Button("Dividir");
 
 	private Map<ToggleButton, FigureBuilder> figureBuilderMap = new HashMap<>();
 	private Map<ToggleButton, Runnable> figureActionsMap = new HashMap<>();
@@ -52,20 +55,21 @@ public class PaintPane extends BorderPane {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
 
-		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton};
+		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton};
 		ToggleGroup tools = new ToggleGroup();
+		for(ToggleButton button : toolsArr){
+			button.setToggleGroup(tools);
+		}
 
-		ToggleButton[] actionsArr = {rotateButton, reflectVerticalButton, reflectHorizontalButton, duplicationButton, divideButton};
-		ToggleGroup actionsGroup = new ToggleGroup();
+		Button[] actionsArr = {rotateButton, reflectVerticalButton, reflectHorizontalButton, duplicationButton, divideButton, deleteButton};
+		ButtonGroup actionsGroup = new ButtonGroup();
 
-		settingsButtonGroup(toolsArr, tools);
+		settingsButtonGroup(toolsArr);
 		VBox figuresBox = loadButtonsBox(toolsArr);
 		figuresBox.getChildren().add(fillColorPicker);
 
-		settingsButtonGroup(actionsArr, actionsGroup);
+		settingsButtonGroup(actionsArr);
 		VBox actionsBox = loadButtonsBox(actionsArr);
-		Label titleLabel = new Label("Acciones:");
-		actionsBox.getChildren().addFirst(titleLabel);
 
 		figureBuilderMap = Map.of(
 				rectangleButton, new RectangleBuilder(),
@@ -186,7 +190,7 @@ public class PaintPane extends BorderPane {
 		}
 	}
 
-	private VBox loadButtonsBox(ToggleButton[] array) {
+	private VBox loadButtonsBox(ButtonBase[] array) {
 		VBox box = new VBox(10);
 		box.getChildren().addAll(array);
 		box.setPadding(new Insets(5));
@@ -197,10 +201,9 @@ public class PaintPane extends BorderPane {
 		return box;
 	}
 
-	public void settingsButtonGroup(ToggleButton[] array, ToggleGroup group) {
-		for (ToggleButton button : array) {
+	public void settingsButtonGroup(ButtonBase[] array) {
+		for (ButtonBase button : array) {
 			button.setMinWidth(90);
-			button.setToggleGroup(group);
 			button.setCursor(Cursor.HAND);
 		}
 	}

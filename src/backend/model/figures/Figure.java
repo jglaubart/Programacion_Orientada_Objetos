@@ -2,11 +2,16 @@ package backend.model.figures;
 
 import backend.RGBColor;
 import backend.model.Drawer;
+import backend.model.Properties.DrawProperties;
 import backend.model.interfaces.Transformable;
 
 public abstract class Figure implements Movable, Transformable {
-    static final int POS_OFF_SET = 1;
-    static final int NEG_OFF_SET = -POS_OFF_SET;
+    static final double POS_OFF_SET = 1;
+    static final double NEG_OFF_SET = -POS_OFF_SET;
+
+    private Figure shadow;
+
+    //private DrawProperties;
 
     private RGBColor color;
 
@@ -27,4 +32,6 @@ public abstract class Figure implements Movable, Transformable {
     protected abstract double getWidth();
 
     protected abstract double getHeight();
+
+    //protected abstract drawShadow(ShadowType shadow, RGBColor color, int offset);
 }
