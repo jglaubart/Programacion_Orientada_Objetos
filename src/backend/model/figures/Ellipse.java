@@ -1,5 +1,7 @@
 package backend.model.figures;
 
+import backend.model.Drawer;
+
 public class Ellipse extends Figure {
 
     protected final Point centerPoint;
@@ -37,5 +39,10 @@ public class Ellipse extends Figure {
     public boolean belongs(Point eventPoint){
         return ((Math.pow(eventPoint.getX() - this.getCenterPoint().getX(), 2) / Math.pow(this.getsMayorAxis(), 2)) +
                 (Math.pow(eventPoint.getY() - this.getCenterPoint().getY(), 2) / Math.pow(this.getsMinorAxis(), 2))) <= 0.30;
+    }
+
+    @Override
+    public void draw(Drawer drawer) {
+        drawer.drawEllipse(this.getCenterPoint(), this.getsMayorAxis(), this.getsMinorAxis());
     }
 }

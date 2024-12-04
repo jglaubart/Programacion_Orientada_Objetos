@@ -1,8 +1,10 @@
 package backend.model.figures;
 
+import backend.model.Drawer;
+
 public class Rectangle extends Figure {
 
-    protected final Point topLeft, bottomRight;
+    private final Point topLeft, bottomRight;
 
     public Rectangle(Point topLeft, Point bottomRight) {
         this.topLeft = topLeft;
@@ -32,6 +34,11 @@ public class Rectangle extends Figure {
     public void move(double dx, double dy) {
         topLeft.move(dx, dy);
         bottomRight.move(dx, dy);
+    }
+
+    @Override
+    public void draw(Drawer drawer) {
+        drawer.drawRectangle(topLeft, bottomRight);
     }
 }
 

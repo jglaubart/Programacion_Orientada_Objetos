@@ -1,5 +1,7 @@
 package backend.model.figures;
 
+import backend.model.Drawer;
+
 public class Circle extends Ellipse {
 
     public Circle(Point centerPoint, double radius) {
@@ -21,4 +23,8 @@ public class Circle extends Ellipse {
                 Math.pow(this.getCenterPoint().getY() - eventPoint.getY(), 2)) < this.getRadius();
     }
 
+    @Override
+    public void draw(Drawer drawer) {
+        drawer.drawCircle(this.getCenterPoint(), this.getRadius() * 2);
+    }
 }

@@ -8,6 +8,9 @@ public class EllipseBuilder implements FigureBuilder {
 
     @Override
     public Figure buildFigure(Point startPoint, Point endPoint) {
-        return new Ellipse(startPoint, Math.abs(endPoint.getX() - startPoint.getX()), Math.abs(endPoint.getY() - startPoint.getY()));
+        double sMayorAxis = Math.abs(startPoint.getX() - endPoint.getX());
+        double sMinorAxis = Math.abs(startPoint.getY() - endPoint.getY());
+        Point centerPoint = new Point((startPoint.getX() + sMayorAxis / 2), (startPoint.getY() + sMinorAxis / 2));
+        return new Ellipse(centerPoint, sMayorAxis, sMinorAxis);
     }
 }
