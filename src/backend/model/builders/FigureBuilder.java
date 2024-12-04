@@ -8,9 +8,10 @@ public interface FigureBuilder {
 
     Figure buildFigure(Point startPoint, Point endPoint);
 
-    default Figure buildFigure(Point startPoint, Point endPoint, RGBColor defaultColor){
+    default Figure buildFigure(Point startPoint, Point endPoint, RGBColor defaultColor, RGBColor secondaryColor, boolean BeveledState){
         Figure figure = buildFigure(startPoint, endPoint);
         figure.setColor(defaultColor);
+
         return figure;
     }
 }

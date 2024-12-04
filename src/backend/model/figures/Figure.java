@@ -8,12 +8,8 @@ import backend.model.interfaces.Transformable;
 public abstract class Figure implements Movable, Transformable {
 
     private ShadowType shadowType;
-
-    private Figure shadow;
-
-    //private DrawProperties;
-
-    private RGBColor color;
+    private RGBColor color1, color2;
+    private boolean beveledState;
 
     public abstract boolean belongs(Point eventPoint);
 
