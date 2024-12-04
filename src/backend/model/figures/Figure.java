@@ -2,26 +2,25 @@ package backend.model.figures;
 
 import backend.RGBColor;
 import backend.model.Drawer;
+import backend.model.Properties.DrawProperties;
 import backend.model.Properties.ShadowType;
 import backend.model.interfaces.Transformable;
 
 public abstract class Figure implements Movable, Transformable {
 
-    private ShadowType shadowType;
-    private RGBColor color1, color2;
-    private boolean beveledState;
+    private DrawProperties drawProperties;
+
+    public void setDrawProperties(DrawProperties drawProperties) {
+        this.drawProperties = drawProperties;
+    }
+
+    public DrawProperties getDrawProperties() {
+        return drawProperties;
+    }
 
     public abstract boolean belongs(Point eventPoint);
 
     public abstract void draw(Drawer drawer);
-
-    public void setColor(RGBColor color) {
-        this.color = color;
-    }
-
-    public RGBColor getColor() {
-        return this.color;
-    }
 
     protected abstract Point getCenterPoint();
 
