@@ -41,6 +41,7 @@ public class Ellipse extends Figure {
                 (Math.pow(eventPoint.getY() - this.getCenterPoint().getY(), 2) / Math.pow(this.getsMinorAxis(), 2))) <= 0.30;
     }
     @Override
+    @Override
     public void draw(Drawer drawer) {
         drawer.drawEllipse(this.getCenterPoint(), this.getsMayorAxis(), this.getsMinorAxis());
     }

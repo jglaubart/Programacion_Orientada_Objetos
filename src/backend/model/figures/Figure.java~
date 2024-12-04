@@ -2,9 +2,8 @@ package backend.model.figures;
 
 import backend.RGBColor;
 import backend.model.Drawer;
-import backend.model.interfaces.Transformable;
 
-public abstract class Figure implements Movable, Transformable {
+public abstract class Figure implements Movable {
 
     private RGBColor color;
 

@@ -170,7 +170,7 @@ public class PaintPane extends BorderPane {
 
 		setLeft(figuresBox);
 		setCenter(canvas);
-		setRight(transfBox);
+		setLeft(transfBox);
 	}
 
 	// Aplica los cambios realizados

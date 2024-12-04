@@ -1,0 +1,8 @@
+package frontend;
+
+import javafx.scene.paint.Color;
+
+public class PruebaBorrar {
+    public static void main(String[] args) {
+        System.out.println(Color.DARKGREEN.getGreen());
+    }}
