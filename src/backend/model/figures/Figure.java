@@ -2,12 +2,12 @@ package backend.model.figures;
 
 import backend.RGBColor;
 import backend.model.Drawer;
-import backend.model.Properties.DrawProperties;
+import backend.model.Properties.ShadowType;
 import backend.model.interfaces.Transformable;
 
 public abstract class Figure implements Movable, Transformable {
-    static final double POS_OFF_SET = 1;
-    static final double NEG_OFF_SET = -POS_OFF_SET;
+
+    private ShadowType shadowType;
 
     private Figure shadow;
 
