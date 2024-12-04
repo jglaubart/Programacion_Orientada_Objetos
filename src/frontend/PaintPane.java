@@ -17,20 +17,19 @@ import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import backend.model.builders.*;
 
 public class PaintPane extends BorderPane {
-
 	private final CanvasState canvasState;
 
-	// Canvas y relacionados
 	private final Canvas canvas = new Canvas(800, 600);
 	private final GraphicsContext gc = canvas.getGraphicsContext2D();
 	private final Color lineColor = Color.BLACK;
 	private final Color defaultFillColor = Color.YELLOW;
 
-	// Botones Barra Izquierda
 	private final ToggleButton selectionButton = new ToggleButton("Seleccionar");
 	private final ToggleButton rectangleButton = new ToggleButton("Rectángulo");
 	private final ToggleButton circleButton = new ToggleButton("Círculo");
@@ -45,15 +44,11 @@ public class PaintPane extends BorderPane {
 	private final ToggleButton divideButton = new ToggleButton("Dividir");
 
 	private Map<ToggleButton, FigureBuilder> figureBuilderMap = new HashMap<>();
+	private Map<ToggleButton, Runnable> figureActionsMap = new HashMap<>();
 
-	// Selector de color de relleno
 	ColorPicker fillColorPicker = new ColorPicker(defaultFillColor);
-
 	Point startPoint;
-
 	Figure selectedFigure;
-
-	// StatusBar
 	StatusPane statusPane;
 
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
@@ -80,6 +75,10 @@ public class PaintPane extends BorderPane {
 				circleButton, new CircleBuilder(),
 				squareButton, new SquareBuilder(),
 				ellipseButton, new EllipseBuilder()
+		);
+
+		figureActionsMap = Map.of(
+				
 		);
 
 		canvas.setOnMousePressed(event -> {
@@ -207,6 +206,13 @@ public class PaintPane extends BorderPane {
 			button.setMinWidth(90);
 			button.setToggleGroup(group);
 			button.setCursor(Cursor.HAND);
+		}
+	}
+
+	private void rotateSelectedFigure() {
+		if (selectedFigure != null) {
+			selectedFigure.rotate();
+			redrawCanvas();
 		}
 	}
 }
