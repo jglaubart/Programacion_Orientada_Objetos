@@ -3,31 +3,21 @@ package backend.model.Properties;
 import backend.model.figures.Figure;
 
 public enum ShadowType {
-    NONE,
-    SIMPLE {
-        @Override
-        public abstract drawShadow() {
-            Figure shadow = new ();
-        }
-    },
-    COLORED {
-        @Override
-        public abstract drawShadow(){
+    NONE("No"),
+    SIMPLE("Simple"),
+    COLORED("Coloreada"),
+    SIMPLE_INVERSE("Simple Inversa"),
+    COLORED_INVERSE("Coloreada Inversa");
 
-        }
-    },
-    SIMPLE_INVERSE {
-        @Override
-        public abstract drawShadow(){
+    private final String name;
+    // public abstract drawShadow();
 
-        }
-    },
-    COLORED_INVERSE {
-        @Override
-        public abstract drawShadow(){
+    ShadowType(String name) {
+        this.name = name;
+    }
 
-        }
-    };
-
-    public abstract drawShadow();
+    @Override
+    public String toString() {
+        return name();
+    }
 }

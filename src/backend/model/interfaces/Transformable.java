@@ -5,8 +5,8 @@ import backend.model.figures.Figure;
 
 public interface Transformable {
     void rotate();
-    void flipX();
-    void flipY();
+    void reflectHorizontal();
+    void reflectVertical();
     Figure duplicate();
     FiguresPair<Figure, Figure> divide();
 }
