@@ -1,6 +1,6 @@
 package frontend;
 
-import backend.model.Drawer;
+import backend.model.interfaces.Drawer;
 import backend.model.figures.Point;
 import javafx.scene.canvas.GraphicsContext;
 

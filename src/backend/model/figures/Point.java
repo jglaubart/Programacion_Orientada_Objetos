@@ -1,5 +1,7 @@
 package backend.model.figures;
 
+import backend.model.interfaces.Movable;
+
 public class Point implements Movable {
 
     private double x, y;

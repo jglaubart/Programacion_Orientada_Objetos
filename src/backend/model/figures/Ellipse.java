@@ -1,6 +1,6 @@
 package backend.model.figures;
 
-import backend.model.Drawer;
+import backend.model.interfaces.Drawer;
 import backend.model.FiguresPair;
 
 public class Ellipse extends Figure {

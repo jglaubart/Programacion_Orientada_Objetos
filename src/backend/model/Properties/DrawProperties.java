@@ -4,7 +4,8 @@ import backend.RGBColor;
 
 public class DrawProperties {
     private ShadowType shadowType = ShadowType.NONE;
-    private RGBColor color1, color2 = null;
+    private RGBColor color1 = null;
+    private RGBColor color2 = null;
     private boolean beveledState = false;
 
     public DrawProperties(RGBColor color1, RGBColor color2, ShadowType shadowType, boolean beveledState) {

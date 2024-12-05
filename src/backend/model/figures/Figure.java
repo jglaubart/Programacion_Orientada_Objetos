@@ -1,9 +1,8 @@
 package backend.model.figures;
 
-import backend.RGBColor;
-import backend.model.Drawer;
+import backend.model.interfaces.Drawer;
 import backend.model.Properties.DrawProperties;
-import backend.model.Properties.ShadowType;
+import backend.model.interfaces.Movable;
 import backend.model.interfaces.Transformable;
 
 public abstract class Figure implements Movable, Transformable {

@@ -1,6 +1,6 @@
 package backend.model.figures;
 
-import backend.model.Drawer;
+import backend.model.interfaces.Drawer;
 
 public class Circle extends Ellipse {
 
