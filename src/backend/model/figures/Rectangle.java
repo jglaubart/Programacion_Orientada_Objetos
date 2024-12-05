@@ -51,7 +51,7 @@ public class Rectangle extends Figure {
     @Override
     public void draw(Drawer drawer) {
         drawer.drawRectangle(topLeft, bottomRight);
-        // drawer.drawDetails(DrawProperties properties);
+        drawer.drawAttributes();
     }
 
     @Override

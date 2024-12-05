@@ -1,8 +1,11 @@
 package frontend;
 
+import backend.model.attributes.Attribute;
 import backend.model.interfaces.Drawer;
 import backend.model.figures.Point;
 import javafx.scene.canvas.GraphicsContext;
+
+import java.util.Set;
 
 public class JavaFXDrawer implements Drawer {
     private GraphicsContext gc;
@@ -27,5 +30,12 @@ public class JavaFXDrawer implements Drawer {
         
         gc.strokeRect(topLeft.getX(), topLeft.getY(), Math.abs(topLeft.getX() - bottomRight.getX()), Math.abs(topLeft.getY() - bottomRight.getY()));
         gc.fillRect(topLeft.getX(), topLeft.getY(), Math.abs(topLeft.getX() - bottomRight.getX()), Math.abs(topLeft.getY() - bottomRight.getY()));
+    }
+
+    @Override
+    public void drawAttributes(Set<Attribute> attributes){
+        for(Attribute att : attributes){
+            att.drawAttribute();
+        }
     }
 }
