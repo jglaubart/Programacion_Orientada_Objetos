@@ -6,7 +6,7 @@ public enum ShadowType {
     NONE,
     SIMPLE {
         @Override
-        public abstract drawShadow(){
+        public abstract drawShadow() {
             Figure shadow = new ();
         }
     },
