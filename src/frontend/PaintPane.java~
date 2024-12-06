@@ -122,8 +122,10 @@ public class PaintPane extends BorderPane {
 					startPoint,
 					endPoint,
 					ColorConverter.toRGBColor(figureToolBox.getSelectedFillColor()),
-					DEFAULT_FILL_COLOR2,
-
+					null,
+					INVERSE_SHADOW_OFFSET,
+					ColorConverter.toRGBColor(Color.GRAY),
+					false
 			);
 			canvasState.addFigure(newFigure);
 			startPoint = null;
@@ -191,10 +193,8 @@ public class PaintPane extends BorderPane {
 			if(figure == selectedFigure) {
 				gc.setStroke(Color.RED);
 			} else {
-				gc.setStroke(lineColor);
+				gc.setStroke(LINE_COLOR);
 			}
-
-			gc.setFill(ColorConverter.toJavaFXColor(figure.getColor()));
 
 			JavaFXDrawer drawer = new JavaFXDrawer(gc);
 

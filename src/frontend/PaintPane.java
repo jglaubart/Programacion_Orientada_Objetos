@@ -123,7 +123,7 @@ public class PaintPane extends BorderPane {
 					endPoint,
 					ColorConverter.toRGBColor(figureToolBox.getSelectedFillColor()),
 					ColorConverter.toRGBColor(DEFAULT_FILL_COLOR2),
-					SHADOW_OFFSET,
+					INVERSE_SHADOW_OFFSET,
 					ColorConverter.toRGBColor(Color.GRAY),
 					false
 			);
