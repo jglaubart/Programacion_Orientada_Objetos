@@ -47,12 +47,14 @@ public class Ellipse extends Figure {
         drawer.fillRadialGradient(properties.getColor1(), properties.getColor2());
     }
 
-    @Override
+    /*@Override
     public FiguresPair<Figure, Figure> divide() {
         double newWidth = getWidth() / 2;
         double newHeight = getHeight() / 2;
         Point leftCenter = new Point(getCenterPoint().getX() - newWidth, getCenterPoint().getY());
         Point rightCenter = new Point(getCenterPoint().getX() + newWidth, getCenterPoint().getY());
-        return null;//lo termino después
-    }
+        Ellipse leftEllipse = new Ellipse(leftCenter, newWidth, newHeight);
+        Ellipse rightEllipse = new Ellipse(rightCenter, newWidth, newHeight);
+        return new FiguresPair<>(leftEllipse, rightEllipse);
+    }*/
 }

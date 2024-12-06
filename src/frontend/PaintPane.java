@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.CanvasState;
+import backend.model.FiguresPair;
 import backend.model.figures.*;
 import frontend.buttonBoxes.FigureActionBox;
 import frontend.buttonBoxes.FigureLayerBox;
@@ -93,7 +94,11 @@ public class PaintPane extends BorderPane {
 
 		figureActionBox.setOnDivideAction(() -> {
 			if (selectedFigure != null) {
-				selectedFigure.divide();
+				FiguresPair figuresPair = selectedFigure.divide();
+				canvasState.deleteFigure(selectedFigure);
+				// figuresPair.getLeft().draw(drawer);
+				canvasState.addFigure(figuresPair.getLeft());
+				canvasState.addFigure(figuresPair.getRight());
 				redrawCanvas();
 			} else {
 				statusPane.updateStatus("Ninguna figura encontrada para dividir");

@@ -16,6 +16,8 @@ public class FigurePropertiesBox implements SettingsBox {
 
     private final VBox propertiesBox;
 
+    private Runnable onCopyFormatAction;
+
     public FigurePropertiesBox(Color firstColor, Color secondColor) {
         firstColorPicker = new ColorPicker(firstColor);
         secondColorPicker = new ColorPicker(secondColor);
@@ -27,6 +29,12 @@ public class FigurePropertiesBox implements SettingsBox {
         settings(propertiesBox);
 
         propertiesBox.getChildren().addAll(formatLabel, shadowButton, beveledButton, firstColorPicker, secondColorPicker, copyFormatButton);
+
+        copyFormatButton.setOnAction(event -> {
+            onCopyFormatAction.run();
+        });
+
+
     }
 
     public Color getSelectedFillColor() {

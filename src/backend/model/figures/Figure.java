@@ -1,6 +1,7 @@
 package backend.model.figures;
 
 import backend.RGBColor;
+import backend.model.FiguresPair;
 import backend.model.builders.FigureBuilder;
 import backend.model.interfaces.Drawer;
 import backend.model.Properties.DrawProperties;
@@ -114,5 +115,32 @@ public abstract class Figure implements Movable, Transformable<Figure> {
         Point newBottomRight = new Point(bottomRight.getX() + offset, bottomRight.getY() + offset);
         RGBColor shadowColor = properties.getShadow().getDrawProperties().getColor1();
         return builder.buildFigure(newTopLeft, newBottomRight, properties.getColor1(), properties.getColor2(), properties.getShadowOffset(), shadowColor, properties.getBeveledState());
+    }
+
+    @Override
+    public FiguresPair<Figure, Figure> divide() {
+        double newWidth = getWidth() / 2;
+        double newHeight = getHeight() / 2;
+        Point leftCenter = new Point(getCenterPoint().getX() - newWidth, getCenterPoint().getY());
+        Point rightCenter = new Point(getCenterPoint().getX() + newWidth, getCenterPoint().getY());
+
+        Point topLeftRightFig = new Point(rightCenter.getX() + newWidth/2, rightCenter.getY() + newHeight/2);
+        Point bottomRightRightFig = new Point(rightCenter.getX() - newWidth/2, rightCenter.getY() - newHeight/2);
+
+        Point topLeftLeftFig = new Point(leftCenter.getX() + newWidth/2, leftCenter.getY() + newHeight/2);
+        Point bottomRightLeftFig = new Point(leftCenter.getX() - newWidth/2, leftCenter.getY() - newHeight/2);
+        
+
+        Figure left = this.duplicate(0);
+        left.setTopLeft(topLeftLeftFig);
+        left.setBottomRight(bottomRightLeftFig);
+        left.setCenterPoint(leftCenter);
+
+        Figure right = this.duplicate(0);
+        right.setTopLeft(topLeftRightFig);
+        right.setBottomRight(bottomRightRightFig);
+        right.setCenterPoint(rightCenter);
+
+        return new FiguresPair<Figure, Figure>(left, right);
     }
 }

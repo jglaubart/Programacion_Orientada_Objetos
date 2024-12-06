@@ -45,12 +45,12 @@ public class Rectangle extends Figure {
         drawer.fillLinearGradient(properties.getColor1(), properties.getColor2());
     }
 
-    @Override
+   /* @Override
     public FiguresPair<Figure, Figure> divide() {
         double dHeight = getHeight() / 4;
         double newBottomRightY = getCenterPoint().getY() - dHeight;
         double newTopLeftY = getCenterPoint().getY() + dHeight;
         return null;//lo termino después
-    }
+    }*/
 }
 

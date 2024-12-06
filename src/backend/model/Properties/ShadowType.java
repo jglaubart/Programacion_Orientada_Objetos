@@ -1,8 +1,5 @@
 package backend.model.Properties;
 
-import backend.RGBColor;
-import backend.model.figures.Figure;
-
 public enum ShadowType {
     NONE("Ninguna", 0.0),
     SIMPLE("Simple", 10.0),
