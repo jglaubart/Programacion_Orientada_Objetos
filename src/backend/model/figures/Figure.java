@@ -46,7 +46,7 @@ public abstract class Figure implements Movable, Transformable<Figure> {
         if(properties.getColor2() != null) {
             this.fillGradient(drawer);
         }else{
-            drawer.fillColor(properties.getColor1());g
+            drawer.fillColor(properties.getColor1());
         }
     }
 
