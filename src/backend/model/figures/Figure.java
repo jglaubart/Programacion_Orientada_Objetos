@@ -67,8 +67,7 @@ public abstract class Figure implements Movable, Transformable<Figure> {
         Figure shadow = drawProperties.getShadow();
         if(shadow != null){
             double offset = drawProperties.getShadowOffset();
-            shadow.setCenterPoint(centerPoint);
-            shadow.getCenterPoint().move(offset, offset);
+            shadow.setCenterPoint(new Point(centerPoint.getX() + offset, centerPoint.getY() + offset));
         }
     }
 
@@ -85,8 +84,7 @@ public abstract class Figure implements Movable, Transformable<Figure> {
         Figure shadow = drawProperties.getShadow();
         if(shadow != null){
             double offset = drawProperties.getShadowOffset();
-            shadow.setTopLeft(topLeft);
-            shadow.getTopLeft().move(offset, offset);
+            shadow.setTopLeft(new Point(topLeft.getX() + offset, topLeft.getY() + offset));
         }
     }
     public Point getBottomRight() {
@@ -95,15 +93,14 @@ public abstract class Figure implements Movable, Transformable<Figure> {
     public void setBottomRight(Point bottomRight) {
         this.bottomRight = bottomRight;
 
-        if(drawProperties == null){
+        if (drawProperties == null) {
             return;
         }
 
         Figure shadow = drawProperties.getShadow();
         if(shadow != null){
             double offset = drawProperties.getShadowOffset();
-            shadow.setBottomRight(bottomRight);
-            shadow.getBottomRight().move(offset, offset);
+            shadow.setBottomRight(new Point(bottomRight.getX() + offset, bottomRight.getY() + offset));
         }
     }
 
