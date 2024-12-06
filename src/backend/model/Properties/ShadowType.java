@@ -4,17 +4,26 @@ import backend.RGBColor;
 import backend.model.figures.Figure;
 
 public enum ShadowType {
-    NONE(0.0),
-    NORMAL(10.0),
-    INVERSE(-10.0);
+    NONE("Ninguna", 0.0),
+    SIMPLE("Simple", 10.0),
+    COLORED("Coloreada", 10.0),
+    SIMPLE_INVERSE("Simple Inversa", -10),
+    COLOR_INVERSE("Coloreada Inversa", -10.0);
 
+    private final String name;
     private final double offset;
 
-    ShadowType(double offset) {
+    ShadowType(String name, double offset) {
+        this.name = name;
         this.offset = offset;
     }
 
     public double getOffset() {
         return offset;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

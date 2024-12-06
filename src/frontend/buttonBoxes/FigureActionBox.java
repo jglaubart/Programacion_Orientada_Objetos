@@ -3,10 +3,11 @@ package frontend.buttonBoxes;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Box;
 
-public class FigureActionBox implements FillBox {
+public class FigureActionBox implements SettingsBox {
     private final Button rotateButton = new Button("Girar D");
     private final Button reflectVerticalButton = new Button("Voletar V");
     private final Button reflectHorizontalButton = new Button("Voltaer H");
@@ -29,8 +30,11 @@ public class FigureActionBox implements FillBox {
             button.setCursor(Cursor.HAND);
         }
 
-        actionBox = loadBox(actionsArr);
-        actionBox.getChildren().addFirst(new Label("Acciones"));
+
+        actionBox = new VBox(10);
+        settings(actionBox);
+        actionBox.getChildren().add(new Label("Acciones"));
+        actionBox.getChildren().addAll(actionsArr);
 
         rotateButton.setOnAction(event -> {
             onRotateAction.run();
@@ -72,11 +76,12 @@ public class FigureActionBox implements FillBox {
 
     public void setOnDivideAction(Runnable action) {
         this.onDivideAction = action;
-    }
-
-    // Method to get the UI component
-    public VBox getActionBox() {
+    }public VBox getActionBox() {
         return actionBox;
     }
 
+    @Override
+    public Pane getBox() {
+        return actionBox;
+    }
 }

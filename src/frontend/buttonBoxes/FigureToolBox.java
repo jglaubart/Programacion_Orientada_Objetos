@@ -5,13 +5,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class FigureToolBox implements FillBox {
+public class FigureToolBox implements SettingsBox {
     private static final int DEFAULT_SPACING = 10;
 
     private final ToggleButton selectionButton = new ToggleButton("Seleccionar");
@@ -21,8 +22,7 @@ public class FigureToolBox implements FillBox {
     private final ToggleButton ellipseButton = new ToggleButton("Elipse");
     private final Button deleteButton = new Button("Borrar");
 
-    private final VBox figureBox;
-    private final ColorPicker fillColorPicker;
+    private final VBox toolBox;
 
     private final ToggleGroup tools = new ToggleGroup();
     private Map<ToggleButton, FigureBuilder> figureBuilderMap = new HashMap<>();
@@ -30,9 +30,8 @@ public class FigureToolBox implements FillBox {
     private Runnable onDeleteAction;
 
 
-    public FigureToolBox(Color defaultcolor) {super();
-        fillColorPicker = new ColorPicker(defaultcolor);
-
+    public FigureToolBox() {
+        super();
         ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton};
 
         for(ToggleButton button : toolsArr){
@@ -41,15 +40,17 @@ public class FigureToolBox implements FillBox {
             button.setCursor(Cursor.HAND);
         }
 
-        figureBox = loadBox(toolsArr);
+        toolBox = new VBox(10);
+        settings(toolBox);
+        toolBox.getChildren().addAll(toolsArr);
+        toolBox.getChildren().addAll(deleteButton);
+
 
         deleteButton.setMinWidth(90);
         deleteButton.setCursor(Cursor.HAND);
         deleteButton.setOnAction(event -> {
             onDeleteAction.run();
         });
-
-        figureBox.getChildren().addAll(deleteButton, fillColorPicker);
 
         figureBuilderMap = Map.of(
                 rectangleButton, new RectangleBuilder(),
@@ -67,20 +68,16 @@ public class FigureToolBox implements FillBox {
         return null;
     }
 
-    public Color getSelectedFillColor() {
-        return fillColorPicker.getValue();
-    }
-
     public boolean isSelectionButtonActive() {
         return selectionButton.isSelected();
-    }
-
-    public VBox getFigureBox() {
-        return figureBox;
     }
 
     public void setOnDeleteAction(Runnable action) {
         this.onDeleteAction = action;
     }
 
+    @Override
+    public Pane getBox() {
+        return toolBox;
+    }
 }

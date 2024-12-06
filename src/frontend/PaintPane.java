@@ -3,14 +3,16 @@ package frontend;
 import backend.CanvasState;
 import backend.model.figures.*;
 import frontend.buttonBoxes.FigureActionBox;
+import frontend.buttonBoxes.FigureLayerBox;
+import frontend.buttonBoxes.FigurePropertiesBox;
 import frontend.buttonBoxes.FigureToolBox;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import backend.model.builders.*;
-import javax.swing.*;
 
 public class PaintPane extends BorderPane {
 	private static final Color LINE_COLOR = Color.BLACK;
@@ -38,7 +40,7 @@ public class PaintPane extends BorderPane {
 
 		gc.setLineWidth(1);
 
-		figureToolBox = new FigureToolBox(DEFAULT_FILL_COLOR);
+		figureToolBox = new FigureToolBox(); // no se va a necesitar el color
 
 		figureToolBox.setOnDeleteAction(() -> {
 			if (selectedFigure != null) {
@@ -98,6 +100,12 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
+		FigurePropertiesBox figurePropertiesBox = new FigurePropertiesBox(DEFAULT_FILL_COLOR, DEFAULT_FILL_COLOR2);
+
+
+
+		FigureLayerBox figureLayerBox = new FigureLayerBox();
+
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
@@ -121,7 +129,7 @@ public class PaintPane extends BorderPane {
 			Figure newFigure = builder.buildFigure(
 					startPoint,
 					endPoint,
-					ColorConverter.toRGBColor(figureToolBox.getSelectedFillColor()),
+					ColorConverter.toRGBColor(figurePropertiesBox.getSelectedFillColor()),
 					ColorConverter.toRGBColor(DEFAULT_FILL_COLOR2),
 					INVERSE_SHADOW_OFFSET,
 					ColorConverter.toRGBColor(Color.GRAY),
@@ -182,9 +190,18 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
-		setLeft(figureToolBox.getFigureBox());
+		VBox ToolAndPropertiesBox = new VBox();
+		VBox.setVgrow(figurePropertiesBox.getBox(), Priority.ALWAYS);
+		ToolAndPropertiesBox.setStyle("-fx-background-color: #999");
+		ToolAndPropertiesBox.setPrefWidth(100);
+
+		ToolAndPropertiesBox.getChildren().addAll(figureToolBox.getBox(), figurePropertiesBox.getBox());
+
+
+		setLeft(ToolAndPropertiesBox);
 		setCenter(canvas);
-		setRight(figureActionBox.getActionBox());
+		setRight(figureActionBox.getBox());
+		setTop(figureLayerBox.getBox());
 	}
 
 	void redrawCanvas() {
