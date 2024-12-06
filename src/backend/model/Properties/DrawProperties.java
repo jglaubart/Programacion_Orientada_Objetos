@@ -1,17 +1,19 @@
 package backend.model.Properties;
 
 import backend.RGBColor;
+import backend.model.figures.Figure;
 
 public class DrawProperties {
-    private ShadowType shadowType = ShadowType.NONE;
+    private double shadowOffset = 0.0;
+    private Figure shadow = null;
     private RGBColor color1 = null;
     private RGBColor color2 = null;
     private boolean beveledState = false;
 
-    public DrawProperties(RGBColor color1, RGBColor color2, ShadowType shadowType, boolean beveledState) {
+    public DrawProperties(RGBColor color1, RGBColor color2, double shadowOffset, boolean beveledState) {
         this.color1 = color1;
         this.color2 = color2;
-        this.shadowType = shadowType;
+        this.shadowOffset = shadowOffset;
         this.beveledState = beveledState;
     }
 
@@ -31,12 +33,20 @@ public class DrawProperties {
         return this.color2;
     }
 
-    public void setShadowType(ShadowType shadowType) {
-        this.shadowType = shadowType;
+    public void setShadowOffset(double shadowOffset) {
+        this.shadowOffset = shadowOffset;
     }
 
-    public ShadowType getShadowType() {
-        return this.shadowType;
+    public double getShadowOffset() {
+        return this.shadowOffset;
+    }
+
+    public void setShadow(Figure shadow) {
+        this.shadow = shadow;
+    }
+
+    public Figure getShadow() {
+        return this.shadow;
     }
 
     public void setBeveledState(boolean beveledState) {

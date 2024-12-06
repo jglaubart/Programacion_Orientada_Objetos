@@ -1,5 +1,6 @@
 package backend.model.figures;
 
+import backend.model.Properties.DrawProperties;
 import backend.model.interfaces.Drawer;
 
 public class Circle extends Ellipse {
@@ -10,7 +11,7 @@ public class Circle extends Ellipse {
 
     @Override
     public String toString() {
-        return String.format("Círculo [Centro: %s, Radio: %.2f]", centerPoint, getRadius());
+        return String.format("Círculo [Centro: %s, Radio: %.2f]", getCenterPoint(), getRadius());
     }
 
     public double getRadius() {
@@ -25,6 +26,7 @@ public class Circle extends Ellipse {
 
     @Override
     public void draw(Drawer drawer) {
+        super.draw(drawer);
         drawer.drawCircle(this.getCenterPoint(), this.getRadius() * 2);
     }
 }

@@ -16,6 +16,9 @@ public class PaintPane extends BorderPane {
 	private static final Color LINE_COLOR = Color.BLACK;
 	private static final Color DEFAULT_FILL_COLOR = Color.YELLOW;
 	private static final Color DEFAULT_FILL_COLOR2 = Color.ORANGE;
+	private static final double DUPE_OFFSET = 20.0;
+	private static final double SHADOW_OFFSET = 10.0;
+	private static final double INVERSE_SHADOW_OFFSET = -SHADOW_OFFSET;
 
 	private final CanvasState canvasState;
 	private final Canvas canvas = new Canvas(800, 600);
@@ -78,7 +81,7 @@ public class PaintPane extends BorderPane {
 
 		figureActionBox.setOnDuplicateAction(() -> {
 			if (selectedFigure != null) {
-				Figure duplicatedFigure = selectedFigure.duplicate();
+				Figure duplicatedFigure = selectedFigure.duplicate(DUPE_OFFSET);
 				canvasState.addFigure(duplicatedFigure);
 				redrawCanvas();
 			} else {
@@ -115,7 +118,15 @@ public class PaintPane extends BorderPane {
 				return ;
 			}
 
-			Figure newFigure = builder.buildFigure(startPoint, endPoint, ColorConverter.toRGBColor(figureToolBox.getSelectedFillColor()));
+			Figure newFigure = builder.buildFigure(
+					startPoint,
+					endPoint,
+					ColorConverter.toRGBColor(figureToolBox.getSelectedFillColor()),
+					ColorConverter.toRGBColor(DEFAULT_FILL_COLOR2),
+					SHADOW_OFFSET,
+					ColorConverter.toRGBColor(Color.GRAY),
+					false
+			);
 			canvasState.addFigure(newFigure);
 			startPoint = null;
 			redrawCanvas();
@@ -182,10 +193,8 @@ public class PaintPane extends BorderPane {
 			if(figure == selectedFigure) {
 				gc.setStroke(Color.RED);
 			} else {
-				gc.setStroke(lineColor);
+				gc.setStroke(LINE_COLOR);
 			}
-
-			gc.setFill(ColorConverter.toJavaFXColor(figure.getColor()));
 
 			JavaFXDrawer drawer = new JavaFXDrawer(gc);
 

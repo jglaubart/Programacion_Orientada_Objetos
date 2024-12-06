@@ -1,9 +1,10 @@
 package frontend;
 
-import backend.model.attributes.Attribute;
+import backend.RGBColor;
 import backend.model.interfaces.Drawer;
 import backend.model.figures.Point;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.*;
 
 import java.util.Set;
 
@@ -33,9 +34,25 @@ public class JavaFXDrawer implements Drawer {
     }
 
     @Override
-    public void drawAttributes(Set<Attribute> attributes){
-        for(Attribute att : attributes){
-            att.drawAttribute();
-        }
+    public void fillColor(RGBColor color) {
+        gc.setFill(ColorConverter.toJavaFXColor(color));
+    }
+
+    @Override
+    public void fillLinearGradient(RGBColor color1, RGBColor color2) {
+        LinearGradient linearGradient = new LinearGradient(0, 0, 1, 0, true,
+                CycleMethod.NO_CYCLE,
+                new Stop(0, ColorConverter.toJavaFXColor(color1)),
+                new Stop(1, ColorConverter.toJavaFXColor(color2)));
+        gc.setFill(linearGradient);
+    }
+
+    @Override
+    public void fillRadialGradient(RGBColor color1, RGBColor color2) {
+        RadialGradient radialGradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true,
+                CycleMethod.NO_CYCLE,
+                new Stop(0, ColorConverter.toJavaFXColor(color1)),
+                new Stop(1, ColorConverter.toJavaFXColor(color2)));
+        gc.setFill(radialGradient);
     }
 }

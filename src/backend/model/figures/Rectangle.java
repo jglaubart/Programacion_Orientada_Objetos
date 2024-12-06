@@ -1,39 +1,30 @@
 package backend.model.figures;
 
+import backend.model.Properties.DrawProperties;
 import backend.model.interfaces.Drawer;
 import backend.model.FiguresPair;
 
 public class Rectangle extends Figure {
-    private Point topLeft, bottomRight;
 
     public Rectangle(Point topLeft, Point bottomRight) {
-        this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
+        this.setTopLeft(topLeft);
+        this.setBottomRight(bottomRight);
+        this.setCenterPoint(new Point((topLeft.getX() + bottomRight.getX()) / 2, (topLeft.getY() + bottomRight.getY()) / 2));
     }
 
-    public Point getTopLeft() {
-        return topLeft;
-    }
-
-    public Point getBottomRight() {
-        return bottomRight;
-    }
-
+    @Override
     protected double getWidth() {
-        return topLeft.getX() - bottomRight.getX();
+        return getTopLeft().getX() - getBottomRight().getX();
     }
 
+    @Override
     protected double getHeight() {
-        return topLeft.getY() - bottomRight.getY();
-    }
-
-    protected Point getCenterPoint(){
-        return new Point((topLeft.getX() + bottomRight.getX()) / 2, (topLeft.getY() + bottomRight.getY()) / 2);
+        return getTopLeft().getY() - getBottomRight().getY();
     }
 
     @Override
     public String toString() {
-        return String.format("Rectángulo [ %s , %s ]", topLeft, bottomRight);
+        return String.format("Rectángulo [ %s , %s ]", getTopLeft(), getBottomRight());
     }
     
     @Override
@@ -43,45 +34,15 @@ public class Rectangle extends Figure {
     }
 
     @Override
-    public void move(double dx, double dy) {
-        topLeft.move(dx, dy);
-        bottomRight.move(dx, dy);
-    }
-
-    @Override
     public void draw(Drawer drawer) {
-        drawer.drawRectangle(topLeft, bottomRight);
-        drawer.drawAttributes();
+        super.draw(drawer);
+        drawer.drawRectangle(getTopLeft(), getBottomRight());
     }
 
     @Override
-    public void rotate() {
-        double height = getHeight();
-        double width = getWidth();
-        Point center = getCenterPoint();
-        topLeft = new Point(center.getX() - height / 2, center.getY() - width / 2);
-        bottomRight = new Point(center.getX() + height / 2, center.getY() + width / 2);
-    }
-
-    @Override
-    public void flipX() {
-        double dx = getWidth();
-        topLeft.move(dx,0);
-        bottomRight.move(dx,0);
-    }
-
-    @Override
-    public void flipY() {
-        double dy = getHeight();
-        topLeft.move(0,dy);
-        bottomRight.move(0,dy);
-    }
-
-    @Override
-    public Rectangle duplicate() {
-        Point newTopLeft = new Point(getTopLeft().getX() + POS_OFF_SET, getTopLeft().getY() - POS_OFF_SET);
-        Point newBottomRight = new Point(getBottomRight().getX() + POS_OFF_SET, getBottomRight().getY() - POS_OFF_SET);
-        return new Rectangle(newTopLeft, newBottomRight);
+    public void fillGradient(Drawer drawer) {
+        DrawProperties properties = this.getDrawProperties();
+        drawer.fillLinearGradient(properties.getColor1(), properties.getColor2());
     }
 
     @Override
@@ -89,9 +50,7 @@ public class Rectangle extends Figure {
         double dHeight = getHeight() / 4;
         double newBottomRightY = getCenterPoint().getY() - dHeight;
         double newTopLeftY = getCenterPoint().getY() + dHeight;
-        Rectangle leftRectangle = new Rectangle(new Point(getTopLeft().getX(), newTopLeftY), new Point(getCenterPoint().getX(), newBottomRightY));
-        Rectangle rightRectangle = new Rectangle(new Point(getCenterPoint().getX(), newTopLeftY), new Point(getBottomRight().getX(), newBottomRightY));
-        return new FiguresPair<>(leftRectangle, rightRectangle);
+        return null;//lo termino después
     }
 }
 

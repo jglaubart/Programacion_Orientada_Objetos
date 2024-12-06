@@ -7,15 +7,7 @@ import backend.model.FiguresPair;
 
 public class Ellipse extends Figure {
 
-    private double axisX, axisY;
-
-    public Ellipse(Point centerPoint, double axisX, double axisY) {
-        this.setCenterPoint(centerPoint);
-        this.setTopLeft(new Point(centerPoint.getX() - axisX / 2, centerPoint.getY() - axisY / 2));
-        this.setBottomRight(new Point(centerPoint.getX() + axisX / 2, centerPoint.getY() + axisY / 2));
-        this.axisX = axisX;
-        this.axisY = axisY;
-    }
+    protected double axisX, axisY;
 
     @Override
     public String toString() {
