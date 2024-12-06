@@ -56,8 +56,20 @@ public abstract class Figure implements Movable, Transformable<Figure> {
     public Point getCenterPoint(){
         return centerPoint;
     }
+
     public void setCenterPoint(Point centerPoint) {
         this.centerPoint = centerPoint;
+
+        if(drawProperties == null){
+            return;
+        }
+
+        Figure shadow = drawProperties.getShadow();
+        if(shadow != null){
+            double offset = drawProperties.getShadowOffset();
+            shadow.setCenterPoint(centerPoint);
+            shadow.getCenterPoint().move(offset, offset);
+        }
     }
 
     public Point getTopLeft() {
@@ -65,12 +77,34 @@ public abstract class Figure implements Movable, Transformable<Figure> {
     }
     public void setTopLeft(Point topLeft) {
         this.topLeft = topLeft;
+
+        if(drawProperties == null){
+            return;
+        }
+
+        Figure shadow = drawProperties.getShadow();
+        if(shadow != null){
+            double offset = drawProperties.getShadowOffset();
+            shadow.setTopLeft(topLeft);
+            shadow.getTopLeft().move(offset, offset);
+        }
     }
     public Point getBottomRight() {
         return bottomRight;
     }
     public void setBottomRight(Point bottomRight) {
         this.bottomRight = bottomRight;
+
+        if(drawProperties == null){
+            return;
+        }
+
+        Figure shadow = drawProperties.getShadow();
+        if(shadow != null){
+            double offset = drawProperties.getShadowOffset();
+            shadow.setBottomRight(bottomRight);
+            shadow.getBottomRight().move(offset, offset);
+        }
     }
 
     protected abstract double getWidth();
@@ -91,8 +125,8 @@ public abstract class Figure implements Movable, Transformable<Figure> {
     public void rotate() {
         double height = getHeight();
         double width = getWidth();
-        topLeft = new Point(centerPoint.getX() - height / 2, centerPoint.getY() - width / 2);
-        bottomRight = new Point(centerPoint.getX() + height / 2, centerPoint.getY() + width / 2);
+        setTopLeft(new Point(centerPoint.getX() - height / 2, centerPoint.getY() - width / 2));
+        setBottomRight(new Point(centerPoint.getX() + height / 2, centerPoint.getY() + width / 2));
     }
 
     @Override
