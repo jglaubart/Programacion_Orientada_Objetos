@@ -113,8 +113,10 @@ public abstract class Figure implements Movable, Transformable<Figure> {
         this.centerPoint.move(dx, dy);
         this.topLeft.move(dx, dy);
         this.bottomRight.move(dx, dy);
-        if(drawProperties.getShadow() != null) {
-            drawProperties.getShadow().move(dx, dy);
+
+        Figure shadow = drawProperties.getShadow();
+        if(shadow != null) {
+            shadow.move(dx, dy);
         }
     }
 

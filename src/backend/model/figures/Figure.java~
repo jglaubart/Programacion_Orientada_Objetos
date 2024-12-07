@@ -174,15 +174,4 @@ public abstract class Figure implements Movable, Transformable<Figure> {
 
         return new FiguresPair<Figure, Figure>(left, right);
     }
-
-    public void updateShadow() {
-        Figure shadow = drawProperties.getShadow();
-        shadow.setTopLeft(topLeft);
-        shadow.setBottomRight(bottomRight);
-        shadow.setCenterPoint(centerPoint);
-
-        double offset = drawProperties.getShadowOffset();
-
-        shadow.move(offset, offset);
-    }
 }
