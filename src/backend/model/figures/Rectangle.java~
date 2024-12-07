@@ -14,12 +14,12 @@ public class Rectangle extends Figure {
 
     @Override
     protected double getWidth() {
-        return Math.abs(getTopLeft().getX() - getBottomRight().getX());
+        return getTopLeft().getX() - getBottomRight().getX();
     }
 
     @Override
     protected double getHeight() {
-        return Math.abs(getTopLeft().getY() - getBottomRight().getY());
+        return getTopLeft().getY() - getBottomRight().getY();
     }
 
     @Override

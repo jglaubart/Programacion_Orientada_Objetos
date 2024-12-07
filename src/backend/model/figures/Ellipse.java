@@ -47,6 +47,22 @@ public class Ellipse extends Figure {
         drawer.fillRadialGradient(properties.getColor1(), properties.getColor2());
     }
 
+    @Override
+    public void setTopLeft(Point topLeft) {
+        super.setTopLeft(topLeft);
+        if(this.getBottomRight() == null) return;
+        this.axisX = Math.abs(topLeft.getX() - this.getBottomRight().getX());
+        this.axisY = Math.abs(topLeft.getY() - this.getBottomRight().getY());
+    }
+
+    @Override
+    public void setBottomRight(Point bottomRight) {
+        super.setBottomRight(bottomRight);
+        if(this.getTopLeft() == null) return;
+        this.axisX = Math.abs(this.getTopLeft().getX() - bottomRight.getX());
+        this.axisY = Math.abs(this.getTopLeft().getY() - bottomRight.getY());
+    }
+
     /*@Override
     public FiguresPair<Figure, Figure> divide() {
         double newWidth = getWidth() / 2;

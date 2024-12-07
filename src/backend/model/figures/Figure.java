@@ -154,14 +154,14 @@ public abstract class Figure implements Movable, Transformable<Figure> {
     public FiguresPair<Figure, Figure> divide() {
         double newWidth = getWidth() / 2;
         double newHeight = getHeight() / 2;
-        Point leftCenter = new Point(getCenterPoint().getX() - newWidth, getCenterPoint().getY());
-        Point rightCenter = new Point(getCenterPoint().getX() + newWidth, getCenterPoint().getY());
+        Point leftCenter = new Point(getCenterPoint().getX() - newWidth / 2, getCenterPoint().getY());
+        Point rightCenter = new Point(getCenterPoint().getX() + newWidth / 2, getCenterPoint().getY());
 
-        Point topLeftRightFig = new Point(rightCenter.getX() + newWidth/2, rightCenter.getY() + newHeight/2);
-        Point bottomRightRightFig = new Point(rightCenter.getX() - newWidth/2, rightCenter.getY() - newHeight/2);
+        Point topLeftRightFig = new Point(rightCenter.getX() - newWidth/2, rightCenter.getY() - newHeight/2);
+        Point bottomRightRightFig = new Point(rightCenter.getX() + newWidth/2, rightCenter.getY() + newHeight/2);
 
-        Point topLeftLeftFig = new Point(leftCenter.getX() + newWidth/2, leftCenter.getY() + newHeight/2);
-        Point bottomRightLeftFig = new Point(leftCenter.getX() - newWidth/2, leftCenter.getY() - newHeight/2);
+        Point topLeftLeftFig = new Point(leftCenter.getX() - newWidth/2, leftCenter.getY() - newHeight/2);
+        Point bottomRightLeftFig = new Point(leftCenter.getX() + newWidth/2, leftCenter.getY() + newHeight/2);
         
 
         Figure left = this.duplicate(0);

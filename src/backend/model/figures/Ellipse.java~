@@ -7,7 +7,15 @@ import backend.model.FiguresPair;
 
 public class Ellipse extends Figure {
 
-    protected double axisX, axisY;
+    private double axisX, axisY;
+
+    public Ellipse(Point centerPoint, double axisX, double axisY) {
+        this.setCenterPoint(centerPoint);
+        this.setTopLeft(new Point(centerPoint.getX() - axisX / 2, centerPoint.getY() - axisY / 2));
+        this.setBottomRight(new Point(centerPoint.getX() + axisX / 2, centerPoint.getY() + axisY / 2));
+        this.axisX = axisX;
+        this.axisY = axisY;
+    }
 
     @Override
     public String toString() {
@@ -40,11 +48,27 @@ public class Ellipse extends Figure {
     }
 
     @Override
+    public void setTopLeft(Point topLeft) {
+        super.setTopLeft(topLeft);
+        this.axisX = Math.abs(topLeft.getX() - this.getBottomRight().getX());
+        this.axisY = Math.abs(topLeft.getY() - this.getBottomRight().getY());
+    }
+
+    @Override
+    public void setBottomRight(Point bottomRight) {
+        super.setBottomRight(bottomRight);
+        this.axisX = Math.abs(this.getTopLeft().getX() - bottomRight.getX());
+        this.axisY = Math.abs(this.getTopLeft().getY() - bottomRight.getY());
+    }
+
+    /*@Override
     public FiguresPair<Figure, Figure> divide() {
         double newWidth = getWidth() / 2;
         double newHeight = getHeight() / 2;
         Point leftCenter = new Point(getCenterPoint().getX() - newWidth, getCenterPoint().getY());
         Point rightCenter = new Point(getCenterPoint().getX() + newWidth, getCenterPoint().getY());
-        return null;//lo termino después
-    }
+        Ellipse leftEllipse = new Ellipse(leftCenter, newWidth, newHeight);
+        Ellipse rightEllipse = new Ellipse(rightCenter, newWidth, newHeight);
+        return new FiguresPair<>(leftEllipse, rightEllipse);
+    }*/
 }
