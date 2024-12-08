@@ -49,4 +49,8 @@ public class FigurePropertiesBox implements SettingsBox {
     public Pane getBox() {
         return propertiesBox;
     }
+
+    public boolean getBeveledState() {
+        return beveledButton.isSelected();
+    }
 }

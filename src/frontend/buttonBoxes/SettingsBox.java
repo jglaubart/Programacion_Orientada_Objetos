@@ -12,4 +12,5 @@ public interface SettingsBox {
     }
 
     public Pane getBox();
+
 }

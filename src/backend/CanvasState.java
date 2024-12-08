@@ -5,18 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CanvasState {
-
-    private final List<Figure> list = new ArrayList<>();
+    private final List<Layer> layers = new ArrayList<>();
+    private final Layer currentLayer;
 
     public void addFigure(Figure figure) {
-        list.add(figure);
+        currentLayer.getFigures().add(figure);
     }
 
     public void deleteFigure(Figure figure) {
-        list.remove(figure);
+        for (Layer layer : layers) {
+            if (layer.getFigures().contains(figure)) {
+                layer.getFigures().remove(figure);
+                break;
+            }
+        }
     }
 
-    public Iterable<Figure> figures() {
-        return new ArrayList<>(list);
+    public Iterable<Layer> getLayers() {
+        return layers;
     }
+
 }

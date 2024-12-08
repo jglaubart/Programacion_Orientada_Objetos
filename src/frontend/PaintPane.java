@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.CanvasState;
+import backend.Layer;
 import backend.model.FiguresPair;
 import backend.model.figures.*;
 import frontend.buttonBoxes.FigureActionBox;
@@ -27,6 +28,7 @@ public class PaintPane extends BorderPane {
 	private final Canvas canvas = new Canvas(800, 600);
 	private final GraphicsContext gc = canvas.getGraphicsContext2D();
 
+	private final Layer currentLayer;
 
 	private final FigureToolBox figureToolBox;
 	private final FigureActionBox figureActionBox;
@@ -111,6 +113,11 @@ public class PaintPane extends BorderPane {
 
 		FigureLayerBox figureLayerBox = new FigureLayerBox();
 
+		figureLayerBox.setBringToFrontAction(() -> {
+			if (selectedFigure != null) {
+
+			}
+		});
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
@@ -135,11 +142,12 @@ public class PaintPane extends BorderPane {
 					startPoint,
 					endPoint,
 					ColorConverter.toRGBColor(figurePropertiesBox.getSelectedFillColor()),
-					ColorConverter.toRGBColor(DEFAULT_FILL_COLOR2),
+					ColorConverter.toRGBColor(figurePropertiesBox.getSecondarySelectedFillColor()),
 					INVERSE_SHADOW_OFFSET,
 					ColorConverter.toRGBColor(Color.GRAY),
-					false
+					figurePropertiesBox.getBeveledState()
 			);
+
 			canvasState.addFigure(newFigure);
 			startPoint = null;
 			redrawCanvas();
@@ -150,12 +158,22 @@ public class PaintPane extends BorderPane {
 			Point eventPoint = new Point(event.getX(), event.getY());
 			boolean found = false;
 			StringBuilder label = new StringBuilder();
-			for(Figure figure : canvasState.figures()) {
+
+			for (Layer layer : canvasState.getLayers()) {
+				for (Figure figure : layer.getFigures()) {
+					if(figure.belongs(eventPoint)) {
+						found = true;
+						label.append(figure.toString());
+					}
+				}
+			}
+			// Anterior
+			/*for(Figure figure : canvasState.figures()) {
 				if(figure.belongs(eventPoint)) {
 					found = true;
 					label.append(figure.toString());
 				}
-			}
+			}*/
 			if(found) {
 				statusPane.updateStatus(label.toString());
 			} else {
@@ -168,13 +186,23 @@ public class PaintPane extends BorderPane {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
-				for (Figure figure : canvasState.figures()) {
+				for (Layer layer : canvasState.getLayers()) {
+					for (Figure figure : layer.getFigures()) {
+						if(figure.belongs(eventPoint)) {
+							found = true;
+							selectedFigure = figure;
+							label.append(figure.toString());
+						}
+					}
+				}
+				// anterior
+				/*for (Figure figure : canvasState.figures()) {
 					if(figure.belongs(eventPoint)) {
 						found = true;
 						selectedFigure = figure;
 						label.append(figure.toString());
 					}
-				}
+				}*/
 				if (found) {
 					statusPane.updateStatus(label.toString());
 				} else {
@@ -211,7 +239,21 @@ public class PaintPane extends BorderPane {
 
 	void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for(Figure figure : canvasState.figures()) {
+		for (Layer layer : canvasState.getLayers()) {
+			for (Figure figure : layer.getFigures()) {
+				if(figure == selectedFigure) {
+					gc.setStroke(Color.RED);
+				} else {
+					gc.setStroke(LINE_COLOR);
+				}
+
+				JavaFXDrawer drawer = new JavaFXDrawer(gc);
+
+				figure.draw(drawer);
+			}
+		}
+		// Anterior
+		/*for(Figure figure : canvasState.figures()) {
 			if(figure == selectedFigure) {
 				gc.setStroke(Color.RED);
 			} else {
@@ -221,6 +263,6 @@ public class PaintPane extends BorderPane {
 			JavaFXDrawer drawer = new JavaFXDrawer(gc);
 
 			figure.draw(drawer);
-		}
+		}*/
 	}
 }
