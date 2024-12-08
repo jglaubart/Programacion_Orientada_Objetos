@@ -34,4 +34,7 @@ public class RGBColor implements Cloneable{
             throw new AssertionError("Object cannot be cloned");
         }
     }
+
+    public static final RGBColor GRAY = new RGBColor(0.5, 0.5, 0.5, 0.5);
+    public static final RGBColor TRANSPARENT = new RGBColor(0, 0, 0, 0);
 }

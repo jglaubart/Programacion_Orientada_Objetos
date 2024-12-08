@@ -1,6 +1,6 @@
 package frontend.buttonBoxes;
 
-import frontend.shadowInfo.ShadowType;
+import backend.model.ShadowType;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.util.StringConverter;
 
 public class FigurePropertiesBox implements SettingsBox {
-    private final ComboBox<ShadowType> shadowButton = new ComboBox<>();
+    private final ChoiceBox<ShadowType> shadowButton = new ChoiceBox<>();
     private final CheckBox beveledButton = new CheckBox("Biselado");
     private final ColorPicker firstColorPicker;
     private final ColorPicker secondColorPicker;
@@ -18,6 +18,7 @@ public class FigurePropertiesBox implements SettingsBox {
     private final VBox propertiesBox;
 
     private Runnable onCopyFormatAction;
+    private Runnable onButtonAction;
 
     public FigurePropertiesBox(Color firstColor, Color secondColor) {
         firstColorPicker = new ColorPicker(firstColor);
@@ -42,11 +43,22 @@ public class FigurePropertiesBox implements SettingsBox {
 
         propertiesBox.getChildren().addAll(formatLabel, shadowButton, beveledButton, firstColorPicker, secondColorPicker, copyFormatButton);
 
+        shadowButton.setOnAction(event -> notifyChange());
+        beveledButton.setOnAction(event -> notifyChange());
+        firstColorPicker.setOnAction(event -> notifyChange());
+        secondColorPicker.setOnAction(event -> notifyChange());
+
         copyFormatButton.setOnAction(event -> {
             onCopyFormatAction.run();
         });
+    }
 
+    public void setOnButtonAction(Runnable onButtonAction) {
+        this.onButtonAction = onButtonAction;
+    }
 
+    public void notifyChange() {
+        onButtonAction.run();
     }
 
     public Color getSelectedFillColor() {

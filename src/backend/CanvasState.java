@@ -1,28 +1,30 @@
 package backend;
 
-import backend.model.figures.Figure;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class CanvasState {
     private static final int INITAL_LAYERS = 3;
-    private final List<Layer> layers = new ArrayList<>();
-
+    private final SortedSet<Layer> layers = new TreeSet<>(Comparator.reverseOrder());
     private static int ID = 0;
 
 
-    public List<Layer> getLayers() {
+    public SortedSet<Layer> getLayers() {
         return layers;
     }
 
     public Layer addNewLayer() {
         ID += 1;
         Layer newLayer = new Layer(ID);
-        layers.add(newLayer); // OJO CON DONDE LO ESTA AGREGANDO
+        layers.add(newLayer);
         return newLayer;
     }
 
     public void removeLayer(Layer layer) {
+        if (layer.getId() <= 3) {
+            return;
+        }
         layers.remove(layer);
     }
 
@@ -31,10 +33,12 @@ public class CanvasState {
             this.addNewLayer();
         }
 
-        return layers.getFirst();
+        return getLastLayer(); // "last" = capa 1
     }
 
-    public Layer getFirstLayer() {
-        return layers.getFirst();
+    public Layer getLastLayer() {
+        return layers.getLast();
     }
+
+
 }

@@ -3,6 +3,8 @@ package frontend;
 import backend.CanvasState;
 import backend.Layer;
 import backend.model.FiguresPair;
+import backend.model.Properties.DrawProperties;
+import backend.model.ShadowType;
 import backend.model.figures.*;
 import frontend.buttonBoxes.FigureActionBox;
 import frontend.buttonBoxes.FigureLayerBox;
@@ -28,6 +30,9 @@ public class PaintPane extends BorderPane {
 	private final CanvasState canvasState;
 	private final Canvas canvas = new Canvas(800, 600);
 	private final GraphicsContext gc = canvas.getGraphicsContext2D();
+	private final JavaFXDrawer drawer = new JavaFXDrawer(gc);
+
+	private DrawProperties currentDrawProperties;
 
 	private Layer currentLayer;
 
@@ -41,6 +46,12 @@ public class PaintPane extends BorderPane {
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
+		this.currentDrawProperties = new DrawProperties(
+				ColorConverter.toRGBColor(DEFAULT_FILL_COLOR),
+				ColorConverter.toRGBColor(DEFAULT_FILL_COLOR2),
+				ShadowType.SIMPLE,
+				false
+		);
 
 		gc.setLineWidth(1);
 
@@ -68,6 +79,7 @@ public class PaintPane extends BorderPane {
 				statusPane.updateStatus("Ninguna figura encontrada para rotar");
 			}
 		});
+
 
 		figureActionBox.setOnReflectVerticalAction(() -> {
 			if (selectedFigure != null) {
@@ -109,9 +121,13 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
-		FigurePropertiesBox figurePropertiesBox = new FigurePropertiesBox(DEFAULT_FILL_COLOR, DEFAULT_FILL_COLOR2);
+		figurePropertiesBox = new FigurePropertiesBox(DEFAULT_FILL_COLOR, DEFAULT_FILL_COLOR2);
+		figurePropertiesBox.setOnButtonAction(() -> {
+			updateDrawProperties();
+			redrawCanvas();
+		});
 
-		FigureLayerBox figureLayerBox = new FigureLayerBox();
+		figureLayerBox = new FigureLayerBox();
 
 		figureLayerBox.setBringToFrontAction(() -> {
 			if (selectedFigure != null) {
@@ -157,40 +173,8 @@ public class PaintPane extends BorderPane {
 				return ;
 			}
 
-			class ShadowInfo {
-				private ShadowType shadow;
-				private static final double OFFSET = 10.0;
-
-				public ShadowInfo(ShadowType shadow) {
-					this.shadow = shadow;
-				}
-
-				Color getShadowColor(){
-					if(shadow.equals(ShadowType.SIMPLE) || shadow.equals(ShadowType.SIMPLE_INVERSE)) {
-						return Color.GRAY;
-					}
-					return figurePropertiesBox.getSelectedFillColor().darker();
-				}
-
-				double getShadowOffset(){
-					if(shadow.equals(ShadowType.SIMPLE) || shadow.equals(ShadowType.COLORED)) {
-						return OFFSET;
-					}
-					return -OFFSET;
-				}
-			}
-
-			ShadowInfo shadowInfo = new ShadowInfo(figurePropertiesBox.getSelectedShadowType());
-
-			Figure newFigure = builder.buildFigure(
-					startPoint,
-					endPoint,
-					ColorConverter.toRGBColor(figurePropertiesBox.getSelectedFillColor()),
-					ColorConverter.toRGBColor(figurePropertiesBox.getSecondarySelectedFillColor()),
-					shadowInfo.getShadowOffset(),
-					ColorConverter.toRGBColor(shadowInfo.getShadowColor()),
-					figurePropertiesBox.getBeveledState()
-			);
+			updateDrawProperties();
+			Figure newFigure = builder.buildFigure(startPoint, endPoint, currentDrawProperties.clone(), drawer);
 
 			currentLayer.addFigure(newFigure);
 			startPoint = null;
@@ -232,6 +216,8 @@ public class PaintPane extends BorderPane {
 								selectedFigure = figure;
 								currentLayer = layer;
 								label.append(figure.toString());
+								currentDrawProperties = selectedFigure.getDrawProperties();
+								// updatePropertiesBox();
 							}
 						}
 					}
@@ -239,10 +225,13 @@ public class PaintPane extends BorderPane {
 				if (found) {
 					statusPane.updateStatus(label.toString());
 				} else {
+					if(selectedFigure != null)
+						currentDrawProperties = currentDrawProperties.clone();
 					selectedFigure = null;
 					statusPane.updateStatus("Ninguna figura encontrada");
 				}
 				redrawCanvas();
+				return;
 			}
 		});
 
@@ -250,7 +239,7 @@ public class PaintPane extends BorderPane {
 		canvas.setOnMouseDragged(event -> {
 			if(figureToolBox.isSelectionButtonActive() && selectedFigure != null) {
 				Point eventPoint = new Point(event.getX(), event.getY());
-				selectedFigure.changePosition(startPoint, eventPoint); // DESREFERENCIA NULL
+				selectedFigure.changePosition(startPoint, eventPoint);
 				startPoint = eventPoint;
 				redrawCanvas();
 			}
@@ -268,7 +257,6 @@ public class PaintPane extends BorderPane {
 		setCenter(canvas);
 		setRight(figureActionBox.getBox());
 		setTop(figureLayerBox.getBox());
-
 	}
 
 	void redrawCanvas() {
@@ -282,9 +270,7 @@ public class PaintPane extends BorderPane {
 						gc.setStroke(LINE_COLOR);
 					}
 
-					JavaFXDrawer drawer = new JavaFXDrawer(gc);
-
-					figure.draw(drawer);
+					figure.draw();
 				}
 			}
 		}

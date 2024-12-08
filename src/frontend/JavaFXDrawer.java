@@ -89,4 +89,9 @@ public class JavaFXDrawer implements Drawer {
         gc.setStroke(normalLineColor);
         gc.setLineWidth(normalLineWidth);
     }
+
+    @Override
+    public RGBColor darken(RGBColor color){
+        return ColorConverter.toRGBColor(ColorConverter.toJavaFXColor(color).darker());
+    }
 }

@@ -34,18 +34,18 @@ public class Rectangle extends Figure {
     }
 
     @Override
-    public void draw(Drawer drawer) {
-        super.draw(drawer);
+    public void draw() {
+        super.draw();
         if(this.getDrawProperties().getBeveledState()){
-            drawer.drawBeveledRectangle(getTopLeft(), getBottomRight());
+            getDrawer().drawBeveledRectangle(getTopLeft(), getBottomRight());
         }
-        drawer.drawRectangle(getTopLeft(), getBottomRight());
+        getDrawer().drawRectangle(getTopLeft(), getBottomRight());
     }
 
     @Override
-    public void fillGradient(Drawer drawer) {
+    public void fillGradient() {
         DrawProperties properties = this.getDrawProperties();
-        drawer.fillLinearGradient(properties.getColor1(), properties.getColor2());
+        getDrawer().fillLinearGradient(properties.getColor1(), properties.getColor2());
     }
 
    /* @Override

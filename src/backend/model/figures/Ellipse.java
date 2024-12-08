@@ -36,18 +36,18 @@ public class Ellipse extends Figure {
                 (Math.pow(eventPoint.getY() - this.getCenterPoint().getY(), 2) / Math.pow(this.getHeight(), 2))) <= 0.30;
     }
     @Override
-    public void draw(Drawer drawer) {
-        super.draw(drawer);
+    public void draw() {
+        super.draw();
         if(this.getDrawProperties().getBeveledState()){
-            drawer.drawBeveledEllipse(this.getCenterPoint(), this.getWidth(), this.getHeight());
+            getDrawer().drawBeveledEllipse(this.getCenterPoint(), this.getWidth(), this.getHeight());
         }
-        drawer.drawEllipse(this.getCenterPoint(), this.getWidth(), this.getHeight());
+        getDrawer().drawEllipse(this.getCenterPoint(), this.getWidth(), this.getHeight());
     }
 
     @Override
-    public void fillGradient(Drawer drawer) {
+    public void fillGradient() {
         DrawProperties properties = this.getDrawProperties();
-        drawer.fillRadialGradient(properties.getColor1(), properties.getColor2());
+        getDrawer().fillRadialGradient(properties.getColor1(), properties.getColor2());
     }
 
     @Override

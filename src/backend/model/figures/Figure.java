@@ -2,6 +2,7 @@ package backend.model.figures;
 
 import backend.RGBColor;
 import backend.model.FiguresPair;
+import backend.model.ShadowType;
 import backend.model.builders.FigureBuilder;
 import backend.model.interfaces.Drawer;
 import backend.model.Properties.DrawProperties;
@@ -14,6 +15,7 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
     private Point topLeft;
     private Point bottomRight;
     private DrawProperties drawProperties;
+    private Drawer drawer;
 
     public void setDrawProperties(DrawProperties drawProperties) {
         this.drawProperties = drawProperties;
@@ -29,20 +31,20 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
 
     public abstract boolean belongs(Point eventPoint);
 
-    public void draw(Drawer drawer){
+    public void draw(){
         DrawProperties properties = this.getDrawProperties();
         Figure shadow = properties.getShadow();
         if(shadow != null) {
-            shadow.draw(drawer);
+            shadow.draw();
         }
         if(properties.getColor2() != null) {
-            this.fillGradient(drawer);
+            this.fillGradient();
         }else{
             drawer.fillColor(properties.getColor1());
         }
     }
 
-    public abstract void fillGradient(Drawer drawer);
+    public abstract void fillGradient();
 
     public Point getCenterPoint(){
         return centerPoint;
@@ -93,6 +95,14 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
             double offset = drawProperties.getShadowOffset();
             shadow.setBottomRight(new Point(bottomRight.getX() + offset, bottomRight.getY() + offset));
         }
+    }
+
+    public Drawer getDrawer(){
+        return this.drawer;
+    }
+
+    public void setDrawer(Drawer drawer){
+        this.drawer = drawer;
     }
 
     protected abstract double getWidth();

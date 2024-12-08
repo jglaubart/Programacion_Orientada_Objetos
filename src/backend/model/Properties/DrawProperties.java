@@ -1,19 +1,22 @@
 package backend.model.Properties;
 
 import backend.RGBColor;
+import backend.model.ShadowInfo;
 import backend.model.figures.Figure;
+import backend.model.ShadowType;
+import backend.model.interfaces.Drawer;
 
 public class DrawProperties implements Cloneable {
-    private double shadowOffset = 0.0;
-    private Figure shadow = null;
+    private ShadowInfo shadowInfo;
+    private Figure shadow;
     private RGBColor color1 = null;
     private RGBColor color2 = null;
     private boolean beveledState = false;
 
-    public DrawProperties(RGBColor color1, RGBColor color2, double shadowOffset, boolean beveledState) {
+    public DrawProperties(RGBColor color1, RGBColor color2, ShadowType shadowType, boolean beveledState) {
+        this.shadowInfo = new ShadowInfo(shadowType);
         this.color1 = color1;
         this.color2 = color2;
-        this.shadowOffset = shadowOffset;
         this.beveledState = beveledState;
     }
 
@@ -33,12 +36,20 @@ public class DrawProperties implements Cloneable {
         return this.color2;
     }
 
-    public void setShadowOffset(double shadowOffset) {
-        this.shadowOffset = shadowOffset;
+    public void setShadowType(ShadowType shadowType){
+        this.shadowInfo.setShadowType(shadowType);
+    }
+
+    public ShadowType getShadowType(){
+        return this.shadowInfo.getShadowType();
     }
 
     public double getShadowOffset() {
-        return this.shadowOffset;
+        return shadowInfo.getShadowOffset();
+    }
+
+    public RGBColor getShadowColor(Drawer drawer){
+        return this.shadowInfo.getShadowColor(drawer, color1);
     }
 
     public void setShadow(Figure shadow) {

@@ -11,5 +11,5 @@ public interface Drawer {
     public void fillColor(RGBColor color);
     public void fillLinearGradient(RGBColor color1, RGBColor color2);
     public void fillRadialGradient(RGBColor color1, RGBColor color2);
-
+    public RGBColor darken(RGBColor color);
 }

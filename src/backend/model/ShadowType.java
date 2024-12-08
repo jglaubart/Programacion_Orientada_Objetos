@@ -1,26 +1,23 @@
-package frontend.shadowInfo;
+package backend.model;
 
 public enum ShadowType {
-    NONE("No"),
+    NONE("Ninguna"),
     SIMPLE("Simple"),
     COLORED("Coloreada"),
     SIMPLE_INVERSE("Simple Inversa"),
     COLORED_INVERSE("Coloreada Inversa");
 
-
     private final String name;
 
-
-    ShadowType(String name) {
+     ShadowType(String name){
         this.name = name;
     }
 
-    public String getName() {
-        return name;
+    public String getName(){
+         return name;
     }
-
     @Override
-    public String toString() {
-        return name();
+    public String toString(){
+        return name;
     }
 }
