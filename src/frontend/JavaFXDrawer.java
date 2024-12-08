@@ -24,7 +24,7 @@ public class JavaFXDrawer implements Drawer {
 
     @Override
     public void drawRectangle(Point topLeft, Point bottomRight) {
-        
+
         gc.strokeRect(topLeft.getX(), topLeft.getY(), Math.abs(topLeft.getX() - bottomRight.getX()), Math.abs(topLeft.getY() - bottomRight.getY()));
         gc.fillRect(topLeft.getX(), topLeft.getY(), Math.abs(topLeft.getX() - bottomRight.getX()), Math.abs(topLeft.getY() - bottomRight.getY()));
     }

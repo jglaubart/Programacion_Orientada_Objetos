@@ -52,6 +52,21 @@ public class FigureLayerBox implements SettingsBox {
 
     }
 
+    public void setBringToFrontAction(Runnable action) {
+        this.onBringToFrontAction = action;
+    }
+
+    public void setBringToBackAction(Runnable action) {
+        this.onBringToBackAction = action;
+    }
+
+    public void setOnAddLayerAction(Runnable action) {
+        this.onAddLayerAction = action;
+    }
+
+    public void setOnRemoveLayerAction(Runnable action) {
+        this.onRemoveLayerAction = action;
+    }
 
     @Override
     public Pane getBox() {

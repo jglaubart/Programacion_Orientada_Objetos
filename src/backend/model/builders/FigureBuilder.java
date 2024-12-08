@@ -2,7 +2,6 @@ package backend.model.builders;
 
 import backend.RGBColor;
 import backend.model.Properties.DrawProperties;
-import backend.model.Properties.ShadowType;
 import backend.model.figures.Figure;
 import backend.model.figures.Point;
 

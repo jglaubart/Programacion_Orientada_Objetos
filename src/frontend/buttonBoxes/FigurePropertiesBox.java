@@ -1,13 +1,14 @@
 package frontend.buttonBoxes;
 
-import backend.model.Properties.ShadowType;
+import frontend.shadowInfo.ShadowType;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.StringConverter;
 
 public class FigurePropertiesBox implements SettingsBox {
-    private final ComboBox<ShadowType> shadowButton = new ComboBox<>(); // AGREGALE FORMATOS DE SHADOWS
+    private final ComboBox<ShadowType> shadowButton = new ComboBox<>();
     private final CheckBox beveledButton = new CheckBox("Biselado");
     private final ColorPicker firstColorPicker;
     private final ColorPicker secondColorPicker;
@@ -24,6 +25,17 @@ public class FigurePropertiesBox implements SettingsBox {
 
         shadowButton.getItems().addAll(ShadowType.values());
         shadowButton.setValue(ShadowType.NONE); // default value
+
+        shadowButton.setConverter(new StringConverter<>() {
+            @Override
+            public String toString(ShadowType shadowType) {
+                return shadowType.getName();
+            }
+            @Override
+            public ShadowType fromString(String string) {
+                return null;
+            }
+        });
 
         propertiesBox = new VBox(10);
         settings(propertiesBox);
@@ -48,5 +60,13 @@ public class FigurePropertiesBox implements SettingsBox {
     @Override
     public Pane getBox() {
         return propertiesBox;
+    }
+
+    public ShadowType getSelectedShadowType() {
+        return shadowButton.getValue();
+    }
+
+    public boolean getBeveledState() {
+        return beveledButton.isSelected();
     }
 }

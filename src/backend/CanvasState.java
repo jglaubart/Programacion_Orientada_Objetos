@@ -5,18 +5,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CanvasState {
+    private static final int INITAL_LAYERS = 3;
+    private final List<Layer> layers = new ArrayList<>();
 
-    private final List<Figure> list = new ArrayList<>();
+    private static int ID = 0;
 
-    public void addFigure(Figure figure) {
-        list.add(figure);
+
+    public List<Layer> getLayers() {
+        return layers;
     }
 
-    public void deleteFigure(Figure figure) {
-        list.remove(figure);
+    public Layer addNewLayer() {
+        ID += 1;
+        Layer newLayer = new Layer(ID);
+        layers.add(newLayer); // OJO CON DONDE LO ESTA AGREGANDO
+        return newLayer;
     }
 
-    public Iterable<Figure> figures() {
-        return new ArrayList<>(list);
+    public void removeLayer(Layer layer) {
+        layers.remove(layer);
+    }
+
+    public Layer initalizeLayers() {
+        for (int i = 0; i < INITAL_LAYERS; i++) {
+            this.addNewLayer();
+        }
+
+        return layers.getFirst();
+    }
+
+    public Layer getFirstLayer() {
+        return layers.getFirst();
     }
 }
