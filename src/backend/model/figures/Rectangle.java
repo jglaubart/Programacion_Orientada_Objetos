@@ -26,7 +26,7 @@ public class Rectangle extends Figure {
     public String toString() {
         return String.format("Rectángulo [ %s , %s ]", getTopLeft(), getBottomRight());
     }
-    
+
     @Override
     public boolean belongs(Point eventPoint){
         return eventPoint.getX() > this.getTopLeft().getX() && eventPoint.getX() < this.getBottomRight().getX() &&
