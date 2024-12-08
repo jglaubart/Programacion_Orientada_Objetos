@@ -8,6 +8,6 @@ public class CircleBuilder implements FigureBuilder {
 
     @Override
     public Figure buildFigure(Point startPoint, Point endPoint) {
-        return new Circle(startPoint, Math.sqrt(Math.pow(endPoint.getX() - startPoint.getX(), 2) + Math.pow(endPoint.getY() - startPoint.getY(), 2)));
+        return new Circle(startPoint, Math.abs(endPoint.getX() - startPoint.getX()));
     }
 }

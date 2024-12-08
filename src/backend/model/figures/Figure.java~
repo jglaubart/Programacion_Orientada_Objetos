@@ -146,16 +146,25 @@ public abstract class Figure implements Movable, Transformable<Figure> {
         FigureBuilder builder = this.getBuilder();
         Point newTopLeft = new Point(topLeft.getX() + offset, topLeft.getY() + offset);
         Point newBottomRight = new Point(bottomRight.getX() + offset, bottomRight.getY() + offset);
-        RGBColor shadowColor = properties.getShadow().getDrawProperties().getColor1();
-        return builder.buildFigure(newTopLeft, newBottomRight, properties.getColor1(), properties.getColor2(), properties.getShadowOffset(), shadowColor, properties.getBeveledState());
+        RGBColor shadowColor;
+        double shadowOffset;
+        if(properties.getShadow() == null) {
+            shadowColor = null;
+            shadowOffset = 0.0;
+        }else{
+            shadowColor = properties.getShadow().getDrawProperties().getColor1();
+            shadowOffset = properties.getShadowOffset();
+        }
+
+        return builder.buildFigure(newTopLeft, newBottomRight, properties.getColor1(), properties.getColor2(), shadowOffset, shadowColor, properties.getBeveledState());
     }
 
     @Override
     public FiguresPair<Figure, Figure> divide() {
         double newWidth = getWidth() / 2;
         double newHeight = getHeight() / 2;
-        Point leftCenter = new Point(getCenterPoint().getX() - newWidth, getCenterPoint().getY());
-        Point rightCenter = new Point(getCenterPoint().getX() + newWidth, getCenterPoint().getY());
+        Point leftCenter = new Point(getCenterPoint().getX() - newWidth / 2, getCenterPoint().getY());
+        Point rightCenter = new Point(getCenterPoint().getX() + newWidth / 2, getCenterPoint().getY());
 
         Point topLeftRightFig = new Point(rightCenter.getX() - newWidth/2, rightCenter.getY() - newHeight/2);
         Point bottomRightRightFig = new Point(rightCenter.getX() + newWidth/2, rightCenter.getY() + newHeight/2);

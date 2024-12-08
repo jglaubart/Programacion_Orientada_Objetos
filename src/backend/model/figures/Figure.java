@@ -144,10 +144,19 @@ public abstract class Figure implements Movable, Transformable<Figure> {
     public Figure duplicate(double offset) {
         DrawProperties properties = this.getDrawProperties();
         FigureBuilder builder = this.getBuilder();
-        Point newTopLeft = new Point(topLeft.getX() + offset, topLeft.getY() + offset);
-        Point newBottomRight = new Point(bottomRight.getX() + offset, bottomRight.getY() + offset);
-        RGBColor shadowColor = properties.getShadow().getDrawProperties().getColor1();
-        return builder.buildFigure(newTopLeft, newBottomRight, properties.getColor1(), properties.getColor2(), properties.getShadowOffset(), shadowColor, properties.getBeveledState());
+        RGBColor shadowColor;
+        double shadowOffset;
+        if(properties.getShadow() == null) {
+            shadowColor = null;
+            shadowOffset = 0.0;
+        }else{
+            shadowColor = properties.getShadow().getDrawProperties().getColor1();
+            shadowOffset = properties.getShadowOffset();
+        }
+
+        Figure newFigure = builder.buildFigure(topLeft, bottomRight, properties.getColor1(), properties.getColor2(), shadowOffset, shadowColor, properties.getBeveledState());
+        newFigure.move(offset, offset);
+        return newFigure;
     }
 
     @Override

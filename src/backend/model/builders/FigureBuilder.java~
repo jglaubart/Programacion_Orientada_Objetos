@@ -18,8 +18,11 @@ public interface FigureBuilder {
         if(offset != 0.0){
             Point figureStartPoint = new Point(startPoint.getX() + offset, startPoint.getY() + offset);
             Point figureEndPoint = new Point(endPoint.getX() + offset, endPoint.getY() + offset);
-            figure.setShadow(figure.getBuilder().buildFigure(figureStartPoint, figureEndPoint));
-            figure.
+            //figure.setShadow(figure.getBuilder().buildFigure(figureStartPoint, figureEndPoint, shadowColor, null, 0, null, false));
+            Figure shadow = figure.duplicate(offset);
+            shadow.getDrawProperties().setColor1(shadowColor);
+            shadow.getDrawProperties().setColor2(null);
+            properties.setShadow(shadow);
         }
 
         return figure;
