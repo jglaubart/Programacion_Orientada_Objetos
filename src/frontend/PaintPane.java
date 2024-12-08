@@ -90,7 +90,7 @@ public class PaintPane extends BorderPane {
 		figureActionBox.setOnDuplicateAction(() -> {
 			if (selectedFigure != null) {
 				Figure duplicatedFigure = selectedFigure.duplicate(DUPE_OFFSET);
-				currentLayer.removeFigure(duplicatedFigure);
+				currentLayer.addFigure(duplicatedFigure);
 				redrawCanvas();
 			} else {
 				statusPane.updateStatus("Ninguna figura encontrada para duplicar");

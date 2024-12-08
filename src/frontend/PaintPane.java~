@@ -91,6 +91,7 @@ public class PaintPane extends BorderPane {
 			if (selectedFigure != null) {
 				Figure duplicatedFigure = selectedFigure.duplicate(DUPE_OFFSET);
 				currentLayer.removeFigure(duplicatedFigure);
+				currentLayer.addFigure(duplicatedFigure);
 				redrawCanvas();
 			} else {
 				statusPane.updateStatus("Ninguna figura encontrada para duplicar");
@@ -186,17 +187,10 @@ public class PaintPane extends BorderPane {
 					startPoint,
 					endPoint,
 					ColorConverter.toRGBColor(figurePropertiesBox.getSelectedFillColor()),
-<<<<<<< HEAD
-					ColorConverter.toRGBColor(DEFAULT_FILL_COLOR2),
-					INVERSE_SHADOW_OFFSET,
-					ColorConverter.toRGBColor(Color.GRAY),
-					true
-=======
 					ColorConverter.toRGBColor(figurePropertiesBox.getSecondarySelectedFillColor()),
 					shadowInfo.getShadowOffset(),
 					ColorConverter.toRGBColor(shadowInfo.getShadowColor()),
 					figurePropertiesBox.getBeveledState()
->>>>>>> origin/master
 			);
 
 			currentLayer.addFigure(newFigure);
