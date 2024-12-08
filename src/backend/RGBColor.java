@@ -1,6 +1,6 @@
 package backend;
 
-public class RGBColor {
+public class RGBColor implements Cloneable{
     private double red, green, blue, opacity;
 
     public RGBColor(double red, double green, double blue, double opacity) {
@@ -24,5 +24,14 @@ public class RGBColor {
 
     public double getOpacity() {
         return opacity;
+    }
+
+    @Override
+    public RGBColor clone() {
+        try {
+            return (RGBColor) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError("Object cannot be cloned");
+        }
     }
 }

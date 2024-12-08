@@ -36,6 +36,9 @@ public class Rectangle extends Figure {
     @Override
     public void draw(Drawer drawer) {
         super.draw(drawer);
+        if(this.getDrawProperties().getBeveledState()){
+            drawer.drawBeveledRectangle(getTopLeft(), getBottomRight());
+        }
         drawer.drawRectangle(getTopLeft(), getBottomRight());
     }
 

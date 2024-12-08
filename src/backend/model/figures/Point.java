@@ -2,7 +2,7 @@ package backend.model.figures;
 
 import backend.model.interfaces.Movable;
 
-public class Point implements Movable {
+public class Point implements Cloneable, Movable {
 
     private double x, y;
 
@@ -37,4 +37,12 @@ public class Point implements Movable {
         return String.format("{%.2f ; %.2f}", x, y);
     }
 
+    @Override
+    public Point clone() {
+        try {
+            return (Point) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError("Object cannot be cloned");
+        }
+    }
 }

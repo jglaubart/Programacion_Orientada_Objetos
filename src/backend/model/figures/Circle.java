@@ -6,7 +6,7 @@ import backend.model.interfaces.Drawer;
 public class Circle extends Ellipse {
 
     public Circle(Point centerPoint, double radius) {
-        super(centerPoint, radius, radius);
+        super(centerPoint, radius * 2, radius * 2);
     }
 
     @Override
@@ -15,18 +15,12 @@ public class Circle extends Ellipse {
     }
 
     public double getRadius() {
-        return getHeight();
+        return getHeight() / 2;
     }
 
     @Override
     public boolean belongs(Point eventPoint){
         return Math.sqrt(Math.pow(this.getCenterPoint().getX() - eventPoint.getX(), 2) +
                 Math.pow(this.getCenterPoint().getY() - eventPoint.getY(), 2)) < this.getRadius();
-    }
-
-    @Override
-    public void draw(Drawer drawer) {
-        super.draw(drawer);
-        drawer.drawCircle(this.getCenterPoint(), this.getRadius() * 2);
     }
 }

@@ -38,6 +38,9 @@ public class Ellipse extends Figure {
     @Override
     public void draw(Drawer drawer) {
         super.draw(drawer);
+        if(this.getDrawProperties().getBeveledState()){
+            drawer.drawBeveledEllipse(this.getCenterPoint(), this.getWidth(), this.getHeight());
+        }
         drawer.drawEllipse(this.getCenterPoint(), this.getWidth(), this.getHeight());
     }
 
@@ -62,15 +65,4 @@ public class Ellipse extends Figure {
         this.axisX = Math.abs(this.getTopLeft().getX() - bottomRight.getX());
         this.axisY = Math.abs(this.getTopLeft().getY() - bottomRight.getY());
     }
-
-    /*@Override
-    public FiguresPair<Figure, Figure> divide() {
-        double newWidth = getWidth() / 2;
-        double newHeight = getHeight() / 2;
-        Point leftCenter = new Point(getCenterPoint().getX() - newWidth, getCenterPoint().getY());
-        Point rightCenter = new Point(getCenterPoint().getX() + newWidth, getCenterPoint().getY());
-        Ellipse leftEllipse = new Ellipse(leftCenter, newWidth, newHeight);
-        Ellipse rightEllipse = new Ellipse(rightCenter, newWidth, newHeight);
-        return new FiguresPair<>(leftEllipse, rightEllipse);
-    }*/
 }

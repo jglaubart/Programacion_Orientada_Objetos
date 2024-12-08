@@ -8,13 +8,12 @@ import backend.model.Properties.DrawProperties;
 import backend.model.interfaces.Movable;
 import backend.model.interfaces.Transformable;
 
-public abstract class Figure implements Movable, Transformable<Figure> {
+public abstract class Figure implements Cloneable, Movable, Transformable<Figure> {
 
     private Point centerPoint;
     private Point topLeft;
     private Point bottomRight;
     private DrawProperties drawProperties;
-    private FigureBuilder builder;
 
     public void setDrawProperties(DrawProperties drawProperties) {
         this.drawProperties = drawProperties;
@@ -22,14 +21,6 @@ public abstract class Figure implements Movable, Transformable<Figure> {
 
     public DrawProperties getDrawProperties() {
         return drawProperties;
-    }
-
-    public FigureBuilder getBuilder() {
-        return builder;
-    }
-
-    public void setBuilder(FigureBuilder builder) {
-        this.builder = builder;
     }
 
     public void setShadow(Figure shadow) {
@@ -142,19 +133,7 @@ public abstract class Figure implements Movable, Transformable<Figure> {
 
     @Override
     public Figure duplicate(double offset) {
-        DrawProperties properties = this.getDrawProperties();
-        FigureBuilder builder = this.getBuilder();
-        RGBColor shadowColor;
-        double shadowOffset;
-        if(properties.getShadow() == null) {
-            shadowColor = null;
-            shadowOffset = 0.0;
-        }else{
-            shadowColor = properties.getShadow().getDrawProperties().getColor1();
-            shadowOffset = properties.getShadowOffset();
-        }
-
-        Figure newFigure = builder.buildFigure(topLeft, bottomRight, properties.getColor1(), properties.getColor2(), shadowOffset, shadowColor, properties.getBeveledState());
+        Figure newFigure = this.clone();
         newFigure.move(offset, offset);
         return newFigure;
     }
@@ -184,5 +163,20 @@ public abstract class Figure implements Movable, Transformable<Figure> {
         right.setCenterPoint(rightCenter);
 
         return new FiguresPair<Figure, Figure>(left, right);
+    }
+
+    @Override
+    public Figure clone(){
+        try{
+            Figure newFigure;
+            newFigure = (Figure) super.clone();
+            newFigure.setDrawProperties(this.getDrawProperties().clone());
+            newFigure.setTopLeft(this.getTopLeft().clone());
+            newFigure.setBottomRight(this.getBottomRight().clone());
+            newFigure.setCenterPoint(this.getCenterPoint().clone());
+            return newFigure;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError("Object cannot be cloned");
+        }
     }
 }

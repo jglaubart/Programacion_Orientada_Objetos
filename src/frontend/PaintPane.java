@@ -138,7 +138,7 @@ public class PaintPane extends BorderPane {
 					ColorConverter.toRGBColor(DEFAULT_FILL_COLOR2),
 					INVERSE_SHADOW_OFFSET,
 					ColorConverter.toRGBColor(Color.GRAY),
-					false
+					true
 			);
 			canvasState.addFigure(newFigure);
 			startPoint = null;

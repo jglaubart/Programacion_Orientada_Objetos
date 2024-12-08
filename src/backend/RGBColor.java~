@@ -1,10 +1,9 @@
 package backend;
 
 public class RGBColor {
-    private double red, green, blue;
-    private float opacity;
+    private double red, green, blue, opacity;
 
-    public RGBColor(double red, double green, double blue, float opacity) {
+    public RGBColor(double red, double green, double blue, double opacity) {
         this.red = red;
         this.green = green;
         this.blue = blue;
@@ -23,7 +22,7 @@ public class RGBColor {
         return blue;
     }
 
-    public float getOpacity() {
+    public double getOpacity() {
         return opacity;
     }
 }

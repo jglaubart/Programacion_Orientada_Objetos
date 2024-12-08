@@ -5,6 +5,7 @@ import backend.model.interfaces.Drawer;
 import backend.model.figures.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
+import javafx.scene.shape.ArcType;
 
 import java.util.Set;
 
@@ -19,11 +20,6 @@ public class JavaFXDrawer implements Drawer {
     public void drawEllipse(Point centerPoint, double axisX, double axisY) {
         gc.strokeOval(centerPoint.getX() - axisX / 2, centerPoint.getY() - axisY / 2, axisX, axisY);
         gc.fillOval(centerPoint.getX() - axisX / 2, centerPoint.getY() - axisY / 2, axisX, axisY);
-    }
-
-    @Override
-    public void drawCircle(Point centerPoint, double diameter) {
-        this.drawEllipse(centerPoint, diameter, diameter);
     }
 
     @Override
@@ -54,5 +50,43 @@ public class JavaFXDrawer implements Drawer {
                 new Stop(0, ColorConverter.toJavaFXColor(color1)),
                 new Stop(1, ColorConverter.toJavaFXColor(color2)));
         gc.setFill(radialGradient);
+    }
+
+    @Override
+    public void drawBeveledRectangle(Point topLeft, Point bottomRight) {
+        Paint normalLineColor = gc.getStroke();
+        double normalLineWidth = gc.getLineWidth();
+
+        double x = topLeft.getX();
+        double y = topLeft.getY();
+        double width = Math.abs(x - bottomRight.getX());
+        double height = Math.abs(y - bottomRight.getY());
+        gc.setLineWidth(10);
+        gc.setStroke(Color.LIGHTGRAY);
+        gc.strokeLine(x, y, x + width, y);
+        gc.strokeLine(x, y, x, y + height);
+        gc.setStroke(Color.BLACK);
+        gc.strokeLine(x + width, y, x + width, y + height);
+        gc.strokeLine(x, y + height, x + width, y + height);
+
+        gc.setStroke(normalLineColor);
+        gc.setLineWidth(normalLineWidth);
+    }
+
+    @Override
+    public void drawBeveledEllipse(Point centerPoint, double axisX, double axisY) {
+        Paint normalLineColor = gc.getStroke();
+        double normalLineWidth = gc.getLineWidth();
+
+        double arcX = centerPoint.getX() - axisX / 2;
+        double arcY = centerPoint.getY() - axisY / 2;
+        gc.setLineWidth(10);
+        gc.setStroke(Color.LIGHTGRAY);
+        gc.strokeArc(arcX, arcY, axisX, axisY, 45, 180, ArcType.OPEN);
+        gc.setStroke(Color.BLACK);
+        gc.strokeArc(arcX, arcY, axisX, axisY, 225, 180, ArcType.OPEN);
+
+        gc.setStroke(normalLineColor);
+        gc.setLineWidth(normalLineWidth);
     }
 }

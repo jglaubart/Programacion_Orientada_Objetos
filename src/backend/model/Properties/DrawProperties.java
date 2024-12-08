@@ -3,7 +3,7 @@ package backend.model.Properties;
 import backend.RGBColor;
 import backend.model.figures.Figure;
 
-public class DrawProperties {
+public class DrawProperties implements Cloneable {
     private double shadowOffset = 0.0;
     private Figure shadow = null;
     private RGBColor color1 = null;
@@ -55,5 +55,18 @@ public class DrawProperties {
 
     public boolean getBeveledState() {
         return this.beveledState;
+    }
+
+    @Override
+    public DrawProperties clone() {
+        try {
+            DrawProperties newProperties = (DrawProperties) super.clone();
+            newProperties.shadow = this.shadow == null ? null : this.shadow.clone();
+            newProperties.color1 = this.color1.clone();
+            newProperties.color2 = this.color2 == null ? null : this.color2.clone();
+            return newProperties;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError("Object cannot be cloned");
+        }
     }
 }
