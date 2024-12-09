@@ -43,10 +43,10 @@ public class FigurePropertiesBox implements SettingsBox {
 
         propertiesBox.getChildren().addAll(formatLabel, shadowButton, beveledButton, firstColorPicker, secondColorPicker, copyFormatButton);
 
-        shadowButton.setOnAction(event -> notifyChange());
-        beveledButton.setOnAction(event -> notifyChange());
-        firstColorPicker.setOnAction(event -> notifyChange());
-        secondColorPicker.setOnAction(event -> notifyChange());
+        shadowButton.setOnAction(event -> onButtonAction.run());
+        beveledButton.setOnAction(event -> onButtonAction.run());
+        firstColorPicker.setOnAction(event -> onButtonAction.run());
+        secondColorPicker.setOnAction(event -> onButtonAction.run());
 
         copyFormatButton.setOnAction(event -> {
             onCopyFormatAction.run();
@@ -55,10 +55,6 @@ public class FigurePropertiesBox implements SettingsBox {
 
     public void setOnButtonAction(Runnable onButtonAction) {
         this.onButtonAction = onButtonAction;
-    }
-
-    public void notifyChange() {
-        onButtonAction.run();
     }
 
     public Color getSelectedFillColor() {

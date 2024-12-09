@@ -10,7 +10,6 @@ import frontend.buttonBoxes.FigureActionBox;
 import frontend.buttonBoxes.FigureLayerBox;
 import frontend.buttonBoxes.FigurePropertiesBox;
 import frontend.buttonBoxes.FigureToolBox;
-import frontend.shadowInfo.ShadowType;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
@@ -38,6 +37,8 @@ public class PaintPane extends BorderPane {
 
 	private final FigureToolBox figureToolBox;
 	private final FigureActionBox figureActionBox;
+	private final FigurePropertiesBox figurePropertiesBox;
+	private final FigureLayerBox figureLayerBox;
 
 	Point startPoint;
 	Figure selectedFigure;
@@ -143,16 +144,55 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
+		figureLayerBox.setOnLayerSelected((layer) -> {
+			currentLayer = layer;
+			currentLayer.setShowLayer(true);
+			figureLayerBox.updateVisibilityButtons(currentLayer);
+			redrawCanvas();
+		});
+
+		figureLayerBox.setOnLayerVisibilityChanged((show) -> {
+			currentLayer.setShowLayer(show);
+			redrawCanvas();
+		});
+
+		Runnable updateLayerCombo = () -> {
+			figureLayerBox.updateLayers(canvasState.getLayers(), currentLayer);
+			currentLayer.setShowLayer(true);
+			figureLayerBox.updateVisibilityButtons(currentLayer);
+		};
+
 		figureLayerBox.setOnAddLayerAction(() -> {
 			currentLayer = canvasState.addNewLayer();
+			updateLayerCombo.run();
 			redrawCanvas();
 		});
 
 		figureLayerBox.setOnRemoveLayerAction(() -> {
 			canvasState.removeLayer(currentLayer);
-			currentLayer = canvasState.getFirstLayer();
+			currentLayer = canvasState.getLastLayer(); // capa 1
+			updateLayerCombo.run();
 			redrawCanvas();
 		});
+
+		figureLayerBox.setBringToFrontAction(() -> {
+			if (selectedFigure != null) {
+				currentLayer.getFigures().remove(selectedFigure);
+				currentLayer.getFigures().addLast(selectedFigure);
+				redrawCanvas();
+			}
+		});
+
+		figureLayerBox.setBringToBackAction(() -> {
+			if (selectedFigure != null) {
+				currentLayer.getFigures().remove(selectedFigure);
+				currentLayer.getFigures().addFirst(selectedFigure);
+				redrawCanvas();
+			}
+		});
+
+		//figureLayerBox.updateLayers(canvasState.getLayers(), currentLayer);
+		//figureLayerBox.updateVisibilityButtons(currentLayer);
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
@@ -274,7 +314,13 @@ public class PaintPane extends BorderPane {
 				}
 			}
 		}
+	}
 
-		}
-
+	private void updateDrawProperties() {
+		currentDrawProperties.setBeveledState(figurePropertiesBox.getBeveledState());
+		currentDrawProperties.setColor1(ColorConverter.toRGBColor(figurePropertiesBox.getSelectedFillColor()));
+		currentDrawProperties.setColor2(ColorConverter.toRGBColor(figurePropertiesBox.getSecondarySelectedFillColor()));
+		currentDrawProperties.setShadowType(figurePropertiesBox.getSelectedShadowType());
+		//currentDrawProperties.setShadow(null);
+	}
 }
