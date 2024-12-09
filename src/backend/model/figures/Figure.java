@@ -25,24 +25,42 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
         return drawProperties;
     }
 
-    public void setShadow(Figure shadow) {
-        drawProperties.setShadow(shadow);
-    }
-
     public abstract boolean belongs(Point eventPoint);
 
     public void draw(){
-        DrawProperties properties = this.getDrawProperties();
-        Figure shadow = properties.getShadow();
-        if(shadow != null) {
-            shadow.draw();
+        DrawProperties properties = getDrawProperties();
+        if(properties.hasShadow()) {
+            this.drawShadow();
         }
-        if(properties.getColor2() != null) {
+        if(properties.getBeveledState()) {
+            this.drawBeveledFigure();
+        }
+        this.drawFigure();
+    }
+
+    public void fillColor(){
+        if(getDrawProperties().getColor2() != null) {
             this.fillGradient();
         }else{
-            drawer.fillColor(properties.getColor1());
+            drawer.fillColor(getDrawProperties().getColor1());
         }
     }
+
+    public void drawFigure(){
+        this.fillColor();
+        this.drawFigureGeometry(topLeft, bottomRight);
+    }
+
+    public abstract void drawFigureGeometry(Point topLeft, Point bottomRight);
+
+    public void drawShadow(){
+        RGBColor shadowColor = getDrawProperties().getShadowColor(drawer);
+        drawer.fillColor(shadowColor);
+        double offset = getDrawProperties().getShadowOffset();
+        this.drawFigureGeometry(new Point(topLeft.getX() + offset, topLeft.getY() + offset), new Point(bottomRight.getX() + offset, bottomRight.getY() + offset));
+    }
+
+    public abstract void drawBeveledFigure();
 
     public abstract void fillGradient();
 
@@ -56,12 +74,6 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
         if(drawProperties == null){
             return;
         }
-
-        Figure shadow = drawProperties.getShadow();
-        if(shadow != null){
-            double offset = drawProperties.getShadowOffset();
-            shadow.setCenterPoint(new Point(centerPoint.getX() + offset, centerPoint.getY() + offset));
-        }
     }
 
     public Point getTopLeft() {
@@ -73,12 +85,6 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
         if(drawProperties == null){
             return;
         }
-
-        Figure shadow = drawProperties.getShadow();
-        if(shadow != null){
-            double offset = drawProperties.getShadowOffset();
-            shadow.setTopLeft(new Point(topLeft.getX() + offset, topLeft.getY() + offset));
-        }
     }
     public Point getBottomRight() {
         return bottomRight;
@@ -88,12 +94,6 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
 
         if (drawProperties == null) {
             return;
-        }
-
-        Figure shadow = drawProperties.getShadow();
-        if(shadow != null){
-            double offset = drawProperties.getShadowOffset();
-            shadow.setBottomRight(new Point(bottomRight.getX() + offset, bottomRight.getY() + offset));
         }
     }
 
@@ -114,11 +114,6 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
         this.centerPoint.move(dx, dy);
         this.topLeft.move(dx, dy);
         this.bottomRight.move(dx, dy);
-
-        Figure shadow = drawProperties.getShadow();
-        if(shadow != null) {
-            shadow.move(dx, dy);
-        }
     }
 
     @Override

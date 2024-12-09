@@ -15,15 +15,6 @@ public interface FigureBuilder {
         Figure figure = buildFigure(startPoint, endPoint);
         figure.setDrawProperties(properties);
         figure.setDrawer(drawer);
-        if(properties.getShadowType() != ShadowType.NONE){
-            double offset = properties.getShadowOffset();
-            Figure shadow = figure.duplicate(offset);
-            shadow.getDrawProperties().setColor1(properties.getShadowColor(drawer));
-            shadow.getDrawProperties().setColor2(null);
-            shadow.getDrawProperties().setBeveledState(false);
-            shadow.getDrawProperties().setShadowType(ShadowType.NONE);
-            properties.setShadow(shadow);
-        }
 
         return figure;
     }

@@ -34,12 +34,13 @@ public class Rectangle extends Figure {
     }
 
     @Override
-    public void draw() {
-        super.draw();
-        if(this.getDrawProperties().getBeveledState()){
-            getDrawer().drawBeveledRectangle(getTopLeft(), getBottomRight());
-        }
-        getDrawer().drawRectangle(getTopLeft(), getBottomRight());
+    public void drawFigureGeometry(Point topLeft, Point bottomRight) {
+        getDrawer().drawRectangle(topLeft, bottomRight);
+    }
+
+    @Override
+    public void drawBeveledFigure() {
+        getDrawer().drawBeveledRectangle(getTopLeft(), getBottomRight());
     }
 
     @Override
