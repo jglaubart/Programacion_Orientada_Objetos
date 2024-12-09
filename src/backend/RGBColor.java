@@ -35,6 +35,6 @@ public class RGBColor implements Cloneable{
         }
     }
 
-    public static final RGBColor GRAY = new RGBColor(0.5, 0.5, 0.5, 0.5);
+    public static final RGBColor GRAY = new RGBColor(128, 128, 128, 1);
     public static final RGBColor TRANSPARENT = new RGBColor(0, 0, 0, 0);
 }

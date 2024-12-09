@@ -114,6 +114,7 @@ public class PaintPane extends BorderPane {
 			if (selectedFigure != null) {
 				FiguresPair figuresPair = selectedFigure.divide();
 				currentLayer.removeFigure(selectedFigure);
+				selectedFigure = null;
 				currentLayer.addFigure(figuresPair.getLeft());
 				currentLayer.addFigure(figuresPair.getRight());
 				redrawCanvas();
