@@ -2,6 +2,8 @@ package backend;
 
 public class RGBColor implements Cloneable{
     private double red, green, blue, opacity;
+    private static int RGB_GRAY = 128;
+    private static int RGB_TRANSPARENT = 0;
 
     public RGBColor(double red, double green, double blue, double opacity) {
         this.red = red;
@@ -35,6 +37,6 @@ public class RGBColor implements Cloneable{
         }
     }
 
-    public static final RGBColor GRAY = new RGBColor(128, 128, 128, 1);
-    public static final RGBColor TRANSPARENT = new RGBColor(0, 0, 0, 0);
+    public static final RGBColor GRAY = new RGBColor(RGB_GRAY, RGB_GRAY, RGB_GRAY, 1);
+    public static final RGBColor TRANSPARENT = new RGBColor(RGB_TRANSPARENT, RGB_TRANSPARENT, RGB_TRANSPARENT, RGB_TRANSPARENT);
 }

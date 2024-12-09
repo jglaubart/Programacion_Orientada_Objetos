@@ -21,11 +21,12 @@ public class CanvasState {
         return newLayer;
     }
 
-    public void removeLayer(Layer layer) {
+    public boolean removeLayer(Layer layer) {
         if (layer.getId() <= 3) {
-            return;
+            return false;
         }
         layers.remove(layer);
+        return true;
     }
 
     public Layer initalizeLayers() {
@@ -33,11 +34,11 @@ public class CanvasState {
             this.addNewLayer();
         }
 
-        return getLastLayer(); // "last" = capa 1
+        return getFirstLayer(); // "first" = capa 1
     }
 
-    public Layer getLastLayer() {
-        return layers.getLast();
+    public Layer getFirstLayer() {
+        return layers.getFirst();
     }
 
 

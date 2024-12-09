@@ -1,6 +1,6 @@
 package backend.model.interfaces;
 
-import backend.model.FiguresPair;
+import backend.model.figures.FiguresPair;
 import backend.model.figures.Figure;
 
 public interface Transformable<T> {

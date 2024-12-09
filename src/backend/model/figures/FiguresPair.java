@@ -1,6 +1,4 @@
-package backend.model;
-
-import backend.model.figures.Figure;
+package backend.model.figures;
 
 public class FiguresPair<L extends Figure, R extends Figure> {
     private L left;

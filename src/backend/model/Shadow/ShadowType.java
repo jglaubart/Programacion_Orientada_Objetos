@@ -1,4 +1,4 @@
-package backend.model;
+package backend.model.Shadow;
 
 public enum ShadowType {
     NONE("Ninguna"),

@@ -1,4 +1,4 @@
-package backend.model;
+package backend.model.Shadow;
 
 import backend.RGBColor;
 import backend.model.interfaces.Drawer;

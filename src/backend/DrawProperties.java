@@ -1,8 +1,7 @@
-package backend.model.Properties;
+package backend;
 
-import backend.RGBColor;
-import backend.model.Shadow;
-import backend.model.ShadowType;
+import backend.model.Shadow.Shadow;
+import backend.model.Shadow.ShadowType;
 import backend.model.interfaces.Drawer;
 
 public class DrawProperties implements Cloneable {

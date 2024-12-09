@@ -1,6 +1,5 @@
 package frontend;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 

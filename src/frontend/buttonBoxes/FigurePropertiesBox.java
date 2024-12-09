@@ -1,6 +1,8 @@
 package frontend.buttonBoxes;
 
-import backend.model.ShadowType;
+import backend.DrawProperties;
+import backend.model.Shadow.ShadowType;
+import frontend.ColorConverter;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -48,13 +50,15 @@ public class FigurePropertiesBox implements SettingsBox {
         firstColorPicker.setOnAction(event -> onButtonAction.run());
         secondColorPicker.setOnAction(event -> onButtonAction.run());
 
-        copyFormatButton.setOnAction(event -> {
-            onCopyFormatAction.run();
-        });
+        copyFormatButton.setOnAction(event -> {onCopyFormatAction.run();});
     }
 
     public void setOnButtonAction(Runnable onButtonAction) {
         this.onButtonAction = onButtonAction;
+    }
+
+    public void setOnCopyFormatAction(Runnable onCopyFormatAction) {
+        this.onCopyFormatAction = onCopyFormatAction;
     }
 
     public Color getSelectedFillColor() {
@@ -76,5 +80,12 @@ public class FigurePropertiesBox implements SettingsBox {
 
     public boolean getBeveledState() {
         return beveledButton.isSelected();
+    }
+
+    public void updateProperties(DrawProperties properties){
+        firstColorPicker.setValue(ColorConverter.toJavaFXColor(properties.getColor1()));
+        secondColorPicker.setValue(ColorConverter.toJavaFXColor(properties.getColor2()));
+        shadowButton.setValue(properties.getShadowType());
+        beveledButton.setSelected(properties.getBeveledState());
     }
 }

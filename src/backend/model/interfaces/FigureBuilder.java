@@ -1,11 +1,8 @@
-package backend.model.builders;
+package backend.model.interfaces;
 
-import backend.RGBColor;
-import backend.model.Properties.DrawProperties;
-import backend.model.ShadowType;
+import backend.DrawProperties;
 import backend.model.figures.Figure;
 import backend.model.figures.Point;
-import backend.model.interfaces.Drawer;
 
 public interface FigureBuilder {
 

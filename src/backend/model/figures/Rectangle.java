@@ -1,8 +1,6 @@
 package backend.model.figures;
 
-import backend.model.Properties.DrawProperties;
-import backend.model.interfaces.Drawer;
-import backend.model.FiguresPair;
+import backend.DrawProperties;
 
 public class Rectangle extends Figure {
 

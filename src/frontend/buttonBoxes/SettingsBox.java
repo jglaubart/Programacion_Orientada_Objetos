@@ -11,6 +11,6 @@ public interface SettingsBox {
         box.setPrefWidth(100);
     }
 
-    public Pane getBox();
+    Pane getBox();
 
 }

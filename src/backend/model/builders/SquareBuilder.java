@@ -3,6 +3,7 @@ package backend.model.builders;
 import backend.model.figures.Figure;
 import backend.model.figures.Point;
 import backend.model.figures.Square;
+import backend.model.interfaces.FigureBuilder;
 
 public class SquareBuilder implements FigureBuilder {
     @Override

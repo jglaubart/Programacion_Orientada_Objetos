@@ -1,19 +1,19 @@
 package frontend.buttonBoxes;
 
 import backend.model.builders.*;
-import javafx.geometry.Insets;
+import backend.model.interfaces.FigureBuilder;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class FigureToolBox implements SettingsBox {
     private static final int DEFAULT_SPACING = 10;
+    private static final int DEFAULT_MIN_WIDTH = 90;
 
     private final ToggleButton selectionButton = new ToggleButton("Seleccionar");
     private final ToggleButton rectangleButton = new ToggleButton("Rectángulo");
@@ -28,25 +28,32 @@ public class FigureToolBox implements SettingsBox {
     private Map<ToggleButton, FigureBuilder> figureBuilderMap = new HashMap<>();
 
     private Runnable onDeleteAction;
+    private Runnable onButtonClickAction;
 
 
     public FigureToolBox() {
         super();
-        ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton};
+        ToggleButton[] toolsArr = {rectangleButton, circleButton, squareButton, ellipseButton};
+
+        selectionButton.setToggleGroup(tools);
+        selectionButton.setMinWidth(DEFAULT_MIN_WIDTH);
+        selectionButton.setCursor(Cursor.HAND);
 
         for(ToggleButton button : toolsArr){
             button.setToggleGroup(tools);
-            button.setMinWidth(90);
+            button.setMinWidth(DEFAULT_MIN_WIDTH);
             button.setCursor(Cursor.HAND);
+            button.setOnAction(event -> onButtonClickAction.run());
         }
 
-        toolBox = new VBox(10);
+        toolBox = new VBox(DEFAULT_SPACING);
         settings(toolBox);
+        toolBox.getChildren().add(selectionButton);
         toolBox.getChildren().addAll(toolsArr);
         toolBox.getChildren().addAll(deleteButton);
 
 
-        deleteButton.setMinWidth(90);
+        deleteButton.setMinWidth(DEFAULT_MIN_WIDTH);
         deleteButton.setCursor(Cursor.HAND);
         deleteButton.setOnAction(event -> {
             onDeleteAction.run();
@@ -74,6 +81,10 @@ public class FigureToolBox implements SettingsBox {
 
     public void setOnDeleteAction(Runnable action) {
         this.onDeleteAction = action;
+    }
+
+    public void setOnButtonClickAction(Runnable action){
+        this.onButtonClickAction = action;
     }
 
     @Override

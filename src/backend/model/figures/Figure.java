@@ -1,11 +1,8 @@
 package backend.model.figures;
 
 import backend.RGBColor;
-import backend.model.FiguresPair;
-import backend.model.ShadowType;
-import backend.model.builders.FigureBuilder;
 import backend.model.interfaces.Drawer;
-import backend.model.Properties.DrawProperties;
+import backend.DrawProperties;
 import backend.model.interfaces.Movable;
 import backend.model.interfaces.Transformable;
 

@@ -1,8 +1,5 @@
 package backend.model.figures;
 
-import backend.model.Properties.DrawProperties;
-import backend.model.interfaces.Drawer;
-
 public class Circle extends Ellipse {
 
     public Circle(Point centerPoint, double radius) {
