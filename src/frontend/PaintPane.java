@@ -111,7 +111,6 @@ public class PaintPane extends BorderPane {
 		currentDrawProperties.setColor1(ColorConverter.toRGBColor(figurePropertiesBox.getSelectedFillColor()));
 		currentDrawProperties.setColor2(ColorConverter.toRGBColor(figurePropertiesBox.getSecondarySelectedFillColor()));
 		currentDrawProperties.setShadowType(figurePropertiesBox.getSelectedShadowType());
-
 	}
 
 	private void selectFigure(Figure figure) {
@@ -143,14 +142,16 @@ public class PaintPane extends BorderPane {
 			if(builder == null) {
 				return ;
 			}
+			if (currentLayer.showLayer()) {
+				updateDrawProperties();
+				Figure newFigure = builder.buildFigure(startPoint, endPoint, currentDrawProperties.clone(), drawer);
 
-			updateDrawProperties();
-			Figure newFigure = builder.buildFigure(startPoint, endPoint, currentDrawProperties.clone(), drawer);
+				currentLayer.addFigure(newFigure);
+				selectFigure(newFigure);
+				startPoint = null;
+				redrawCanvas();
+			}
 
-			currentLayer.addFigure(newFigure);
-			selectFigure(newFigure);
-			startPoint = null;
-			redrawCanvas();
 		});
 
 
