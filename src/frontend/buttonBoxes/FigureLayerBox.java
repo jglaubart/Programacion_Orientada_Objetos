@@ -2,6 +2,7 @@ package frontend.buttonBoxes;
 
 import backend.CanvasState;
 import backend.Layer;
+import frontend.exceptions.NoFigureSelectedException;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;

@@ -1,6 +1,7 @@
 package frontend.buttonBoxes;
 
 import frontend.exceptions.NoFigureSelectedException;
+import frontend.exceptions.TrySelectedException;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -39,41 +40,31 @@ public class FigureActionBox implements SettingsBox {
         actionBox.getChildren().addAll(actionsArr);
 
 
+        /**
+         * Se asignan acciones a cada boton, realizando la accion especifica o lanzando una alerta en pantalla
+         */
         rotateButton.setOnAction(event -> {
-            try {
-                onRotateAction.run();
-            }catch(NoFigureSelectedException e){
-                this.showAlert("Error", e.getMessage());
-            }
+            TrySelectedException.tryRunning(onRotateAction);
         });
 
         reflectVerticalButton.setOnAction(event -> {
-            onReflectVerticalAction.run();
+            TrySelectedException.tryRunning(onReflectVerticalAction);
         });
 
         reflectHorizontalButton.setOnAction(event -> {
-            onReflectHorizontalAction.run();
+            TrySelectedException.tryRunning(onReflectHorizontalAction);
         });
 
         duplicationButton.setOnAction(event -> {
-            onDuplicateAction.run();
+            TrySelectedException.tryRunning(onDuplicateAction);
         });
 
         divideButton.setOnAction(event -> {
-            onDivideAction.run();
+            TrySelectedException.tryRunning(onDivideAction);
         });
 
     }
 
-    // Método para mostrar la alerta
-    private void showAlert(String title, String content){
-        Alert alert = new Alert(Alert.AlertType.ERROR); // Define el tipo de alerta como ERROR
-        alert.setTitle(title); // Título de la ventana
-        alert.setHeaderText(null); // Sin cabecera
-        alert.setContentText(content); // Mensaje del error
-        alert.getButtonTypes().setAll(ButtonType.OK); // Agrega únicamente el botón "Aceptar"
-        alert.showAndWait(); // Muestra la alerta y espera a que se cierre
-    }
 
     public void setOnRotateAction(Runnable action) {
         this.onRotateAction = action;

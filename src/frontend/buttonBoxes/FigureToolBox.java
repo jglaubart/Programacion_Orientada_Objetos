@@ -2,6 +2,8 @@ package frontend.buttonBoxes;
 
 import backend.model.builders.*;
 import backend.model.interfaces.FigureBuilder;
+import frontend.exceptions.NoFigureSelectedException;
+import frontend.exceptions.TrySelectedException;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -56,7 +58,7 @@ public class FigureToolBox implements SettingsBox {
         deleteButton.setMinWidth(DEFAULT_MIN_WIDTH);
         deleteButton.setCursor(Cursor.HAND);
         deleteButton.setOnAction(event -> {
-            onDeleteAction.run();
+            TrySelectedException.tryRunning(onDeleteAction);
         });
 
         figureBuilderMap = Map.of(

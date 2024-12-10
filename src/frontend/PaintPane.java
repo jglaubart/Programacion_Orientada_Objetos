@@ -250,13 +250,23 @@ public class PaintPane extends BorderPane {
 			if (selectedFigure != null) {
 				currentLayer.getFigures().remove(selectedFigure);
 				currentLayer.getFigures().addFirst(selectedFigure);
+			} else{
+				String message = "Ninguna figura encontrada";
+				statusPane.updateStatus(message);
+				throw new NoFigureSelectedException(message);
 			}
 		});
+
 
 		figureLayerBox.setBringToBackAction(() -> {
 			if (selectedFigure != null) {
 				currentLayer.getFigures().remove(selectedFigure);
 				currentLayer.getFigures().addLast(selectedFigure);
+			}
+			else{
+				String message = "Ninguna figura encontrada";
+				statusPane.updateStatus(message);
+				throw new NoFigureSelectedException(message);
 			}
 		});
 
@@ -320,8 +330,9 @@ public class PaintPane extends BorderPane {
 				selectedFigure.rotate();
 				redrawCanvas();
 			} else {
-				throw new NoFigureSelectedException("Ninguna figura seleccionada para rotar");
-				//statusPane.updateStatus("Ninguna figura encontrada para rotar");
+				String message = "Ninguna figura encontrada para rotar";
+				statusPane.updateStatus(message);
+				throw new NoFigureSelectedException(message);
 			}
 		});
 
@@ -331,7 +342,9 @@ public class PaintPane extends BorderPane {
 				selectedFigure.reflectVertical();
 				redrawCanvas();
 			} else {
-				statusPane.updateStatus("Ninguna figura encontrada para reflejar verticalmente");
+				String message = "Ninguna figura encontrada para reflejar verticalmente";
+				statusPane.updateStatus(message);
+				throw new NoFigureSelectedException(message);
 			}
 		});
 
@@ -340,7 +353,9 @@ public class PaintPane extends BorderPane {
 				selectedFigure.reflectHorizontal();
 				redrawCanvas();
 			} else {
-				statusPane.updateStatus("Ninguna figura encontrada para reflejar horizontalmente");
+				String message = "Ninguna figura encontrada para reflejar horizontalmente";
+				statusPane.updateStatus(message);
+				throw new NoFigureSelectedException(message);
 			}
 		});
 
@@ -350,7 +365,9 @@ public class PaintPane extends BorderPane {
 				currentLayer.addFigure(duplicatedFigure);
 				redrawCanvas();
 			} else {
-				statusPane.updateStatus("Ninguna figura encontrada para duplicar");
+				String message = "Ninguna figura encontrada para duplicar";
+				statusPane.updateStatus(message);
+				throw new NoFigureSelectedException(message);
 			}
 		});
 
@@ -363,7 +380,9 @@ public class PaintPane extends BorderPane {
 				currentLayer.addFigure(figuresPair.getRight());
 				redrawCanvas();
 			} else {
-				statusPane.updateStatus("Ninguna figura encontrada para dividir");
+				String message = "Ninguna figura encontrada para dividir";
+				statusPane.updateStatus(message);
+				throw new NoFigureSelectedException(message);
 			}
 		});
 	}
@@ -384,7 +403,9 @@ public class PaintPane extends BorderPane {
 				selectedFigure = null;
 				redrawCanvas();
 			} else {
-				statusPane.updateStatus("Ninguna figura encontrada");
+				String message = "Ninguna figura encontrada para borrar";
+				statusPane.updateStatus(message);
+				throw new NoFigureSelectedException(message);
 			}
 		});
 	}
