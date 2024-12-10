@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class JavaFXDrawer implements Drawer {
     private GraphicsContext gc;
+    private static final double DEFAULT_BEVELED_WIDTH = 0.05;
 
     public JavaFXDrawer(GraphicsContext gc){
         this.gc = gc;
@@ -52,6 +53,21 @@ public class JavaFXDrawer implements Drawer {
         gc.setFill(radialGradient);
     }
 
+
+    private double getRectangleBeveledWidth(Point topLeft, Point bottomRight){
+        double dx = (bottomRight.getX() - topLeft.getX()) / 2;
+        double dy = (topLeft.getY() - bottomRight.getY()) / 2;
+        double distance = Math.sqrt(dx*dx + dy*dy);
+        return distance * DEFAULT_BEVELED_WIDTH;
+    }
+
+    private double getEllipseBeveledWidth(Point centerPoint, double axisX, double axisY){
+        double dx = axisX/2;
+        double dy = axisY/2;
+        double distance = Math.sqrt(dx*dx + dy*dy);
+        return distance * DEFAULT_BEVELED_WIDTH;
+    }
+
     @Override
     public void drawBeveledRectangle(Point topLeft, Point bottomRight) {
         Paint normalLineColor = gc.getStroke();
@@ -61,7 +77,7 @@ public class JavaFXDrawer implements Drawer {
         double y = topLeft.getY();
         double width = Math.abs(x - bottomRight.getX());
         double height = Math.abs(y - bottomRight.getY());
-        gc.setLineWidth(10);
+        gc.setLineWidth(getRectangleBeveledWidth(topLeft, bottomRight));
         gc.setStroke(Color.LIGHTGRAY);
         gc.strokeLine(x, y, x + width, y);
         gc.strokeLine(x, y, x, y + height);
@@ -80,7 +96,7 @@ public class JavaFXDrawer implements Drawer {
 
         double arcX = centerPoint.getX() - axisX / 2;
         double arcY = centerPoint.getY() - axisY / 2;
-        gc.setLineWidth(10);
+        gc.setLineWidth(getEllipseBeveledWidth(centerPoint, axisX, axisY));
         gc.setStroke(Color.LIGHTGRAY);
         gc.strokeArc(arcX, arcY, axisX, axisY, 45, 180, ArcType.OPEN);
         gc.setStroke(Color.BLACK);

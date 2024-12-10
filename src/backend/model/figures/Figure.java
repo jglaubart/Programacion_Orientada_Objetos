@@ -11,8 +11,18 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
     private Point centerPoint;
     private Point topLeft;
     private Point bottomRight;
-    private DrawProperties drawProperties;
+    private DrawProperties drawProperties; //Instancia de clase donde están guardadas sus propiedades de dibujo.
+
+    /**
+    * Instancia de objeto que implementa Drawer,
+    * para que figure pueda llamar a funciones que afecten el front sin saber cómo están implementadas;
+    */
     private Drawer drawer;
+
+    /**
+     *  Constante para definir el tamaño proporcional de las sombras de cada figura
+     */
+    private static final double SHADOW_PROPORTIONALITY = 0.05;
 
     public void setDrawProperties(DrawProperties drawProperties) {
         this.drawProperties = drawProperties;
@@ -22,8 +32,14 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
         return drawProperties;
     }
 
+    /**
+     *  Identifica si un punto pertenece a una figura 2D
+     */
     public abstract boolean belongs(Point eventPoint);
 
+    /**
+    * Utiliza el drawer para dibujar la figura en la interfaz gráfica
+    */
     public void draw(){
         DrawProperties properties = getDrawProperties();
         if(properties.hasShadow()) {
@@ -35,31 +51,48 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
         this.drawFigure();
     }
 
-    public void fillColor(){
-        if(getDrawProperties().getColor2() != null) {
-            this.fillGradient();
-        }else{
-            drawer.fillColor(getDrawProperties().getColor1());
-        }
-    }
+    /**
+     * Prepara el relleno del pincel con el color correspondiente
+     */
+    protected abstract void fillGradient();
 
-    public void drawFigure(){
-        this.fillColor();
+    /**
+    * Dibuja la figura sin propiedades extra (biselado, sombra, etc.)
+    */
+    private void drawFigure(){
+        this.fillGradient();
         this.drawFigureGeometry(topLeft, bottomRight);
     }
 
-    public abstract void drawFigureGeometry(Point topLeft, Point bottomRight);
+    /**
+    * Calcula el valor del offset para una sombra
+    */
+    private double getShadowOffSet(){
+        double dx = getCenterPoint().getX() - getTopLeft().getX();
+        double dy = getCenterPoint().getY() - getBottomRight().getY();
+        double distance = Math.sqrt(dx*dx + dy*dy);
+        return getDrawProperties().getDefaultShadowOffset() * distance * SHADOW_PROPORTIONALITY;
+    }
 
-    public void drawShadow(){
+    /**
+     * Dibuja una figura sin ningun detalle adicional
+     */
+    protected abstract void drawFigureGeometry(Point topLeft, Point bottomRight);
+
+    /**
+     * Dibuja la sombra de una figura
+     */
+    private void drawShadow(){
         RGBColor shadowColor = getDrawProperties().getShadowColor(drawer);
         drawer.fillColor(shadowColor);
-        double offset = getDrawProperties().getShadowOffset();
+        double offset = getShadowOffSet();
         this.drawFigureGeometry(new Point(topLeft.getX() + offset, topLeft.getY() + offset), new Point(bottomRight.getX() + offset, bottomRight.getY() + offset));
     }
 
-    public abstract void drawBeveledFigure();
-
-    public abstract void fillGradient();
+    /**
+     * Dibuja el biselado de una figura
+     */
+    protected abstract void drawBeveledFigure();
 
     public Point getCenterPoint(){
         return centerPoint;
@@ -86,12 +119,9 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
     public Point getBottomRight() {
         return bottomRight;
     }
+
     public void setBottomRight(Point bottomRight) {
         this.bottomRight = bottomRight;
-
-        if (drawProperties == null) {
-            return;
-        }
     }
 
     public Drawer getDrawer(){
@@ -102,8 +132,14 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
         this.drawer = drawer;
     }
 
+    /**
+    * Calcula el ancho de la figura
+    */
     protected abstract double getWidth();
 
+    /**
+    * Calcula la altura de la figura
+    */
     protected abstract double getHeight();
 
     @Override
@@ -181,4 +217,5 @@ public abstract class Figure implements Cloneable, Movable, Transformable<Figure
             throw new AssertionError("Object cannot be cloned");
         }
     }
+
 }

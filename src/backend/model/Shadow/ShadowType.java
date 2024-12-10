@@ -1,5 +1,8 @@
 package backend.model.Shadow;
 
+/**
+ * Define los distintos tipos de sombra posibles para una figura
+ */
 public enum ShadowType {
     NONE("Ninguna"),
     SIMPLE("Simple"),

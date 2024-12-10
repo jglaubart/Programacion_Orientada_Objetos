@@ -1,5 +1,9 @@
 package backend;
 
+/**
+ * RGBColor es una representación de color que utiliza
+ * tres colores aditivos: rojo, verde y azul
+ */
 public class RGBColor implements Cloneable{
     private double red, green, blue, opacity;
     private static int RGB_GRAY = 128;

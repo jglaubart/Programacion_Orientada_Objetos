@@ -7,10 +7,8 @@ import backend.DrawProperties;
 import backend.model.Shadow.ShadowType;
 import backend.model.figures.*;
 import backend.model.interfaces.FigureBuilder;
-import frontend.buttonBoxes.FigureActionBox;
-import frontend.buttonBoxes.FigureLayerBox;
-import frontend.buttonBoxes.FigurePropertiesBox;
-import frontend.buttonBoxes.FigureToolBox;
+import frontend.buttonBoxes.*;
+import frontend.exceptions.NoFigureSelectedException;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
@@ -22,9 +20,13 @@ public class PaintPane extends BorderPane {
 	private static final Color LINE_COLOR = Color.BLACK;
 	private static final Color DEFAULT_FILL_COLOR = Color.YELLOW;
 	private static final Color DEFAULT_FILL_COLOR2 = Color.ORANGE;
+
 	private static final double DUPE_OFFSET = 20.0;
 	private static final double SHADOW_OFFSET = 10.0;
-	private static final double INVERSE_SHADOW_OFFSET = -SHADOW_OFFSET;
+
+	private static final double CANVAS_DEFAULT_WIDTH = 800;
+	private static final  double CANVAS_DEFAULT_HEIGHT = 600;
+
 
 	private static final DrawProperties DEFAULT_DRAW_PROPERTIES = new DrawProperties(
 			ColorConverter.toRGBColor(DEFAULT_FILL_COLOR),
@@ -34,7 +36,7 @@ public class PaintPane extends BorderPane {
 	);
 
 	private final CanvasState canvasState;
-	private final Canvas canvas = new Canvas(800, 600);
+	private final Canvas canvas = new Canvas(CANVAS_DEFAULT_WIDTH, CANVAS_DEFAULT_HEIGHT);
 	private final GraphicsContext gc = canvas.getGraphicsContext2D();
 	private final JavaFXDrawer drawer = new JavaFXDrawer(gc);
 
@@ -62,18 +64,18 @@ public class PaintPane extends BorderPane {
 		currentLayer = canvasState.initalizeLayers();
 
 		figurePropertiesBox = new FigurePropertiesBox(DEFAULT_FILL_COLOR, DEFAULT_FILL_COLOR2);
-		initalizePropertiesBox();
+		initializePropertiesBox();
 
 		figureToolBox = new FigureToolBox();
-		initalizeToolBox();
+		initializeToolBox();
 
 		figureActionBox = new FigureActionBox();
-		initalizeActionBox();
+		initializeActionBox();
 
 		figureLayerBox = new FigureLayerBox();
-		initalizeLayerBox();
+		initializeLayerBox();
 
-		initalizeMouseMovement();
+		initializeMouseMovement();
 
 		VBox ToolAndPropertiesBox = new VBox();
 		VBox.setVgrow(figurePropertiesBox.getBox(), Priority.ALWAYS);
@@ -89,10 +91,13 @@ public class PaintPane extends BorderPane {
 		setTop(figureLayerBox.getBox());
 	}
 
+	/*
+	* Redibuja el canvas, updateando el estado de las figuras
+	*/
 	void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for (Layer layer : canvasState.getLayers()) {
-			if (layer.showLayer()) {
+			if (canvasState.getLayerVisibility(layer)) {
 				for (Figure figure : layer.getFigures()) {
 					if(figure == selectedFigure) {
 						gc.setStroke(Color.RED);
@@ -106,6 +111,9 @@ public class PaintPane extends BorderPane {
 		}
 	}
 
+	/*
+	 * Modifica colores, sombra y biselado de las figuras
+	 */
 	private void updateDrawProperties() {
 		currentDrawProperties.setBeveledState(figurePropertiesBox.getBeveledState());
 		currentDrawProperties.setColor1(ColorConverter.toRGBColor(figurePropertiesBox.getSelectedFillColor()));
@@ -113,8 +121,14 @@ public class PaintPane extends BorderPane {
 		currentDrawProperties.setShadowType(figurePropertiesBox.getSelectedShadowType());
 	}
 
+	/*
+	 * Cambia a la layer de la figura seleccionada
+	 */
 	private void selectFigure(Figure figure) {
 		selectedFigure = figure;
+		currentLayer = canvasState.belongToLayer(figure);
+		figureLayerBox.updateLayers(canvasState.getLayers(), currentLayer, canvasState.getVisibilityMap());
+		figureLayerBox.updateVisibilityButtons(currentLayer, canvasState.getVisibilityMap());
 		updateProperties(selectedFigure.getDrawProperties());
 	}
 
@@ -123,7 +137,10 @@ public class PaintPane extends BorderPane {
 		figurePropertiesBox.updateProperties(properties);
 	}
 
-	private void initalizeMouseMovement() {
+	/*
+	 * Inicializa todos los botones relacionados al mouse
+	 */
+	private void initializeMouseMovement() {
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
 		});
@@ -133,7 +150,7 @@ public class PaintPane extends BorderPane {
 			if(startPoint == null) {
 				return ;
 			}
-			if(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
+			if(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {  // Mal movimiento del mouse para crear la figura, no lanza excepcion ya que se vuelve repetitivo
 				return ;
 			}
 
@@ -142,7 +159,7 @@ public class PaintPane extends BorderPane {
 			if(builder == null) {
 				return ;
 			}
-			if (currentLayer.showLayer()) {
+			if (canvasState.getLayerVisibility(currentLayer)) {
 				updateDrawProperties();
 				Figure newFigure = builder.buildFigure(startPoint, endPoint, currentDrawProperties.clone(), drawer);
 
@@ -151,7 +168,6 @@ public class PaintPane extends BorderPane {
 				startPoint = null;
 				redrawCanvas();
 			}
-
 		});
 
 
@@ -161,12 +177,15 @@ public class PaintPane extends BorderPane {
 			StringBuilder label = new StringBuilder();
 
 			for (Layer layer : canvasState.getLayers()) {
-				for (Figure figure : layer.getFigures()) {
-					if(figure.belongs(eventPoint)) {
-						found = true;
-						label.append(figure.toString());
+				if (canvasState.getVisibilityMap().get(layer)) {
+					for (Figure figure : layer.getFigures()) {
+						if(figure.belongs(eventPoint)) {
+							found = true;
+							label.append(figure.toString());
+						}
 					}
 				}
+
 			}
 
 			if(found) {
@@ -182,7 +201,7 @@ public class PaintPane extends BorderPane {
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
 				for (Layer layer : canvasState.getLayers()) {
-					if (layer.showLayer()) {
+					if (canvasState.getVisibilityMap().get(layer)) {
 						for (Figure figure : layer.getFigures()) {
 							if(figure.belongs(eventPoint)) {
 								if(copiedDrawProperties != null) {
@@ -213,16 +232,19 @@ public class PaintPane extends BorderPane {
 		canvas.setOnMouseDragged(event -> {
 			if(figureToolBox.isSelectionButtonActive() && selectedFigure != null) {
 				Point eventPoint = new Point(event.getX(), event.getY());
-				selectedFigure.changePosition(startPoint, eventPoint);
+				selectedFigure.moveFromTo(startPoint, eventPoint);
 				startPoint = eventPoint;
 				redrawCanvas();
 			}
 		});
 	}
 
-	private void initalizeLayerBox() {
-		figureLayerBox.updateLayers(canvasState.getLayers(), currentLayer);
-		figureLayerBox.updateVisibilityButtons(currentLayer);
+	/*
+	 * Inicializa todas las acciones relacionadas a las capas
+	 */
+	private void initializeLayerBox() {
+		figureLayerBox.updateLayers(canvasState.getLayers(), currentLayer, canvasState.getVisibilityMap());
+		figureLayerBox.updateVisibilityButtons(currentLayer, canvasState.getVisibilityMap());
 
 		figureLayerBox.setBringToFrontAction(() -> {
 			if (selectedFigure != null) {
@@ -241,21 +263,20 @@ public class PaintPane extends BorderPane {
 		figureLayerBox.setOnLayerSelected((layer) -> {
 			if (layer != null) {
 				currentLayer = layer;
-				currentLayer.setShowLayer(true);
-				figureLayerBox.updateVisibilityButtons(currentLayer);
+				figureLayerBox.updateVisibilityButtons(currentLayer, canvasState.getVisibilityMap());
 				redrawCanvas();
 			}
 		});
 
 		figureLayerBox.setOnLayerVisibilityChanged((show) -> {
-			currentLayer.setShowLayer(show);
+			canvasState.setLayerVisibility(currentLayer, show);
+			figureLayerBox.updateVisibilityButtons(currentLayer, canvasState.getVisibilityMap());
 			redrawCanvas();
 		});
 
 		Runnable updateLayerCombo = () -> {
-			figureLayerBox.updateLayers(canvasState.getLayers(), currentLayer);
-			currentLayer.setShowLayer(true);
-			figureLayerBox.updateVisibilityButtons(currentLayer);
+			figureLayerBox.updateLayers(canvasState.getLayers(), currentLayer, canvasState.getVisibilityMap());
+			figureLayerBox.updateVisibilityButtons(currentLayer, canvasState.getVisibilityMap());
 		};
 
 		figureLayerBox.setOnAddLayerAction(() -> {
@@ -290,13 +311,17 @@ public class PaintPane extends BorderPane {
 		});
 	}
 
-	private void initalizeActionBox() {
+	/*
+	 * Inicializa todas las acciones relacionadas a los botones de acciones (Rotar, dividir, duplicar y voltear)
+	 */
+	private void initializeActionBox() {
 		figureActionBox.setOnRotateAction(() -> {
 			if (selectedFigure != null) {
 				selectedFigure.rotate();
 				redrawCanvas();
 			} else {
-				statusPane.updateStatus("Ninguna figura encontrada para rotar");
+				throw new NoFigureSelectedException("Ninguna figura seleccionada para rotar");
+				//statusPane.updateStatus("Ninguna figura encontrada para rotar");
 			}
 		});
 
@@ -331,7 +356,7 @@ public class PaintPane extends BorderPane {
 
 		figureActionBox.setOnDivideAction(() -> {
 			if (selectedFigure != null) {
-				FiguresPair figuresPair = selectedFigure.divide();
+				FiguresPair<Figure, Figure> figuresPair = selectedFigure.divide();
 				currentLayer.removeFigure(selectedFigure);
 				selectedFigure = null;
 				currentLayer.addFigure(figuresPair.getLeft());
@@ -343,7 +368,10 @@ public class PaintPane extends BorderPane {
 		});
 	}
 
-	private void initalizeToolBox() {
+	/*
+	 * Inicializa todas las acciones relacionadas a las herramientas de las figuras (Selecionar, borrar y construccion de figuras)
+	 */
+	private void initializeToolBox() {
 
 		figureToolBox.setOnButtonClickAction(() -> {
 			selectedFigure = null;
@@ -361,7 +389,10 @@ public class PaintPane extends BorderPane {
 		});
 	}
 
-	private void initalizePropertiesBox() {
+	/*
+	 * Inicializa todas las acciones relacionadas a las propiedades de una figura
+	 */
+	private void initializePropertiesBox() {
 		figurePropertiesBox.setOnButtonAction(() -> {
 			updateDrawProperties();
 			redrawCanvas();

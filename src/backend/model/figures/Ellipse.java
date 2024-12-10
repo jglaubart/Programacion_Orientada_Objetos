@@ -19,11 +19,11 @@ public class Ellipse extends Figure {
         return String.format("Elipse [Centro: %s, DMayor: %.2f, DMenor: %.2f]", getCenterPoint(), axisX, axisY);
     }
 
-    public double getWidth() {
+    protected double getWidth() {
         return axisX;
     }
 
-    public double getHeight() {
+    protected double getHeight() {
         return axisY;
     }
 
@@ -33,7 +33,7 @@ public class Ellipse extends Figure {
                 (Math.pow(eventPoint.getY() - this.getCenterPoint().getY(), 2) / Math.pow(this.getHeight(), 2))) <= 0.30;
     }
     @Override
-    public void drawFigureGeometry(Point topLeft, Point bottomRight) {
+    protected void drawFigureGeometry(Point topLeft, Point bottomRight) {
         Point centerPoint = new Point((topLeft.getX() + bottomRight.getX()) / 2, (topLeft.getY() + bottomRight.getY()) / 2);
         double axisX = Math.abs(topLeft.getX() - bottomRight.getX());
         double axisY = Math.abs(topLeft.getY() - bottomRight.getY());
@@ -41,12 +41,12 @@ public class Ellipse extends Figure {
     }
 
     @Override
-    public void drawBeveledFigure(){
+    protected void drawBeveledFigure(){
         getDrawer().drawBeveledEllipse(this.getCenterPoint(), this.getWidth(), this.getHeight());
     }
 
     @Override
-    public void fillGradient() {
+    protected void fillGradient() {
         DrawProperties properties = this.getDrawProperties();
         getDrawer().fillRadialGradient(properties.getColor1(), properties.getColor2());
     }

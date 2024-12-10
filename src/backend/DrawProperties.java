@@ -4,11 +4,14 @@ import backend.model.Shadow.Shadow;
 import backend.model.Shadow.ShadowType;
 import backend.model.interfaces.Drawer;
 
+/**
+ * Instancia de clase que guarda las propiedades de una figura
+ */
 public class DrawProperties implements Cloneable {
     private Shadow shadow;
-    private RGBColor color1 = null;
-    private RGBColor color2 = null;
-    private boolean beveledState = false;
+    private RGBColor color1;
+    private RGBColor color2;
+    private boolean beveledState;
 
     public DrawProperties(RGBColor color1, RGBColor color2, ShadowType shadowType, boolean beveledState) {
         this.shadow = new Shadow(shadowType);
@@ -41,7 +44,7 @@ public class DrawProperties implements Cloneable {
         return this.shadow.getShadowType();
     }
 
-    public double getShadowOffset() {
+    public double getDefaultShadowOffset() {
         return shadow.getShadowOffset();
     }
 

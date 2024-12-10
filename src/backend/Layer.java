@@ -3,10 +3,15 @@ package backend;
 import backend.model.figures.Figure;
 import java.util.ArrayDeque;
 import java.util.Deque;
-
+/**
+ * Instancia de una capa sobre la cual se pueden dibujar figuras.
+ */
 public class Layer implements Comparable<Layer> {
+
+    /**
+     * Cola de figuras, para establecer una jerarquia de dibujado
+     */
     private final Deque<Figure> figures = new ArrayDeque<>();
-    private boolean showLayer = true;
     private final Integer ID;
 
     public Layer(int id) {
@@ -23,14 +28,6 @@ public class Layer implements Comparable<Layer> {
 
     public void addFigure(Figure figure) {
         figures.add(figure);
-    }
-
-    public boolean showLayer() {
-        return showLayer;
-    }
-
-    public void setShowLayer(boolean show) {
-        showLayer = show;
     }
 
     public Integer getId() {
@@ -50,5 +47,14 @@ public class Layer implements Comparable<Layer> {
     @Override
     public int compareTo(Layer other) {
         return other.getId().compareTo(this.getId());
+    }
+
+    public boolean hasFigure(Figure figure) {
+        for (Figure f : figures) {
+            if (figure.equals(f)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

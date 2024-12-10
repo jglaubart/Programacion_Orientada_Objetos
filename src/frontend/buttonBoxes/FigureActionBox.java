@@ -1,11 +1,13 @@
 package frontend.buttonBoxes;
 
+import frontend.exceptions.NoFigureSelectedException;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Box;
 
 public class FigureActionBox implements SettingsBox {
     private final Button rotateButton = new Button("Girar D");
@@ -22,6 +24,7 @@ public class FigureActionBox implements SettingsBox {
     private Runnable onDuplicateAction;
     private Runnable onDivideAction;
 
+
     public FigureActionBox() {
         Button[] actionsArr = {rotateButton, reflectVerticalButton, reflectHorizontalButton, duplicationButton, divideButton};
 
@@ -30,14 +33,18 @@ public class FigureActionBox implements SettingsBox {
             button.setCursor(Cursor.HAND);
         }
 
-
-        actionBox = new VBox(10);
+        actionBox = new VBox(DEFAULT_SPACING);
         settings(actionBox);
         actionBox.getChildren().add(new Label("Acciones"));
         actionBox.getChildren().addAll(actionsArr);
 
+
         rotateButton.setOnAction(event -> {
-            onRotateAction.run();
+            try {
+                onRotateAction.run();
+            }catch(NoFigureSelectedException e){
+                this.showAlert("Error", e.getMessage());
+            }
         });
 
         reflectVerticalButton.setOnAction(event -> {
@@ -58,6 +65,16 @@ public class FigureActionBox implements SettingsBox {
 
     }
 
+    // Método para mostrar la alerta
+    private void showAlert(String title, String content){
+        Alert alert = new Alert(Alert.AlertType.ERROR); // Define el tipo de alerta como ERROR
+        alert.setTitle(title); // Título de la ventana
+        alert.setHeaderText(null); // Sin cabecera
+        alert.setContentText(content); // Mensaje del error
+        alert.getButtonTypes().setAll(ButtonType.OK); // Agrega únicamente el botón "Aceptar"
+        alert.showAndWait(); // Muestra la alerta y espera a que se cierre
+    }
+
     public void setOnRotateAction(Runnable action) {
         this.onRotateAction = action;
     }
@@ -76,7 +93,9 @@ public class FigureActionBox implements SettingsBox {
 
     public void setOnDivideAction(Runnable action) {
         this.onDivideAction = action;
-    }public VBox getActionBox() {
+    }
+
+    public VBox getActionBox() {
         return actionBox;
     }
 

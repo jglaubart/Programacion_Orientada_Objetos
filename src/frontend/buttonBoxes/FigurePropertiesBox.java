@@ -40,7 +40,7 @@ public class FigurePropertiesBox implements SettingsBox {
             }
         });
 
-        propertiesBox = new VBox(10);
+        propertiesBox = new VBox(DEFAULT_SPACING);
         settings(propertiesBox);
 
         propertiesBox.getChildren().addAll(formatLabel, shadowButton, beveledButton, firstColorPicker, secondColorPicker, copyFormatButton);
@@ -82,6 +82,9 @@ public class FigurePropertiesBox implements SettingsBox {
         return beveledButton.isSelected();
     }
 
+    /*
+     * Modifica las propiedades correspondientes
+     */
     public void updateProperties(DrawProperties properties){
         firstColorPicker.setValue(ColorConverter.toJavaFXColor(properties.getColor1()));
         secondColorPicker.setValue(ColorConverter.toJavaFXColor(properties.getColor2()));

@@ -1,11 +1,13 @@
 package frontend.buttonBoxes;
 
+import backend.CanvasState;
 import backend.Layer;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import java.util.Map;
 import java.util.SortedSet;
 import java.util.function.Consumer;
 
@@ -26,15 +28,11 @@ public class FigureLayerBox implements SettingsBox {
     private Runnable onAddLayerAction;
     private Runnable onRemoveLayerAction;
 
-
     private Consumer<Layer> onLayerSelected;
     private Consumer<Boolean> onLayerVisibilityChanged;
 
-    private Runnable onShowAction;
-    private Runnable onHideAction;
-
     public FigureLayerBox() {
-        layerBox = new HBox(10);
+        layerBox = new HBox(DEFAULT_SPACING);
         layerBox.setAlignment(Pos.CENTER);
         settings(layerBox);
 
@@ -104,13 +102,19 @@ public class FigureLayerBox implements SettingsBox {
         this.onLayerVisibilityChanged = onLayerVisibilityChanged;
     }
 
-    public void updateLayers(SortedSet<Layer> layers, Layer currentLayer) {
+    /*
+    * Cambia la la visualizacion de los botones de las capas cuando se hacen modificaciones
+    */
+    public void updateLayers(SortedSet<Layer> layers, Layer currentLayer, Map<Layer, Boolean> visibilityMap) {
         layerComboBox.getItems().setAll(layers);
         layerComboBox.setValue(currentLayer);
     }
 
-    public void updateVisibilityButtons(Layer layer) {
-        if (layer.showLayer()) {
+    /*
+     * Seleciona el boton de "Mostrar" o "Ocultar" correspondiente a la visibilidad de la capa
+     */
+    public void updateVisibilityButtons(Layer layer, Map<Layer, Boolean> visibilityMap) {
+        if (visibilityMap.get(layer)) {
             showButton.setSelected(true);
         } else {
             hideButton.setSelected(true);
