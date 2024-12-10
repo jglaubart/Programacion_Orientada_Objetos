@@ -1,11 +1,8 @@
 package frontend.buttonBoxes;
 
-import frontend.exceptions.NoFigureSelectedException;
 import frontend.exceptions.TrySelectedException;
 import javafx.scene.Cursor;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;

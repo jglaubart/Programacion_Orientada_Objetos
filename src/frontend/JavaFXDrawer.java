@@ -7,7 +7,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
 import javafx.scene.shape.ArcType;
 
-import java.util.Set;
 
 public class JavaFXDrawer implements Drawer {
     private GraphicsContext gc;

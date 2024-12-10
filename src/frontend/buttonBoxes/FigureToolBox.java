@@ -2,7 +2,6 @@ package frontend.buttonBoxes;
 
 import backend.model.builders.*;
 import backend.model.interfaces.FigureBuilder;
-import frontend.exceptions.NoFigureSelectedException;
 import frontend.exceptions.TrySelectedException;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
